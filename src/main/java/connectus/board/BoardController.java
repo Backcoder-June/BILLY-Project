@@ -4,6 +4,7 @@ package connectus.board;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,17 +36,25 @@ public class BoardController {
 	ProductService productService;
 	
 	// 전체 게시판 
-	@GetMapping("/boardstart")
+	@GetMapping("/boardList")
 	public String boardList(Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
 		int totalboard = boardService.getTotalBoard();
+		
+		int totalPage = page;
+		if(totalboard % 10 == 0) {
+			totalPage = totalboard/10;  
+		}else {
+			totalPage = totalboard/10 + 1; 
+		}
+		
 	
-		List<BoardDTO> boardlst = boardService.paginglist(new int[] {(page-1)*10, 10});
+		List<BoardDTO> boardlst = boardService.pagingList((page-1)*10);
 		// 검색랭킹 
 		List<String> searchLankingList = productService.searchLanking();
 				
+		model.addAttribute("option", "normal");
 		model.addAttribute("boardlst", boardlst);
-		model.addAttribute("boardUrl", "boardlist");
-		model.addAttribute("totalboard",totalboard);
+		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("searchLankingList", searchLankingList);
 		return "board/list";
 	}
@@ -74,47 +83,55 @@ public class BoardController {
 			File servefile1 = new File(savePath+newname); // a(012334434).txt
 			file1.transferTo(servefile1);
 			dto.setImg(newname);
-		}else {
-			dto.setImg("noimage.png");
 		}
-		
-		int totalboard = boardService.getTotalBoard();
-		
-		List<BoardDTO> boardlst = boardService.paginglist(new int[] {(page-1)*3, 3});
 
 		boardService.registerBoard(dto); //
 		
-		return "redirect:boardstart";
+		return "redirect:boardList";
 	}
 	
 	
 	// 검색 
-	@GetMapping("/boardContent")
-	public String boardContent(Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page,HttpServletRequest request) {
-		String selectVal = request.getParameter("selectOption");
-		String searchVal = request.getParameter("boardsearch");
-		List<BoardDTO> boardlst = new ArrayList<BoardDTO>();
-
-		int totalboardCnt = 0;
-		if("전체".equals(selectVal)) { // 내용 검색
-			boardlst = boardService.paginglist2(new int[] {(page-1)*3, 3},searchVal);
-			totalboardCnt = boardService.getTotalBoard2(searchVal);
+	@GetMapping("/boardSearch")
+	public String boardSearch(String boardsearch, String searchOption, Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
+		
+		List<BoardDTO> boardlst = new ArrayList<>();
+		int totalboard = 0; 
+		if(searchOption.equals("전체")) {
+			boardlst = boardService.getSearchListByAll(boardsearch, (page-1)*10);
+			totalboard = boardService.getSearchByAllCount(boardsearch);
+		}else {
+			if(searchOption.equals("제목")) {
+				searchOption = "title";
+			}else if(searchOption.equals("작성자")) {
+				searchOption = "writer";
+			}
+			
+			HashMap map = new HashMap<>();
+			map.put("searchOption", searchOption);
+			map.put("boardsearch", boardsearch);
+			map.put("limit", (page-1)*10);
+			
+			totalboard = boardService.getSearchCount(map);
+			boardlst = boardService.getSearchList(map);
 		}
-		else if("제목".equals(selectVal)) { // 제목 검색
-			boardlst = boardService.pagingTitlelist2(new int[] {(page-1)*3, 3},searchVal);
-			totalboardCnt = boardService.getTotalTitleBoard2(searchVal);
+			
+		int totalPage = page;
+		if(totalboard % 10 == 0) {
+			totalPage = totalboard/10;  
+		}else {
+			totalPage = totalboard/10 + 1; 
 		}
-		else if("작성자".equals(selectVal)) { // 작성자 검색
-			boardlst = boardService.pagingWriterlist2(new int[] {(page-1)*3, 3},searchVal);
-			totalboardCnt = boardService.getTotalWriterBoard2(searchVal);
-			System.out.println(boardlst+"!!!!!!");
-		}
-		//3개만 조회
+		
+		// 검색랭킹 
+		List<String> searchLankingList = productService.searchLanking();
+		
+		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("boardsearch", boardsearch);
+		model.addAttribute("option", "search");
 		model.addAttribute("boardlst", boardlst);
-		model.addAttribute("boardUrl","boardContent");
-		model.addAttribute("totalboard",totalboardCnt);
-		model.addAttribute("SelectedValue",selectVal);
-		model.addAttribute("SearchedValue",searchVal);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("searchLankingList", searchLankingList);
 		return "board/list";
 	}
 	
@@ -149,14 +166,6 @@ public class BoardController {
 	public ModelAndView boardDelete(@RequestParam(value="page", required = false, defaultValue = "1") int page,int seq) {
 		ModelAndView mv = new ModelAndView();
 		int deleteCount = boardService.deleteBoard(seq);
-		if(deleteCount == 1) {
-			int totalboard = boardService.getTotalBoard();
-			List<BoardDTO> boardlst = boardService.paginglist(new int[] {(page-1)*3, 3});
-			mv.addObject("boardlst", boardlst);
-			mv.addObject("boardUrl","boardlist");
-			mv.addObject("totalboard",totalboard);
-			mv.setViewName("redirect:/boardlist");
-		}
 		return mv;
 	}
 	
@@ -195,13 +204,11 @@ public class BoardController {
 			File servefile1 = new File(savePath+newname); // a(012334434).txt
 			file1.transferTo(servefile1);
 			dto.setImg(newname);
-		}else {
-			dto.setImg("noimage.png");
 		}
 		
 		boardService.updateBoard(dto);
 		
-		return "redirect:/boardstart";
+		return "redirect:/boardList";
 
 	}
 }

@@ -19,44 +19,54 @@
     <script>
         //검색 조건 설정
         $(document).ready(function () {
+        	let boardsearch = '${boardsearch}';
+        	let searchOption = '${searchOption}';
+			let option = '${option}';
+        	
+        if(option=='search'){	
+        	if(searchOption == '전체'){
+        		$("#searchByAll").attr("selected", "selected");
+        	}else if(searchOption == 'title'){
+        		$("#searchByTitle").attr("selected", "selected");
+        	}else if(searchOption == 'writer'){
+        		$("#searchByWriter").attr("selected", "selected");
+        	}
+        	
+        	$("#boardsearch").val(boardsearch);
+        }	
+
+        
+        
             $("#search_icon").on('click', function () {
                 location.href = "boardContent";
-              
-            });
-        });
-    </script>
-    <script>
-        //글쓰기 권한 설정
-        
-       /*  function writeLink(){
-             let sessionId = '${sessionScope.sessionid}'; 
-        	document.getElementById("register").addEventListener("click", writeLink);
-        
-        	if (sessionId == null) {
-                window.alert("로그인 먼저 하세요.");
-    	
-   				 }
-         	
-         	 
-        };  */
-         	 
-       		 $(document).ready(function () {
-             	$("#community").on('click', function (e) { 
+            }); // search on click 
+
+            
+         	$("#community").on('click', function (e) { 
              	let sessionId = '${sessionScope.sessionid}'; 	
                 if (sessionId == "") {
                 	e.preventDefault();
                     alert("로그인 먼저 하세요.");
-        	
        				 }
+                 }); // community on click  
 
-                 }) 
-            });
-        
-        
-        
+            
+            //글쓰기 권한 설정
+            
+            /*  function writeLink(){
+                  let sessionId = '${sessionScope.sessionid}'; 
+             	document.getElementById("register").addEventListener("click", writeLink);
+             
+             	if (sessionId == null) { 
+                     window.alert("로그인 먼저 하세요.");
+         	
+        				 }
+              	
+              	 
+             };  */
+            
+        }); //onload 
     </script>
-
-
 
 </head>
 
@@ -76,9 +86,9 @@
                 <p class="mb-5 list-title">커뮤니티</p>
                 
                     <div class="list-clean-box">
-                        <a href="boardlist" id="boardlist">전체</a>
-                        <a href="boardtitle" id="boardlist">제목</a>
-                        <a href="boardwriter" id="boardlist">작성자</a>
+                        <a href="boardlist" id="boardlist">내 동네</a>
+                        <a href="boardtitle" id="boardlist">가까운 동네</a>
+                        <a href="boardwriter" id="boardlist">먼 동네</a>
                     </div>
                     <div class="list-table mt-1 mb-3">
                 <table id="tableboard" style="width : 100%">
@@ -98,54 +108,54 @@
                         <tr class="list-list">
 
                             <td>${board.seq }</td>
-                            <td><img alt="상품이미지가없습니다." width=50 height=50
+                            <c:if test="${empty board.img }">
+                            <td><img width=50 height=50
+                                src="/pictures/noimg.png"></td>
+							</c:if>
+                            <c:if test="${!empty board.img }">
+                            <td><img width=50 height=50
                                 src="/upload/${board.img }"></td>
-							
+							</c:if>
                             <td><a href="boarddetail?seq=${board.seq }">${board.title }</a>
                             </td>
                             <td>${board.writer }</td>
                             <fmt:parseDate value="${board.writingtime}" var="now" pattern="yyyy-MM-dd" />
                             <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="currentForm" />
                             <td>${currentForm }</td>
-                            <%-- <fmt:formatDate var="formatRegDate" value="${writingtime}" pattern="yyyy.MM.dd"/>  --%>
              
              				
                         </tr>
                     </c:forEach>
                 </table>
                  </div>
-                <form action="boardContent" class="list-search-form">
-                    
-                    <select class="list-search-form-select" name="selectOption" id="selectOption">
-                        <option>전체</option>
-                        <option>제목</option>
-                        <option>작성자</option>
+                 
+                 <!-- 검색 -->
+                <form action="boardSearch" class="list-search-form">
+                    <select class="list-search-form-select" name="searchOption" id="searchOption">
+                        <option id = "searchByAll">전체</option>
+                        <option id = "searchByTitle">제목</option>
+                        <option id = "searchByWriter">작성자</option>
                     </select>
                     <input class="list-search-form-input" type="text" name="boardsearch" id="boardsearch">
                     <input class="list-search-form-button" type="submit" value="검색">
-                   <!--  <button class="list-search-form-write-button"id="register" onclick="writeLink()"><a href="boardwrite">글쓰기</a></button> -->
         		<a class="list-search-form-write-button" id="community" href="boardwrite">글쓰기</a>
                 </form>
         		
         		
                 
                 <div class="mt-2">
-                    <% int totalcount=(Integer)request.getAttribute("totalboard"); 
-                    	String url=(String)request.getAttribute("boardUrl"); 
-                    	String selectedVal=(String)request.getAttribute("SelectedValue"); 
-                    	String searchedVal=(String)request.getAttribute("SearchedValue"); 
-                    	int totalpage=0; if(totalcount % 5==0){
-                        totalpage=totalcount / 5; 
-                        } 
-                    	else{ totalpage=totalcount / 5 + 1; 
-                    	} 
-                    	for(int i=1; i <=totalpage ; i++){
-                        %>
-                        <a href="<%=url %>?page=<%=i%>&selectOption=<%=selectedVal %>&boardsearch=<%=searchedVal %>"
-                            id="pagenumber">
-                            <%=i %>
-                        </a>
-                        <%} %>
+            <% int totalPage = (Integer)request.getAttribute("totalPage");
+            if(request.getAttribute("option").equals("normal")){
+				for(int i = 1; i<=totalPage; i++){ %>
+			<a href="boardList?page=<%=i%>" ><%=i%></a>
+			<%}
+			}else if(request.getAttribute("option").equals("search")){
+				for(int i = 1; i<=totalPage; i++){ %>
+				<a href="boardSearch?page=<%=i%>&searchOption=<%=request.getAttribute("searchOption")%>&boardsearch=<%=request.getAttribute("boardsearch")%>" ><%=i%></a>
+			<%} 
+			}%>
+                
+                
                 </div>
             </div>
 
@@ -155,25 +165,6 @@
 
         </div>
     </div>
-
-
-
-        
-    </script>
-	
-
-
-
-
-
-
-    <% List<BoardDTO> boardlist = (List<BoardDTO>)request.getAttribute("boardlst");
-            for(int i = 0;i<boardlist.size();i++){ BoardDTO dto=boardlist.get(i); 
-            Cookie kc=new Cookie("cookie"+dto.getSeq(),null); kc.setMaxAge(0); response.addCookie(kc); } %>
-
-
-
-
 
                 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
                     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
