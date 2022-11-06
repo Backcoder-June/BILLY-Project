@@ -17,11 +17,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoardDAO {
 	
-	public int insertBoard(BoardDTO dto);
+	  public int insertBoard(BoardDTO dto);
 
-	public int boardcount();
+	  public int getTotalBoard();
 	
-	  public List<BoardDTO> pagingList(int[] limit);
+	  public List<BoardDTO> pagingList(int limit);
 	  
 	  public int updateSeq(int seq);
 	  
@@ -44,6 +44,16 @@ public interface BoardDAO {
 	  public int getTotalTitleBoard2(String searchVal);
 	  
 	  public int getTotalWriterBoard2(String searchVal);
+	  
+	  public int getSearchCount(HashMap<String, String> map);
+	  
+	  public int getSearchByAllCount(String boardsearch);
+	  
+	  public List<BoardDTO> getSearchList(HashMap<String, String> map);
+
+	  public List<BoardDTO> getSearchListByAll(String boardsearch, int limit);
+	  
+	  
 	  
 	  
 	  public List<BoardDTO> pagingList2(Map map); 

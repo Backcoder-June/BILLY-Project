@@ -12,8 +12,8 @@
 		values(#{title} , #{contents}, #{writer}, #{pw}, 0, now(),now(),now())
 	</insert>
 		
-	<select id="boardcount" resultType="int">
-		select count(1) from BOARD
+	<select id="getTotalBoard" resultType="int">
+		select count(*) from BOARD
 	</select>
 	
 	<select id="getTitleCount" parameterType="String" resultType="int">
@@ -38,10 +38,7 @@
 	
 	
 	<select id="pagingList" resultType="boarddto"  >
-	select * from BOARD order by writingtime desc limit 
-	<foreach collection="array" item="num" separator=",">
-	#{num}
-	</foreach>
+	select * from BOARD order by writingtime desc limit #{limit}, 10
 	</select>
 	
 	<select id="pagingTitleList" resultType="boarddto"  >
@@ -84,11 +81,25 @@
 	</update>
 	
 	
-	<select id="pagingList2" resultType="boarddto" parameterType="Map" >
-	select * from BOARD where contents=#{param2} order by writingtime desc limit 
-	<foreach collection="param1" item="num" separator=",">
-	#{num}
-	</foreach>
+	<select id="getSearchCount" resultType="int" parameterType="hashMap">
+	select count(*) from BOARD where ${searchOption} like concat('%', #{boardsearch}, '%')   
+	</select>
+	
+	<select id="getSearchByAllCount" resultType="int">
+	select count(*) from BOARD where title like concat('%', #{boardsearch}, '%')
+	or writer like concat('%', #{boardsearch}, '%')    
+	</select>
+	
+	<select id="getSearchList" resultType="boarddto" parameterType="hashMap">
+	select * from BOARD where ${searchOption} like concat('%', #{boardsearch}, '%')   
+	order by writingtime desc limit #{limit}, 10
+	</select>
+	
+	<select id="getSearchListByAll" resultType="boarddto">
+	select * from BOARD 
+	where title like concat('%', #{boardsearch}, '%')
+	or writer like concat('%', #{boardsearch}, '%')    
+	order by writingtime desc limit #{limit}, 10
 	</select>
 	
 	<select id="pagingTitleList2" resultType="boarddto" parameterType="Map" >

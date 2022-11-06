@@ -27,10 +27,10 @@ public class BoardService {
 	
 	public int getTotalBoard() {
 
-		return boardDAO.boardcount();
+		return boardDAO.getTotalBoard();
 	}
 	
-	public List<BoardDTO> paginglist(int[] limit) {
+	public List<BoardDTO> pagingList(int limit) {
 		return boardDAO.pagingList(limit);
 
 
@@ -58,7 +58,22 @@ public class BoardService {
 		  return boardDAO.pagingWriterList(limit); }
 
 
+	  public int getSearchCount(HashMap<String, String> map) {
+		  return boardDAO.getSearchCount(map);
+	  }
+	  
+	  public int getSearchByAllCount(String boardsearch) {
+		  return boardDAO.getSearchByAllCount(boardsearch);
+	  }
+	  
+	  public List<BoardDTO> getSearchList(HashMap<String, String> map){
+		  return boardDAO.getSearchList(map);
+	  }
 
+	  public List<BoardDTO> getSearchListByAll(String boardsearch, int limit){
+		  return boardDAO.getSearchListByAll(boardsearch, limit);
+	  }
+	  
 
 	
 

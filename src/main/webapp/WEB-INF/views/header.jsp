@@ -226,9 +226,9 @@
 				</div>
 				<div class="nav-menu-box">
 
-					<span class="menu-icon"><a href="/boardstart"><img
+					<span class="menu-icon"><a href="/boardList"><img
 								src="${path}/pictures/community.png" alt=""></a></span>
-					<span class="menu-title close"><a href="/boardstart">커뮤니티</a></span>
+					<span class="menu-title close"><a href="/boardList">커뮤니티</a></span>
 				</div>
 				<div class="nav-menu-box">
 					<span class="menu-icon"><a href="/login"><img src="${path}/pictures/chat.png"
@@ -268,9 +268,9 @@
 						<div class="menu-title close"><a href="/allproduct/3/1">내 이웃</a></div>
 					</div>
 					<div class="nav-menu-box">
-						<span class="menu-icon"><a href="/boardstart"><img
+						<span class="menu-icon"><a href="/boardList"><img
 									src="${path}/pictures/community.png" alt=""></a></span>
-						<span class="menu-title close"><a href="/boardstart">커뮤니티</a></span>
+						<span class="menu-title close"><a href="/boardList">커뮤니티</a></span>
 					</div>
 					<div class="nav-menu-box">
 						<span class="menu-icon"><a href="/chatList"><img src="${path}/pictures/chat.png"
