@@ -1,7 +1,10 @@
 package connectus.member;
 
 
+import java.util.Collection;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.security.core.GrantedAuthority;
 
 
 
@@ -11,8 +14,17 @@ public class MemberDTO {
 	String userid;
 	String pw , name, phone, email, address, region, coords,userStatus;	
 	String role;
+	
+	
 
 	
+	@Override
+	public String toString() {
+		return "MemberDTO [userid=" + userid + ", pw=" + pw + ", name=" + name + ", phone=" + phone + ", email=" + email
+				+ ", address=" + address + ", region=" + region + ", coords=" + coords + ", userStatus=" + userStatus
+				+ ", role=" + role + "]";
+	}
+
 	public String getRole() {
 		return role;
 	}
@@ -89,6 +101,11 @@ public class MemberDTO {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

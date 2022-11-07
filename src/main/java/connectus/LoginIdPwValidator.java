@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.acls.domain.ConsoleAuditLogger;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,9 +25,14 @@ import connectus.member.MemberDTO;
 public class LoginIdPwValidator implements UserDetailsService {
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    	
+    	return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+    
+    
+    
 
+    
     @Autowired
     private MemberDAO dao;
     
@@ -34,24 +41,30 @@ public class LoginIdPwValidator implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String insertedId) throws UsernameNotFoundException {
+    	System.out.println("insertedId : " + insertedId);
         MemberDTO user = dao.getUserInfo(insertedId);
         
+        System.out.println("VU: "+user);
+        
         if (user == null) {
+        	System.out.println("V : user null");
             return null;
         }
         
         if (user.getUserStatus().equals("9")) {
+        	System.out.println("Vstat : 9");
         	return null;
         }
 
-        String pw = user.getPw();
         String role = user.getRole();
-        System.out.println(insertedId);
-        System.out.println(pw);
-        System.out.println(role);
+
+        
+        String pw = user.getPw();
+        
+        
+        
         
         session.setAttribute("sessionid", insertedId);
-        System.out.println(session.getAttribute("sessionid"));
 
         return User.builder()
                 .username(insertedId)
@@ -59,4 +72,9 @@ public class LoginIdPwValidator implements UserDetailsService {
                 .roles(role)
                 .build();
     }
+    
+    
+    
+    
+    
 }
