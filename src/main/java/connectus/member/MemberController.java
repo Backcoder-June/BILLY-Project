@@ -70,7 +70,7 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/loginProcess")
 	public String login(String userid, String pw, HttpServletRequest request) {
 		List<MemberDTO> list = memserv.onemember(userid);
 		if(list.size()== 0) {
