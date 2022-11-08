@@ -48,6 +48,7 @@ public class LoginIdPwValidator implements UserDetailsService {
         
         if (user == null) {
         	System.out.println("V : user null");
+        	
             return null;
         }
         

@@ -74,6 +74,10 @@
             let remembercheck = document.querySelector('.remember-id');
             let loginButton = document.querySelector('.login-button');
 
+            if('${param.error}'=='1'){
+            	alert("아이디 및 비밀번호를 확인하세요.");
+            }
+
             let count = 0;
 
             let localId = [];

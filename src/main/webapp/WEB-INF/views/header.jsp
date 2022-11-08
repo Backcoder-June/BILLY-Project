@@ -110,7 +110,7 @@
 			<span class="header-menu-title">
 				<img src="${path}/pictures/menu-icon.png" class="header-menu-button">
 				<img src="${path}/pictures/logo.png" alt="">
-				<span style="color:#6462cb;">C</span> onnect <span style="color:#6462cb; margin-left:0.5rem;"> U</span>s
+				<a href="/" >품앗이 장터</a>
 			</span>
 		</div>
 		<!-- navSearch -->
