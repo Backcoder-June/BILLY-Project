@@ -24,7 +24,8 @@ span {
 }
 
 body {
-  background-color: rgb(251, 253, 255);
+/*  background-color: rgb(251, 253, 255);*/
+  background-color: white;
   margin: 1;
   padding: 1;
   font-family: "SpoqaHanSansNeo-Regular";

@@ -1,8 +1,6 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <c:set var="path" value="${pageContext.request.contextPath}" />
-
-
 <!DOCTYPE html>
 <html>
 
@@ -27,51 +25,50 @@
 <body>
 	
 	<div class="main-container">
-
-		<div class="login-container">
+		<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+		<div class="login-container2">
 			<div class="signup-box-title">
-				<span>Connect Us</span>
+				<span>품앗이 장터 회원가입</span>
 			</div>
-			<div class="signup-box-sign-box">
-				<div class="signup-box-signin-button">
-					<a href="login" id="btn">로그인</a>
-				</div>
-				<div class="signup-box-signup-button">
-					회원가입
-				</div>
-			</div>
+			
 			<div class="signup-box">
-
-				<form name="form" action="register" method="post" class="signup-container">
-					<div class="signup-box mt-3">
-						<div>
-							<input type="text" name="userid" id="userid" placeholder="아이디를 입력하세요" required>
+				<form name="form" action="register" method="post" class="signup-container2">
+					<div class="signup-box2 mt-3">
+						품앗이 장터 아이디 <br>
+						<div style=margin-left:-47px;>
+						아이디<input type="text" name="userid" id="userid" placeholder="아이디를 입력하세요" required>
 							<button class="signup-check-button" type="button" id="id-btn" value="중복확인"
 								onclick="idcheck()">중복확인</button>
-							<div id="id_check"></div>
+							<span id="id_check"></span>
 						</div>
-						<div>
-							<input type=password name="pw" id="pw" placeholder="비밀번호를 입력하세요" required
+						<br>품앗이 장터 비밀번호 <br>
+						<div style=margin-left:-63px;>
+					  비밀번호<input type=password name="pw" id="pw" placeholder="비밀번호를 입력하세요" required
 								oninput="pwcheck()">
-							<div id="pw_check"></div>
-							<input type=password name="pw2" id="pw2" placeholder="비밀번호를 한번 더 입력하세요" required
+							<span id="pw_check"></span>
+						</div>
+						<div style=margin-left:-96px;>
+					비밀번호 확인<input type=password name="pw2" id="pw2" placeholder="비밀번호를 한번 더 입력하세요" required
 								oninput="pw2check()">
-							<div id="pw2_check"></div>
+							<span id="pw2_check"></span>
+						</div>
+						<div class="memberInfo">
+						<br>품앗이 장터 회원정보<br>
+						<div>
+							이 &nbsp;&nbsp;&nbsp;름<input type=text name="name" placeholder="이름을 입력하세요" required oninput="namecheck()">
+							<span id="name_check"></span>
 						</div>
 						<div>
-							<input type=text name="name" placeholder="이름을 입력하세요" required oninput="namecheck()">
-							<div id="name_check"></div>
+							이메일<input type=text name="email" placeholder="이메일을 입력하세요" required oninput="emailcheck()">
+							<span id="email_check"></span>
 						</div>
 						<div>
-							<input type=text name="email" placeholder="이메일을 입력하세요" required oninput="emailcheck()">
-							<div id="email_check"></div>
-						</div>
-						<div>
-							<input type=text name="phone" id="phone" placeholder="전화번호를 (-)제외하고 입력하세요" required
+							연락처<input type=text name="phone" id="phone" placeholder="전화번호를 (-)제외하고 입력하세요" required
 								oninput="phonecheck()">
-							<div id="phone_check"></div>
+							<span id="phone_check"></span>
 						</div>
-						<div>
+						</div>
+						<br>주소
 							<div>
 								<input type="text" id="sample6_postcode" placeholder="우편번호" readonly>
 								<button class="signup-check-button" type="button" onclick="sample6_execDaumPostcode()"
@@ -87,7 +84,6 @@
 								<input type="hidden" id="address" name="address">
 								<input type="hidden" id="coords" name="coords">
 							</div>
-						</div>
 						<div>
 							<button type=submit class="signup-button" id="signup_btn" name="signup_btn" onclick="check()" disabled>회원가입</button>
 						</div>
@@ -97,15 +93,12 @@
 		</div>
 
 		<!-- header-section -->
-		<jsp:include page="/WEB-INF/views/header.jsp">
-			<jsp:param value="false" name="mypage" />
-		</jsp:include>
 		<!-- content-section -->
 		<div class="content-container">
 		</div>
 	</div>
 
-<div class="register-map" id="map" style="width:500px;height:500px;right:-65%; top : -70%;"></div>
+<div class="register-map" id="map" style="width:450px;height:500px; right:-70%; top : -60%;"></div>
 
 	<script>
 		let userid = $('#userid');
@@ -154,7 +147,7 @@
 								btn.attr('disabled', true);
 							} else {
 								$('#id_check').text("사용 가능한 아이디입니다");
-								$('#id_check').css("color", "green");
+								$('#id_check').css("color", "rgb(116,232,0)");
 								id_check = true;
 								if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
 									btn.attr('disabled', false);
@@ -186,7 +179,7 @@
 				btn.attr('disabled', true);
 			} else {
 				$('#pw_check').text("패스워드 사용가능");
-				$('#pw_check').css("color", "green");
+				$('#pw_check').css("color", "rgb(116,232,0)");
 				pw_check = true;
 				if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
 					btn.attr('disabled', false);
@@ -204,7 +197,7 @@
 				btn.attr('disabled', true);
 			} else if (pw2 == pw) {
 				$('#pw2_check').text("패스워드가 일치합니다.");
-				$('#pw2_check').css("color", "green");
+				$('#pw2_check').css("color", "rgb(116,232,0)");
 				pw2_check = true;
 				if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
 					btn.attr('disabled', false);
@@ -228,7 +221,7 @@
 				phone_check = false;
 				btn.attr('disabled', true);
 			} else if (!regTel.test(phone)) {
-				$('#phone_check').text("올바른 전화번호를 입력하세요. ex)01012345678, 021231234");
+				$('#phone_check').text("올바른 전화번호를 입력하세요. ex)01012345678");
 				$('#phone_check').css("color", "red");
 				phone_check = false;
 				btn.attr('disabled', true);
@@ -246,7 +239,7 @@
 							btn.attr('disabled', true);
 						} else {
 							$('#phone_check').text("사용가능한 번호 입니다");
-							$('#phone_check').css("color", "green");
+							$('#phone_check').css("color", "rgb(116,232,0)");
 							phone_check = true;
 							if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
 								btn.attr('disabled', false);
@@ -268,7 +261,7 @@
 				btn.attr('disabled', true);
 			}else {
 				$('#email_check').text("사용가능한 이메일입니다.");
-				$('#email_check').css("color", "green");
+				$('#email_check').css("color", "rgb(116,232,0)");
 				email_check = true;
 				if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
 					btn.attr('disabled', false);
@@ -350,6 +343,10 @@
 
 		}
 
+		
+		function check(){
+			alert("품앗이장터 회원가입이 완료되었습니다.")
+		}
 
 
 

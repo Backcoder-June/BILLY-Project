@@ -21,8 +21,9 @@
         </script>
     </head>
         <div class="main-container">
+                <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
     
-            <div class="login-container">
+            <div class="login-container2">
                 
                 <div class="login-box">
                     <div class="home"><a href="/allproduct/1/1"><img src="${path}/pictures/back.png" alt=""></a></div>
@@ -33,9 +34,6 @@
                         <div class="login-box-signin-button">
                             로그인
                         </div>
-                        <div class="login-box-signup-button">
-                            <a href="register" id="btn">회원가입</a>
-                        </div>
                     </div>
                     <form class="login-box-form" action="login" method="post">
                         <input class="login-input rememeber-login-id" type="text" name="userid" id="userid" autocomplete="off" placeholder="ID"><br>
@@ -45,6 +43,9 @@
                         
                         <input class="login-button" type="submit" id="btn" value="login">
                     </form>
+                         <div class="login-box-signup-button">
+                            <a href="register" id="btn">회원가입</a>
+                        </div> 
                     <div class="login-box-find-box mt-2">                  
                             <button class="find-idpw-button" id="btn" type="button"><a href="findid">아이디 찾기</a></button>
                             <button class="find-idpw-button" id="btn" type="button"><a href="findpw">비밀번호 찾기</a></button>              
@@ -62,7 +63,6 @@
                 </div>
     
             </div>
-            <jsp:include page="/WEB-INF/views/header.jsp"> <jsp:param value="false" name="mypage"/></jsp:include>
             <!-- content-section -->
             <div class="content-container">
                 
@@ -106,7 +106,7 @@
 
         </script>
         
- <!-- 카아로 -->
+ <!-- 카카오 로그인 -->
 	<script type="text/javascript">
 	Kakao.init('9eff6670bc1e2053ee1f18cb7a39d00f');
 			

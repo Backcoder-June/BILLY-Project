@@ -10,16 +10,31 @@ a {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+  /*background-color: rgba(100, 100, 100, 0.1);*/
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
+.login-container2 {
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+/*  top: 0%;
+  width: 100vw;
+  height: 100vh;
+  z-index: 11;
+  position: absolute;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+ */}
+
+
 .login-box {
   background-color: white;
-  width: 25rem;
-  height: 30rem;
+  width: 60rem;
+  height: 60rem;
   border-radius: 10px;
   position: relative;
 }
@@ -159,19 +174,20 @@ a {
 
 .signup-box {
   background-color: white;
-  width: 28rem;
+  width: 60rem;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .signup-box-title {
   border-radius: 5px;
   background-color: white;
-  width: 28rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 60rem;
   color: #6462cb;
-  margin-bottom: -15px;
+  margin-top: 80px;
+  border-bottom: solid 3px #6462cb;
 }
 
 .signup-box-title span {
@@ -180,7 +196,7 @@ a {
 }
 
 .signup-box-sign-box {
-  width: 28rem;
+  width: 100%;
   z-index: 1;
   margin-bottom: -7px;
   background-color: white;
@@ -192,16 +208,18 @@ a {
 }
 
 .signup-box-sign-box > div {
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .signup-box-signup-button {
-  height: 70%;
+  height: 100%;
+  width: 100%;
   border-bottom: solid 3px #6462cb;
   color: #6462cb;
+  font-size: 35px;
 }
 
 .signup-box-signup-button a {
@@ -209,19 +227,28 @@ a {
 }
 
 .signup-box input {
-  margin: 0.5rem;
-  background-color: rgb(230, 230, 230);
-  border: none;
-  border-radius: 5px;
+  margin: 0.7rem;
+  background-color: white; 
+  border: solid 1px #6462cb;
+  border-radius: 2px;
   padding-left: 0.5rem;
+  width: 300px;
+  height: 40px;
+  
+}
+
+.memberInfo > div {
+	margin-left: -47px;
+	
 }
 
 .signup-check-button {
   margin: 0.5rem;
-  border-radius: 5px;
-  width: 20%;
+  border-radius: 10px;
+  width: 80px;
+  height: 40px;
   border: none;
-  background-color: #6462cb;
+  background-color: rgb(255, 0, 128);
   color: white;
 }
 
@@ -230,15 +257,16 @@ a {
   width: 95%;
   height: 2.5rem;
   border: none;
-  background-color: #6462cb;
+  background-color: orange;
   color: white;
   border-radius: 5px;
+  font-size: 25px;
 }
 
 input:focus {
   outline-style: solid;
   outline-width: 3px;
-  outline-color: #6462cb;
+  outline-color: orange;
 }
 
 .mypage-find {
