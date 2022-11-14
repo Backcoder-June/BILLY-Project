@@ -23,11 +23,6 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74ad1a98ca11a868e151320c03495af6&libraries=services"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1aaf3b3947461833899b50f6dead3eee"></script>
-<script>
-		$(document).ready(function () {
-
-		});
-	</script>
 </head>
 <body>
 
@@ -44,7 +39,7 @@
 					<tr>
 						<th>아이디</th>
 						<td><input type="text" name="userid" id="userid"
-							placeholder="아이디를 입력하세요" required>
+							placeholder="아이디를 입력해 주세요." required>
 							<button class="signup-check-button" type="button" id="id-btn"
 								value="중복확인" onclick="idcheck()">중복확인</button> <span
 							id="id_check"></span></td>
@@ -52,25 +47,25 @@
 					<tr>
 						<th>비밀번호</th>
 						<td><input type=password name="pw" id="pw"
-							placeholder="비밀번호를 입력하세요" required oninput="pwcheck()"> <span
+							placeholder="비밀번호를 입력해 주세요." required oninput="pwcheck()"> <span
 							id="pw_check"></span></td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인</th>
 						<td><input type=password name="pw2" id="pw2"
-							placeholder="비밀번호를 한번 더 입력하세요" required oninput="pw2check()">
+							placeholder="비밀번호를 한번 더 입력해 주세요." required oninput="pw2check()">
 							<span id="pw2_check"></span></td>
 					</tr>
 
 					<tr>
 						<th>이름</th>
-						<td><input type=text name="name" placeholder="이름을 입력하세요"
+						<td><input type=text name="name" id="name" placeholder="이름을 입력해 주세요."
 							required oninput="namecheck()"> <span id="name_check"></span>
 						</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type=text name="email" placeholder="이메일을 입력하세요"
+						<td><input type=text name="email" id="email" placeholder="이메일을 입력해 주세요."
 							required oninput="emailcheck()"> <span id="email_check"></span>
 
 						</td>
@@ -78,7 +73,7 @@
 					<tr>
 						<th>연락처</th>
 						<td><input type=text name="phone" id="phone"
-							placeholder="전화번호를 (-)제외하고 입력하세요" required oninput="phonecheck()">
+							placeholder="전화번호를 (-)제외하고 입력해 주세요." required oninput="phonecheck()">
 							<span id="phone_check"></span></td>
 					</tr>
 
@@ -141,9 +136,10 @@
 
 		let address = "";
 
-
+	
 		function idcheck() {
 			var userid = $('#userid').val();
+			
 			var regId = /^[A-Za-z0-9]{6,20}$/;
 			if (userid == '') {
 				$('#id_check').text("아이디를 입력해주세요");
@@ -163,29 +159,29 @@
 							btn.attr('disabled', true);
 						} else {
 							if (!regId.test(userid)) {
-								$('#id_check').text("영문과 숫자 6~20자 이내로 입력하세요");
+								$('#id_check').text("영문과 숫자 6~20자 이내로 입력해 주세요.");
 								$('#id_check').css("color", "red");
 								id_check = false;
 								btn.attr('disabled', true);
 							} else {
-								$('#id_check').text("사용 가능한 아이디입니다");
+								$('#id_check').text("✅사용 가능한 아이디입니다");
 								$('#id_check').css("color", "rgb(116,232,0)");
 								id_check = true;
-								if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
-									btn.attr('disabled', false);
-								}
+							/* 	if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
+									btn.attr('disabled', false); 
+								}*/
 							}
 						}
 					}
-				});
+				}); //ajax
 			}
-		}
+		} // idCheck
 
 		function pwcheck() {
 			var pw = $('#pw').val();
 
 			if (pw == '') {
-				$('#pw_check').text("패스워드를 입력하세요");
+				$('#pw_check').text("패스워드를 입력해 주세요.");
 				$('#pw_check').css("color", "red");
 				pw_check = false;
 				btn.attr('disabled', true);
@@ -200,32 +196,36 @@
 				pw_check = false;
 				btn.attr('disabled', true);
 			} else {
-				$('#pw_check').text("패스워드 사용가능");
+				$('#pw_check').text("✅패스워드 사용가능");
 				$('#pw_check').css("color", "rgb(116,232,0)");
 				pw_check = true;
-				if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
+				/* if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
 					btn.attr('disabled', false);
-				}
+				} */
 			}
 		}
 
 		function pw2check() {
+			if($('#pw').val() != ''){
+			pwcheck();
+			}
 			var pw2 = $('#pw2').val();
 			var pw = $('#pw').val();
 			if (pw2 == '') {
-				$('#pw2_check').text("패스워드확인을 입력하세요");
+				$('#pw2_check').text("패스워드확인을 입력해 주세요.");
 				$('#pw2_check').css("color", "red");
 				pw2_check = false;
 				btn.attr('disabled', true);
 			} else if (pw2 == pw) {
-				$('#pw2_check').text("패스워드가 일치합니다.");
+				$('#pw2_check').text("✅패스워드가 일치합니다.");
 				$('#pw2_check').css("color", "rgb(116,232,0)");
+				
 				pw2_check = true;
-				if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
+				/* if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
 					btn.attr('disabled', false);
-				}
+				} */
 			} else {
-				$('#pw2_check').text("패스워드를 확인해주세요.");
+				$('#pw2_check').text("패스워드가 일치하지 않습니다.");
 				$('#pw2_check').css("color", "red");
 				pw2_check = false;
 				btn.attr('disabled', true);
@@ -238,12 +238,12 @@
 			var regTel = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})[0-9]{3,4}[0-9]{4}$/;
 
 			if (phone == '') {
-				$('#phone_check').text("전화번호를 입력하세요");
+				$('#phone_check').text("전화번호를 입력해 주세요.");
 				$('#phone_check').css("color", "red");
 				phone_check = false;
 				btn.attr('disabled', true);
 			} else if (!regTel.test(phone)) {
-				$('#phone_check').text("올바른 전화번호를 입력하세요. ex)01012345678");
+				$('#phone_check').text("올바른 전화번호를 입력해 주세요.. ex)01012345678");
 				$('#phone_check').css("color", "red");
 				phone_check = false;
 				btn.attr('disabled', true);
@@ -260,7 +260,7 @@
 							phone_check = false;
 							btn.attr('disabled', true);
 						} else {
-							$('#phone_check').text("사용가능한 번호 입니다");
+							$('#phone_check').text("✅사용가능한 번호 입니다");
 							$('#phone_check').css("color", "rgb(116,232,0)");
 							phone_check = true;
 							if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
@@ -274,19 +274,26 @@
 
 		function emailcheck() {
 			var email = $('#email').val();
-			var regEmail= /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+//			var regEmail= /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]).@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z]).[a-zA-Z]{2,3}$/;
+			var regEmail= /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 			
 			if (email == '') {
-				$('#email_check').text("이메일을 입력하세요");
+				$('#email_check').text("이메일을 입력해 주세요.");
 				$('#email_check').css("color", "red");
 				email_check = false;
 				btn.attr('disabled', true);
 			}else {
-				$('#email_check').text("사용가능한 이메일입니다.");
+				if (regEmail.test(email)) {
+				$('#email_check').text("✅사용가능한 이메일입니다.");
 				$('#email_check').css("color", "rgb(116,232,0)");
 				email_check = true;
-				if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
+				/* if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
 					btn.attr('disabled', false);
+				} */
+				}else{
+					$('#email_check').text("정확한 이메일 주소를 입력해 주세요.");
+					$('#email_check').css("color", "red");
+					
 				}
 			}
 
@@ -296,15 +303,17 @@
 		function namecheck() {
 			var name = $('#name').val();
 			if (name == '') {
-				$('#name_check').text("이름을 입력하세요");
+				$('#name_check').text("이름을 입력해 주세요.");
 				$('#name_check').css("color", "red");
 				name_check = false;
 				btn.attr('disabled', true);
 			} else {
 				name_check = true;
-				if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
+				$('#name_check').text("✅");
+				
+				/* if (id_check == true && pw_check == true && pw2_check == true && phone_check == true && email_check == true && name_check == true) {
 					btn.attr('disabled', false);
-				}
+				} */
 			}
 
 		}
@@ -338,13 +347,22 @@
 						}
 						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
 						if (extraAddr !== '') {
-							extraAddr = ' (' + extraAddr + ')';
+							extraAddr = extraAddr;
 						}
 						// 조합된 참고항목을 해당 필드에 넣는다.
 						document.getElementById("sample6_extraAddress").value = extraAddr;
 
+						// 동 이름이 아닐 때, region input에 전체 주소를 넣은 후 후처리 
 						if (extraAddr == ''){
+							for(var i = 0; i < addr.length; i++){
+								if(!isNaN(addr.charAt(i))){
+									alert(addr.charAt(i));
+								}
+							}
+							
+							
 							document.getElementById("sample6_extraAddress").value = addr;
+							
 						}
 					
 
@@ -359,6 +377,7 @@
 					document.getElementById("sample6_detailAddress").focus();
 					document.getElementById("sample6_detailAddress").value = detailAddr;
 					$("#address").val(addr);
+					
 				}
 			}).open();
 
@@ -382,37 +401,37 @@
 			var fm = document.form;
 			
 			if(fm.id.value == ""){
-				alert("아이디를 입력하세요");
+				alert("아이디를 입력해 주세요.");
 				document.form.id.focus();
 				return;
 			}
 			if(fm.pw.value == ""){
-				alert("비밀번호를 입력하세요");
+				alert("비밀번호를 입력해 주세요.");
 				document.form.pw.focus();
 				return;
 			}	
 			if(fm.pw2.value == ""){
-				alert("비밀번호를 입력하세요");
+				alert("비밀번호를 입력해 주세요.");
 				document.form.pw.focus();
 				return;
 			}
 			if(fm.name.value == ""){
-				alert("이름을 입력하세요");
+				alert("이름을 입력해 주세요.");
 				document.form.name.focus();
 				return;
 			}
 			if(fm.phone.value == ""){
-				alert("전화번호를 입력하세요 ('-'는 제외)");
+				alert("전화번호를 입력해 주세요. ('-'는 제외)");
 				document.form.phone.focus();
 				return;
 			}
 			if(fm.email.value == ""){
-				alert("이메일을 입력하세요");
+				alert("이메일을 입력해 주세요.");
 				document.form.email.focus();
 				return;
 			}
 			if(fm.address.value == ""){
-				alert("주소를 입력하세요");
+				alert("주소를 입력해 주세요.");
 				document.form.address.focus();
 				return;
 			}
@@ -474,6 +493,8 @@
 		// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 		// marker.setMap(null);    
 		} 
+		 
+
 	</script>
 
 	<script
