@@ -34,7 +34,7 @@ a {
 .login-box {
   background-color: white;
   width: 60rem;
-  height: 60rem;
+  height: 58rem;
   border-radius: 10px;
   position: relative;
 }
@@ -70,6 +70,14 @@ a {
   color: #6462cb;
 }
 
+.loginTitle {
+  text-align: center;
+  margin-top: 100px;	
+  font-size: 30px;
+  color: #6462cb; 
+	
+}
+
 .login-box-sign-box {
   width: 100%;
   height: 13%;
@@ -85,11 +93,51 @@ a {
   align-items: center;
 }
 
-.login-box-signin-button {
-  height: 100%;
-  border-bottom: solid 3px #6462cb;
+.login-box-signup-button {
+  border-top: solid 3px #6462cb;
   color: #6462cb;
+  font-size: 20px;
+  width: 70%;
+  margin-left: 150px;
+  margin-top: 10px;
+  text-align: right;
 }
+
+
+table.loginInfoTable {
+  margin-left: 150px;
+  	
+	
+}
+
+table.loginInfoTable th {
+	width: 550px;
+  padding: 15px;
+  margin: 5px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  background: #f3f6f7;
+  text-align: center;
+	
+}
+
+table.loginInfoTable td {
+  	border-bottom: 1px solid #ccc;
+  background: #f3f6f7;
+}
+
+
+.join_findInfoBTN button {
+	width: 120px;
+	background-color: silver;
+	border: solid 3px #6462cb;
+	
+  /* margin-top: 10px;
+  width: 150px;
+  margin-left: 680px;	
+	 */
+}
+
 
 .login-box-form {
   width: 100%;
@@ -98,12 +146,12 @@ a {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 1rem;
   line-height: 0.5;
+  margin-top: -50px;
 }
 
 .login-input {
-  width: 90%;
+  width: 70%;
   height: 3rem;
   border: none;
   background-color: rgb(231, 231, 231);
@@ -112,7 +160,7 @@ a {
 }
 
 .login-button {
-  width: 90%;
+  width: 70%;
   height: 3rem;
   border: none;
   background-color: #6462cb;
@@ -120,7 +168,7 @@ a {
 }
 
 .id-check-box {
-  width: 90%;
+  width: 70%;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -151,25 +199,25 @@ a {
 }
 
 .login-box-kakao-naver {
-  margin-top: 1rem;
-  width: 100%;
-  height: 10%;
+  width: 70%;
+  height: 3rem;
   display: flex;
-  justify-content: left;
-  align-items: center;
-  flex-direction: column;
+  margin-left: 145px;
+  margin-top: -50px;
 }
 
 .login-box-kakao-naver > div {
   padding: 3px;
-  width: 90%;
+  width: 100%;
   box-shadow: 0px 5px 5px rgb(228, 228, 228);
+  text-align: center;
 }
 
 .login-box-kakao-naver img {
-  width: 10%;
-  margin-left: 15%;
-  margin-right: 15%;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  margin-left: -40px;
 }
 
 .signup-box {
@@ -232,8 +280,9 @@ a {
   border: solid 1px #6462cb;
   border-radius: 2px;
   padding-left: 0.5rem;
-  width: 300px;
+  width: 500px;
   height: 40px;
+  font-size: 25px;
   
 }
 

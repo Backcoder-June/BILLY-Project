@@ -1,104 +1,126 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>JOIN</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-	<link rel="stylesheet" href="${path}/css/header.css">
-	<link rel="stylesheet" href="${path}/css/login.css">
-	<script src="${path}/js/jquery-3.6.0.min.js"></script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74ad1a98ca11a868e151320c03495af6&libraries=services"></script>
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1aaf3b3947461833899b50f6dead3eee"></script>
-	<script>
+<meta charset="UTF-8">
+<title>JOIN</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="${path}/css/header.css">
+<link rel="stylesheet" href="${path}/css/login.css">
+<link rel="stylesheet" href="${path}/css/table.css">
+<script src="${path}/js/jquery-3.6.0.min.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74ad1a98ca11a868e151320c03495af6&libraries=services"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1aaf3b3947461833899b50f6dead3eee"></script>
+<script>
 		$(document).ready(function () {
 
 		});
 	</script>
 </head>
 <body>
-	
+
 	<div class="main-container">
 		<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 		<div class="login-container2">
 			<div class="signup-box-title">
 				<span>품앗이 장터 회원가입</span>
 			</div>
-			
-			<div class="signup-box">
-				<form name="form" action="register" method="post" class="signup-container2">
-					<div class="signup-box2 mt-3">
-						품앗이 장터 아이디 <br>
-						<div style=margin-left:-47px;>
-						아이디<input type="text" name="userid" id="userid" placeholder="아이디를 입력하세요" required>
-							<button class="signup-check-button" type="button" id="id-btn" value="중복확인"
-								onclick="idcheck()">중복확인</button>
-							<span id="id_check"></span>
-						</div>
-						<br>품앗이 장터 비밀번호 <br>
-						<div style=margin-left:-63px;>
-					  비밀번호<input type=password name="pw" id="pw" placeholder="비밀번호를 입력하세요" required
-								oninput="pwcheck()">
-							<span id="pw_check"></span>
-						</div>
-						<div style=margin-left:-96px;>
-					비밀번호 확인<input type=password name="pw2" id="pw2" placeholder="비밀번호를 한번 더 입력하세요" required
-								oninput="pw2check()">
-							<span id="pw2_check"></span>
-						</div>
-						<div class="memberInfo">
-						<br>품앗이 장터 회원정보<br>
-						<div>
-							이 &nbsp;&nbsp;&nbsp;름<input type=text name="name" placeholder="이름을 입력하세요" required oninput="namecheck()">
-							<span id="name_check"></span>
-						</div>
-						<div>
-							이메일<input type=text name="email" placeholder="이메일을 입력하세요" required oninput="emailcheck()">
-							<span id="email_check"></span>
-						</div>
-						<div>
-							연락처<input type=text name="phone" id="phone" placeholder="전화번호를 (-)제외하고 입력하세요" required
-								oninput="phonecheck()">
-							<span id="phone_check"></span>
-						</div>
-						</div>
-						<br>주소
-							<div>
-								<input type="text" id="sample6_postcode" placeholder="우편번호" readonly>
-								<button class="signup-check-button" type="button" onclick="sample6_execDaumPostcode()"
-									value="주소찾기">주소찾기</button>
-								<button class="close" class="map-check-button" type="button" onclick="locationarea()" value="내 위치">내 위치</button>
-							</div>
-							<div>
-								<input type="text" id="sample6_address" placeholder="주소" readonly>
-								<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-							</div>
-							<div>
-								<input type="text" id="sample6_extraAddress" name="region" placeholder="동네" readonly>
-								<input type="hidden" id="address" name="address">
-								<input type="hidden" id="coords" name="coords">
-							</div>
-						<div>
-							<button type=submit class="signup-button" id="signup_btn" name="signup_btn" onclick="check()" disabled>회원가입</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
 
-		<!-- header-section -->
-		<!-- content-section -->
-		<div class="content-container">
+			<form name="form" action="register" method="post"
+				class="signup-container2">
+				<table class="type09">
+					<tr>
+						<th>아이디</th>
+						<td><input type="text" name="userid" id="userid"
+							placeholder="아이디를 입력하세요" required>
+							<button class="signup-check-button" type="button" id="id-btn"
+								value="중복확인" onclick="idcheck()">중복확인</button> <span
+							id="id_check"></span></td>
+					</tr>
+					<tr>
+						<th>비밀번호</th>
+						<td><input type=password name="pw" id="pw"
+							placeholder="비밀번호를 입력하세요" required oninput="pwcheck()"> <span
+							id="pw_check"></span></td>
+					</tr>
+					<tr>
+						<th>비밀번호 확인</th>
+						<td><input type=password name="pw2" id="pw2"
+							placeholder="비밀번호를 한번 더 입력하세요" required oninput="pw2check()">
+							<span id="pw2_check"></span></td>
+					</tr>
+
+					<tr>
+						<th>이름</th>
+						<td><input type=text name="name" placeholder="이름을 입력하세요"
+							required oninput="namecheck()"> <span id="name_check"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td><input type=text name="email" placeholder="이메일을 입력하세요"
+							required oninput="emailcheck()"> <span id="email_check"></span>
+
+						</td>
+					</tr>
+					<tr>
+						<th>연락처</th>
+						<td><input type=text name="phone" id="phone"
+							placeholder="전화번호를 (-)제외하고 입력하세요" required oninput="phonecheck()">
+							<span id="phone_check"></span></td>
+					</tr>
+
+					<tr>
+						<th rowspan="4">주소</th>
+						<td><input class="adrinput" type="text" id="sample6_postcode"
+							placeholder="우편번호" required readonly>
+							<button class="signup-check-button" type="button"
+								onclick="sample6_execDaumPostcode()" value="주소찾기">주소찾기</button>
+
+						</td>
+					</tr>
+					<tr>
+						<td><input class="adrinput" type="text" id="sample6_address"
+							placeholder="주소" required readonly></td>
+					</tr>
+					<tr>
+						<td><input class="adrinput" type="text"
+							id="sample6_detailAddress" placeholder="상세주소"></td>
+					</tr>
+					<tr>
+						<td><input class="adrinput" type="text"
+							id="sample6_extraAddress" required name="region" placeholder="동네" readonly>
+
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="2">
+							<button type=submit class="signup-button" id="signup_btn"
+								name="signup_btn" onclick="check()" disabled>회원가입</button>
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" id="address" name="address"> <input
+					type="hidden" id="coords" name="coords">
+			</form>
+
 		</div>
 	</div>
 
-<div class="register-map" id="map" style="width:450px;height:500px; right:-70%; top : -60%;"></div>
+	<div class="register-map" id="map" style="width: 450px; height: 275px; right: -55%; top: -43%; border: solid 3px silver; display: none;"></div>
 
 	<script>
 		let userid = $('#userid');
@@ -345,7 +367,12 @@
 
 		
 		function check(){
+			if($("#address").val()==''){
+				btn.attr('disabled', true);
+				alert("주소를 입력해 주세요.")
+			}else{
 			alert("품앗이장터 회원가입이 완료되었습니다.")
+			}
 		}
 
 
@@ -441,18 +468,22 @@
 
 		// 마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
+		mapContainer.style.display = "block";
+		
 
 		// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 		// marker.setMap(null);    
 		} 
 	</script>
 
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
 		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
 		integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
 		crossorigin="anonymous"></script>
-	</body>
+</body>
 
 </html>

@@ -26,15 +26,7 @@
             <div class="login-container2">
                 
                 <div class="login-box">
-                    <div class="home"><a href="/allproduct/1/1"><img src="${path}/pictures/back.png" alt=""></a></div>
-                    <div class="login-box-title">
-                        <span>Connect Us</span>
-                    </div>
-                    <div class="login-box-sign-box">
-                        <div class="login-box-signin-button">
-                            로그인
-                        </div>
-                    </div>
+                    <div class="loginTitle">로그인</div>
                     <form class="login-box-form" action="login" method="post">
                         <input class="login-input rememeber-login-id" type="text" name="userid" id="userid" autocomplete="off" placeholder="ID"><br>
                         <input class="login-input" type="password" name="pw" id="pw" autocomplete="off" placeholder="PASSWORD"><br>
@@ -43,15 +35,6 @@
                         
                         <input class="login-button" type="submit" id="btn" value="login">
                     </form>
-                         <div class="login-box-signup-button">
-                            <a href="register" id="btn">회원가입</a>
-                        </div> 
-                    <div class="login-box-find-box mt-2">                  
-                            <button class="find-idpw-button" id="btn" type="button"><a href="findid">아이디 찾기</a></button>
-                            <button class="find-idpw-button" id="btn" type="button"><a href="findpw">비밀번호 찾기</a></button>              
-                    </div>
-                    
-                    
                     
                     <div class="login-box-kakao-naver">
                         <div>
@@ -60,13 +43,34 @@
                         </a>
                     </div>
                     </div>
-                </div>
+                    
+                    
+                         
+                         <br><br>
+                    <div class="login-box-signup-button">
+                        </div> 
+                    
+                    <div class="join_findInfoBTN">
+                    <table class="loginInfoTable">
+                    <tr>
+                    <th>아직 회원이 아니신가요?</th>
+                    <td><a href="register" id="btn"><button class="find-idpw-button" id="btn" type="button">회원가입</button></a></td>
+                    </tr>
+                    <tr>
+                    <th>아이디를 잃어버리셨나요?</th>
+                    <td>    <a href="findid" style="font-size:15px;"><button class="find-idpw-button" id="btn" type="button">아이디 찾기</button></a></td>
+                    </tr>
+                    <tr>
+                    <th>비밀번호를 잃어버리셨나요?</th>
+                    <td><a href="findpw" style="font-size:15px;"><button class="find-idpw-button" id="btn" type="button">비밀번호 찾기</button></a></td>
+                    </tr>
+                    </table>                  
+
+						</div>
     
-            </div>
-            <!-- content-section -->
-            <div class="content-container">
-                
+			    </div>
         </div>
+            <!-- content-section -->
         </div>
         
         <script>
