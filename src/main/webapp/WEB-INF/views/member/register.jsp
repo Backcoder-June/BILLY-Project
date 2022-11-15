@@ -354,14 +354,24 @@
 
 						// 동 이름이 아닐 때, region input에 전체 주소를 넣은 후 후처리 
 						if (extraAddr == ''){
-							for(var i = 0; i < addr.length; i++){
-								if(!isNaN(addr.charAt(i))){
-									alert(addr.charAt(i));
+							let numIndex = '';
+							let spaceIndex = '';
+							var pattern = /\s/;
+							 for(var i = 0; i < addr.length; i++){
+								if(!isNaN(addr.charAt(i)) && !addr.charAt(i).match(pattern)){
+									numIndex = i;
+									break;
 								}
 							}
+							 
+							 for(var j = 0; j < numIndex-1; j++){
+								 if(!isNaN(addr.charAt(j))){
+									 spaceIndex = j; 
+								 }
+							 }	
 							
 							
-							document.getElementById("sample6_extraAddress").value = addr;
+							document.getElementById("sample6_extraAddress").value = addr.substring(spaceIndex+1,numIndex-1);
 							
 						}
 					
