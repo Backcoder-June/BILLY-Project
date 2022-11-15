@@ -47,8 +47,6 @@
                     
                          
                          <br><br>
-                    <div class="login-box-signup-button">
-                        </div> 
                     
                     <div class="join_findInfoBTN">
                     <table class="loginInfoTable">

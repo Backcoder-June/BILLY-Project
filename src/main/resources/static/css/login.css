@@ -37,6 +37,7 @@ a {
   height: 58rem;
   border-radius: 10px;
   position: relative;
+  margin-top: 0.5rem;
 }
 
 .home {
@@ -93,25 +94,16 @@ a {
   align-items: center;
 }
 
-.login-box-signup-button {
-  border-top: solid 3px #6462cb;
-  color: #6462cb;
-  font-size: 20px;
-  width: 70%;
-  margin-left: 150px;
-  margin-top: 10px;
-  text-align: right;
-}
-
 
 table.loginInfoTable {
   margin-left: 150px;
+  border-top: solid 3px #6462cb;
   	
 	
 }
 
 table.loginInfoTable th {
-	width: 550px;
+  width: 550px;
   padding: 15px;
   margin: 5px;
   font-weight: bold;

@@ -60,13 +60,7 @@ public class ProductController {
 		if(session.getAttribute("sessionid")!=null) {
 		sessionid = (String)session.getAttribute("sessionid");
 		String extraaddr = memberDAO.getRegion(sessionid);
-		if(extraaddr.length()>10) {
-			region = extraaddr; // 길 뽑기 
-		}else {
-			region = extraaddr;
-		}
-		
-		
+		region = extraaddr; 
 		}
 		
 		List<ProductDTO> list = new ArrayList<>();
@@ -207,11 +201,7 @@ public class ProductController {
 			// 지역 set 
 			if(sessionid != null) {
 			String extraaddr = memberDAO.getRegion(sessionid);
-			if(extraaddr.length()>10) {
-				region = extraaddr; //길
-			}else {
-				region = extraaddr;
-			}
+			region = extraaddr;
 		}
 			List<ProductDTO> list = new ArrayList<>();
 			
@@ -338,11 +328,7 @@ public class ProductController {
 		String extraaddr = memberDAO.getRegion(sessionid);
 		String region = "동"; 
 		if(extraaddr != null) {
-		if(extraaddr.length()>12) {
-			region = extraaddr;  //길
-		}else {
-			region = extraaddr;
-		}
+		region = extraaddr;
 	}
 		
 		if(smartSearchDTO.getSmartRegion()==null) {
@@ -553,11 +539,7 @@ public class ProductController {
 		String sessionid = (String)session.getAttribute("sessionid");
 		String extraaddr = memberDAO.getRegion(sessionid);
 		String region = "동";
-		if(extraaddr.length()>10) {
-			region = extraaddr; //길
-		}else {
-			region = extraaddr;
-		}
+		region = extraaddr;
 		// 검색랭킹 
 		List<String> searchLankingList = productService.searchLanking();
 				
