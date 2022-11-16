@@ -13,38 +13,8 @@
 	<script src="${path}/js/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" href="${path}/css/header.css">
 	
-	
 	<script>
 	let sessionId = '${sessionid}';
-
-	$(function (){
-		$("#reserve-off-button2").on("click", function(e){  //버튼이름에 2 붙여서 막아뒀습니다 
-			 e.preventDefault(); 
-			let title = '${oneProduct.title}';
-			let createdAt = '${oneProduct.createdAt}'
-			<%-- let title = '<%=request.getParameter("title")%>';  --%> 
-			alert(sessionId + "님" + title + "상품예약에 성공하셨습니다" + "," + "등록시각 : " + createdAt); 
-			
-		})
-		
-		
-	});
-	
-	/* $.ajax({
-		url: "/product/" + $("#boardId").val() + "/ajax",
-		dataType: "json",
-		success : function(response){
-			alert(sessionId + "님" + response.title + "상품예약에 성공하셨습니다");
-		}
-	}) */
-	
-	
-	</script>
-	
-	
-	
-
-	<script>
 	
 	
 		$(document).ready(function () {
@@ -106,11 +76,10 @@
 		
 		<div class="header-menu-logo-box">
 			
-			<!-- <span><img src="../../../pictures/menu-icon.png" class="header-menu-button"></span> -->
 			<span class="header-menu-title">
-				<img src="${path}/pictures/menu-icon.png" class="header-menu-button">
-				<img src="${path}/pictures/logo.png" alt="">
-				<a href="/" >품앗이 장터</a>
+				<a href="/" >
+				<img src="${path}/pictures/homelogo.png" alt="">
+				품앗이 장터</a>
 			</span>
 		</div>
 		<!-- navSearch -->
@@ -118,10 +87,11 @@
 			<div class="input-group header-search-box-inner">
 			<form action="/allproduct/2/1" class="header-search-box-inner2">
 				<div class="search-input">
-				<input class="header-search-input" type="text" id="search" name="search" placeholder="검색">
+				<img src="/pictures/search2.png" alt="" width=40px; height=40px;>
+				<input class="header-search-input" type="text" id="search" name="search" placeholder=" 품앗이 물품을 검색해 보세요.">
 		
 				<button class="btn btn-outline-secondary header-search-button close" type="submit"
-					id="button-addon2"><img src="${path}/pictures/search.png" alt=""></button>
+					id="button-addon2"></button>
 				</div>
 
 				<div class="rank-container" id="oneRank">
@@ -155,17 +125,8 @@
 				</div>
 				<a class="loginBtn" href="/login">로그인</a>
 				<% } else { %>
-
-				<!-- <div class="test"  id="noticeimage" position : relative; "><img src="/pictures/notice.png" width="50"></img>
-        			<div class="test2 close" id="noticeinfo">
-          
-            		<span id="submitresult"> ${sessionid}님 ,${oneProduct.title} 예약에 성공하셨습니다. </span><br>
-            								
-        			</div>
-    			</div> -->
-    			
     			<div class="header-notice">
-    			<a href="/chatList"><img src="/pictures/notice.png" width="23">채팅 &nbsp <span id="messageAlert" style=color:orange></span></a>
+    			<a href="/chatList"><img src="/pictures/notice.png" width="23">채팅 &nbsp; <span id="messageAlert" style=color:orange></span></a>
     			</div>
 					<div>
 					<a  class="manager-button"  href="/admin_memlist">관리자</a>
@@ -205,7 +166,8 @@
 			<div><img src="${path}/pictures/on.png" alt=""></div>
 			<div><a class="loginBtn" href="/login">로그인</a></div>
 		</div>
-	</header>                                                                                                                                           
+	</header>         
+	                                                                                                                                  
 	<!--Navbar-->
 	<nav class="nav-box">
 		
@@ -216,12 +178,12 @@
 			<div class="basic-menu-box">
 				<div class="nav-menu-box">
 					<span class="menu-icon"><a href="/allproduct/1/1"><img
-								src="${path}/pictures/home.png" alt=""></a></span>
+								src="${path}/pictures/products.png" alt=""></a></span>
 					<div class="menu-title close"><a href="/allproduct/1/1">전체 물품</a></div> 
 				</div> 
 				<div class="nav-menu-box">
 					<span class="menu-icon"><a href="/login"><img                                                                                                                                                                                                                                                                                                                                                                                             
-								src="${path}/pictures/neighbor.png" alt=""></a></span>
+								src="${path}/pictures/neighbour.png" alt=""></a></span>
 					<div class="menu-title close"><a href="/login">내 이웃</a></div>
 				</div>
 				<div class="nav-menu-box">
@@ -231,40 +193,31 @@
 					<span class="menu-title close"><a href="/boardList">커뮤니티</a></span>
 				</div>
 				<div class="nav-menu-box">
-					<span class="menu-icon"><a href="/login"><img src="${path}/pictures/chat.png"
+					<span class="menu-icon"><a href="/login"><img src="${path}/pictures/chatting.png"
 								alt=""></a></span>
 					<span class="menu-title close"><a href="/login">채팅리스트</a></span>
 				</div>
 				<div class="nav-menu-box">
-					<span class="menu-icon"><a href="/login"><img src="${path}/pictures/mypage.png"
+					<span class="menu-icon"><a href="/login"><img src="${path}/pictures/mypage2.png"
 								alt=""></a></span>
 					<span class="menu-title close"><a href="/login">마이페이지</a></span>
 				</div>
 				<div class="nav-menu-box">
-					<span class="menu-icon"><a href="/reportregister"><img src="${path}/pictures/service-center.png"
+					<span class="menu-icon"><a href="/reportregister"><img src="${path}/pictures/center.png"
 								alt=""></a></span>
 					<span class="menu-title close"><a href="/reportregister">고객센터</a></span>
 				</div>
 			</div>
-			
-
-
-			<!-- 서브메뉴타이틀 -->
-			<!-- <div class="nav-sub-menu-box mb-3">
-				<span class="menu-title menu-title-sub close"><a href="http://localhost:8090/chatList">채팅리스트</a></span>
-			</div> -->
-			
-
 			<% } else { %>
 				<div class="basic-menu-box">
 					<div class="nav-menu-box">
 						<span class="menu-icon"><a href="/allproduct/1/1"><img
-									src="${path}/pictures/home.png" alt=""></a></span>
+									src="${path}/pictures/products.png" alt=""></a></span>
 						<div class="menu-title close"><a href="/allproduct/1/1">전체 물품</a></div>
 					</div>
 					<div class="nav-menu-box">
 						<span class="menu-icon"><a href="/allproduct/3/1"><img
-									src="${path}/pictures/neighbor.png" alt=""></a></span>
+									src="${path}/pictures/neighbour.png" alt=""></a></span>
 						<div class="menu-title close"><a href="/allproduct/3/1">내 이웃</a></div>
 					</div>
 					<div class="nav-menu-box">
@@ -273,7 +226,7 @@
 						<span class="menu-title close"><a href="/boardList">커뮤니티</a></span>
 					</div>
 					<div class="nav-menu-box">
-						<span class="menu-icon"><a href="/chatList"><img src="${path}/pictures/chat.png"
+						<span class="menu-icon"><a href="/chatList"><img src="${path}/pictures/chatting.png"
 									alt=""></a></span>
 						<span class="menu-title close"><a href="/chatList">채팅리스트</a></span>
 						
@@ -282,54 +235,50 @@
 						
 					</div>
 					<div class="nav-menu-box">
-						<span class="menu-icon"><a href="/mypage"><img src="${path}/pictures/mypage.png"
+						<span class="menu-icon"><a href="/mypage"><img src="${path}/pictures/mypage2.png"
 									alt=""></a></span>
 						<span class="menu-title close"><a href="/mypage">마이페이지</a></span>
 					</div>
 					<div class="nav-menu-box">
-						<span class="menu-icon"><a href="/reportregister"><img src="${path}/pictures/service-center.png"
+						<span class="menu-icon"><a href="/reportregister"><img src="${path}/pictures/center.png"
 									alt=""></a></span>
 						<span class="menu-title close"><a href="/reportregister">고객센터</a></span>
 					</div>
 				</div>
-
-				<!-- 서브메뉴타이틀
-				<div class="nav-sub-menu-box mb-3">
-					<span class="menu-title menu-title-sub close"><a href="http://localhost:8090/chatList">채팅리스트</a></span>
-				</div> -->
 				<% } %>
 	</nav>
 
 	<script>
-		// 메뉴 타이틀 생성
-		let menu = document.querySelector('.header-menu-button');
+		// 메뉴바 생성
+		let navmenu = document.querySelector('.nav-box');
 		let menuTitle = document.querySelectorAll('.menu-title');
 
-		menu.addEventListener('click', function () {
+		navmenu.addEventListener('mouseover', function () {
 			for (let i = 0; i < menuTitle.length; i++) {
-				menuTitle[i].classList.toggle('close');
+				menuTitle[i].classList.add('open');
+			}
+		})
+		
+		navmenu.addEventListener('mouseout', function () {
+			for (let j = 0; j < menuTitle.length; j++) {
+				menuTitle[j].classList.remove('open');
 			}
 		})
 	</script>
-	
-	 <script>
-	 //알람버튼 클릭했을때 자동으로 on/off하게 하는 기능
-      /*    document.querySelector('.test').addEventListener('click', function(){
-            document.querySelector('.test2').classList.toggle('close');
-        })  */
-
-    </script>
 
 	<script>
+	// 스크롤 up 
 		document.querySelector('.up').addEventListener('click', function(){
 			window.scrollTo(0,0);
 		})
 
+		// 관리자 id 
 		if(sessionId != "admin1234"){
 			document.querySelector('.manager-button').parentElement.remove();
 		}
 
 
+	// 실시간 검색어 
 		let rankBox = document.querySelector('.rank-box');
 		let rankBox2 = document.querySelector('.rank-box2');
 		let rankContainer = document.querySelector('.rank-container');
@@ -362,6 +311,7 @@
 			rankBox2.classList.add('close');
 		})
 
+		// 모바일 크기 
 	let mobileMenu = document.querySelector('.mobile-menu-button');
 	let mobileSearch = document.querySelector('.mobile-search-button');
 	let navBox = document.querySelector('.nav-box');
