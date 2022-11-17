@@ -7,8 +7,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Connect Us</title>
-    <link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/favicon.ico">
+    <title>품앗이 장터</title>
+    <link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/homelogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="${path}/css/header.css">
@@ -28,12 +28,17 @@
             let distanceKm = '${distanceKm}';
 
             let regionOption = '${regionOption}';
-            let smartTitle = '${smartSearchDTO.smartTitle}';
-            let smartRegion = '${smartSearchDTO.smartRegion}';
-            let smartStartDate = '${smartSearchDTO.smartStartDate}';
-            let smartEndDate = '${smartSearchDTO.smartEndDate}';
-            let smartPriceMin = '${smartSearchDTO.smartPriceMin}';
-            let smartPriceMax = '${smartSearchDTO.smartPriceMax}';
+            
+            if(searchType == 4){
+            var smartTitle = '${smartSearchDTO.smartTitle}';
+            var smartRegion = '${smartSearchDTO.smartRegion}';
+            var smartStartDate = '${smartSearchDTO.smartStartDate}';
+            var smartEndDate = '${smartSearchDTO.smartEndDate}';
+            var smartPriceMin = '${smartSearchDTO.smartPriceMin}';
+            var smartPriceMax = '${smartSearchDTO.smartPriceMax}';
+            }
+            
+            
 
 
             if (searchType == '4') {
@@ -219,7 +224,8 @@
                 var Regionvalue = oneSelect.options[document.getElementById("regionSelect").selectedIndex].value;
 
                 if (Regionvalue == '동네 검색') {
-                    $("#zzimList").html("<input type='text' name='smartRegion'>");
+                    $("#zzimList").html("<input id='regionSearch' type='text' name='smartRegion'>");
+                    $("#regionSearch").focus();
                 } else if (Regionvalue == '모든 동네') {
                     $("#zzimList").html("<input type='hidden' name='smartRegion' value='동'>");
                 } else if (Regionvalue == '내 동네') {
@@ -298,9 +304,7 @@
 <body>
     <div class="main-container">
         <!-- header-section -->
-        <jsp:include page="/WEB-INF/views/header.jsp">
-            <jsp:param value="false" name="mypage" />
-        </jsp:include>
+        <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
         <!-- content-section -->
         <div class="background-bg">
 
@@ -343,21 +347,68 @@
 
                 <!-- 스마트 검색 -->
                 <form class="smart-search-box mb-4" action="/smartSearch" method="post">
-                    <div class="smart-search-title"><span>C</span>onnect <span style="margin-left:5px">S</span>earch
-                    </div>
+                    <div class="smart-search-title">물품 찾기</div>
                     <!-- <div class="smart-search-box-design"></div> -->
-
-                    <input class="smart-keyword" id="smartTitle" type="text" name="smartTitle" 
+                    <table class="smartSearchBox-Table">
+                    <tr>
+                    <td>
+                    키워드
+                    </td>
+                    </tr>
+                    <tr>
+                    <th>
+                    <input id="smartTitle" type="text" name="smartTitle" 
                         placeholder="검색">
-                    <input class="smart-search-width" id="smartPriceMin" type="number" name="smartPriceMin"
+                    </th>
+                    </tr>
+                     <tr>
+                    <td>
+                    가격
+                    </td>
+                    </tr>
+                    
+                    <tr>
+                    <th>
+                    <input id="smartPriceMin" type="number" name="smartPriceMin"
                         placeholder="최소가격(₩)" step="500">
+                    </th>
+                    </tr> 
+                    <tr>
+                    <th>
                     <input type="number" name="smartPriceMax" id="smartPriceMax" 
                         placeholder="최대가격(₩)" step="500">
-                    <input class="smart-search-width" id="smartStartDate" class="smart-keyword" 
-                        type="date" name="smartStartDate">
-                    ~<input id="smartEndDate" class="smart-keyword" id="smartEndDate"
-                        type="date" name="smartEndDate">
-                    <select id="regionSelect">
+                    </th>
+                    </tr>
+                    
+                     <tr>
+                    <td>
+                    날짜
+                    </td>
+                    </tr>
+                    
+                    <tr>
+                    <th>
+                    <span style="font-weight:500;">이날부터 </span> <input id="smartStartDate" 
+                        type="date" name="smartStartDate" style="width:275px;">
+                    
+                    </th>
+                    </tr>
+                    <tr>
+                    <th>
+                    <span style="font-weight:500;">이날까지 </span> <input id="smartEndDate"
+                        type="date" name="smartEndDate" style="width:275px;">
+                    </th>
+                    </tr>
+                    
+                    <tr>
+                    <td>
+                    동네
+                    </td>
+                    </tr>
+                    
+                    <tr>
+                    <th>
+                      <select id="regionSelect">
                         <option id="allRegion">모든 동네</option>
                         <option id="myRegion">내 동네</option>
                         <option id="nearRegion">가까운 동네</option>
@@ -366,7 +417,20 @@
                     </select>
                     <span id="zzimList"><input class="smart-keyword" type="hidden"
                             id="smartRegion" name="smartRegion" value="동"></span>
+                    </th>
+                    </tr>
+                    <tr>
+                    <th>
                     <input class="smart-search-button" type="submit" value="검색">
+                    </th>
+                    </tr>
+                    
+                    </table>
+
+
+               
+                  
+                    
                 </form>
 
 
@@ -375,7 +439,7 @@
 
                     <div class="zzimproduct-list-box">
                         <p class="zzim-title" id="zzimListLink">찜 리스트<a class="zzim-link"
-                                href="/mypage?zzimListLink=1">></a></p>
+                                href="/mypage?zzimListLink=1">🧡</a></p>
                         <div id="zzimProducts" class="zzim-product">
                             <c:forEach items="${zzimProducts}" var="zzimProduct" varStatus="status">
                                 <div class="zzim-product2">
@@ -392,7 +456,7 @@
                 </div>
 
                 <div class="allproduct-search-box">
-                    <a class="product-register" id="register" href="/registerProduct">물품등록</a>
+                    <a class="product-register" id="register" href="/registerProduct">물품 등록</a>
 
                 </div>
 

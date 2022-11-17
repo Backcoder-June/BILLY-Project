@@ -109,31 +109,35 @@ li {
   align-items: center;
   font-family: "MalgunGothic";
   font-weight: 600;
+  margin-top: 0.2rem;
 }
 
 .header-menu-title img {
-  margin-right: 1rem;
+  height: 50px;
+  width: 50px;
+  margin-bottom: 0.3rem;
 }
 
 .header-search-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
 }
 
 .header-search-input {
-  width: 17vw;
-  border: solid 2px #6462cb;
+  width: 20vw;
+  height: 100%;
+  border: solid 2px orange;
   border-radius: 5px;
-  margin-left: 3rem;
+  margin-left: 1rem;
 }
 
 .header-search-input:focus {
   outline-style: solid;
-  outline-color: #6462cb;
-  outline-width: 2px;
-  width: 20vw;
+  outline-color: black;
+  outline-width: 3px;
+  width: 21vw;
   transition: all 0.5s;
 }
 
@@ -149,6 +153,7 @@ li {
 
 .header-search-box-inner {
   width: 100%;
+  height: 3rem;
   display: flex;
   justify-content: center;
   align-items: none;
@@ -175,11 +180,10 @@ li {
 }
 
 .rank-container {
-  padding-left: 8rem;
-  width: 40%;
+  width: 20%;
   position: absolute;
-  top: 10%;
-  right: 0;
+  top: 30%;
+  right: 8%;
   height: 1.5rem;
   overflow: hidden;
 }
@@ -192,11 +196,10 @@ li {
 }
 
 .rank-container2 {
-  padding-left: 8rem;
-  width: 40%;
+  width: 20%;
   position: absolute;
-  top: 10%;
-  right: 0;
+  top: 30%;
+  right: 8%;
   height: 1.5rem;
 }
 
@@ -256,7 +259,7 @@ li {
   height: 2rem;
   border: none;
   border-radius: 50px;
-  color: #6462cb;
+  color: black;
   box-shadow: 0px 3px 5px rgb(204, 204, 204);
   display: flex;
   justify-content: center;
@@ -329,14 +332,15 @@ li {
   font-weight: 800;
   display: flex;
   align-items: center;
+  font-size: 19px;
 }
 
 .menu-title a {
-  color: #6462cb;
+  color: black;
 }
 
 .menu-title a:hover {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .nav-sub-menu-box {

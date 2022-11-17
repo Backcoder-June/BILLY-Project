@@ -514,24 +514,10 @@ public class ProductController {
 		model.addAttribute("reservLength", reservLength);
 		model.addAttribute("reservationList", reservList);
 		model.addAttribute("oneProduct", targetProduct);
-//		System.out.println(targetProduct.getTitle());
 		
 		return "product/oneProduct";
 	}
 	
-	// 상세페이지 => header랑 연결 알림용  
-//		@ResponseBody
-//		@GetMapping("/product/{productid}/ajax")
-//		public ProductDTO oneProductajax(@PathVariable("productid")int productid, Model model, HttpSession session) throws Exception {
-//			
-//			String sessionid = (String)session.getAttribute("sessionid");
-//			ProductDTO targetProduct = productDAO.oneProduct(productid);
-//			model.addAttribute("oneProduct", targetProduct);
-//			System.out.println(targetProduct.getTitle());	
-//			return targetProduct;
-//		}
-		
-		
 		
 	//글작성 폼 
 	@GetMapping("/registerProduct")
@@ -573,7 +559,6 @@ public class ProductController {
 			dto.setImg6(uploaddto.getFile6());
 		}
 		
-//		String savePath = "/Users/youngban/upload/";
 		String savePath = "c:/upload/";
 		MultipartFile viedoFile = uploaddto.getVideo1();
 		
@@ -662,7 +647,6 @@ public class ProductController {
 		productDTO.setVideo(uploaddto.getVideoTitle());
 	}else {
 		
-//	String savePath = "/Users/youngban/upload/";
 	String savePath = "c:/upload/";
 	MultipartFile viedoFile = uploaddto.getVideo1();
 	
