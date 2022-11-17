@@ -67,14 +67,14 @@ body {
 
 .button-box span img {
   width: 2rem;
-  height: 50%;
+  height: 100%;
 }
 
 .button-box span div {
   width: 5rem;
   height: 40%;
   text-align: center;
-  color: #6462cb;
+  color: black;
 }
 
 .close {

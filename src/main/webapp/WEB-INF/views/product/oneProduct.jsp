@@ -8,13 +8,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Connect Us</title>
+    <title>품앗이 장터</title>
+    <link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/homelogo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="${path}/css/header.css">
     <link rel="stylesheet" href="${path}/css/product.css">
     <script src="${path}/js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <script>
     // 채팅 data submit 
@@ -169,51 +169,18 @@
         } // for 
    }); // onload
 </script>
-
-
-
-
-<script>
-//계산 완료 - 넘어갔을 때 화면 (꼭 필요 주문상세페이지로 넘어갈예정)
-function paymentComplete(data){
-	
-	$.ajax({
-		url: "/order/payment/complete/{orderNum}",
-		method: "POST",
-		data: data,
-	})
-	.done(function(result){
-	messageSend();
-	swal({
-		text: result,
-		closeOnClickOutside : false
-		
-	
-	
-	
-	})
-	.then(function(){
-		location.replace("/orderList");	
-		})
-	}) //done
-	.fail(function(){
-		alert("에러")
-		location.replace("/");
-	})
-}
-</script>
 </head>
 
 <body>
 	<div class="main-container">
         <!-- header-section -->
-        <jsp:include page="/WEB-INF/views/header.jsp"> <jsp:param value="false" name="mypage"/></jsp:include>
+        <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
         <!-- content-section -->
         <div class="content-container">
       
         <!-- 예약 테이블 -->
             <form class="reserve-box close" action="/product/reservationinput" method="post">
-                <div class="reserve-box-close-button">X</div>
+                <div class="reserve-box-close-button">❌</div>
                 <p>예약하기</p>
                 <table>
                 <tr>
@@ -384,17 +351,18 @@ function paymentComplete(data){
                                 <span class="next-icon" aria-hidden="true">▶</span>
                                 <span class="visually-hidden">Next</span>
                             </button>
+                            
+                            
                         </div>
                     </div>
+                    
+                    
 
                     <!-- 상세페이지 내용 -->
                     <div class="oneproduct-detail-textarea">
                     <div class="product-detail-content">
-                        <!-- <span class="detail-title-num">${oneProduct.id}</span> -->
                         <span class="detail-title"> 
-                        <div class="detail-title-title"> 
                         <span id="reservedNowSpan" style="color:red"> ${reservedNowImg}  </span>  ${oneProduct.title}
-                        </div>
                         </span>
                         <span class="detail-title-hour">${dateDiffShow} (${oneProduct.createdAt})</span>
                         <span class="detail-title-location">${oneProduct.boardRegion} ${distance}</span>
@@ -406,16 +374,8 @@ function paymentComplete(data){
 
                                             <!-- 예약 버튼 -->
                     <div class="goods-detail-button-box">
-                        <!-- <form action="http://localhost:8090/product/${oneProduct.id}/reservationinput" method="post">
-                            <input type="hidden" value="${oneProduct.userId}" name="userId">
-                           
-                        </form> -->
+
                         <button class="reserve-on-button" id="reserve" type="submit" value="예약하기">예약하기</button>
-                        <form action="/orderpaywritingform" method="post">
-                        <input type="hidden" value="${oneProduct.title}" name="producttitle" readonly>
-                       <input type="hidden" value="${oneProduct.price}" name="price1" readonly>
-                        <input class="pay-on-button" type="submit" class="payment-on-button"  value="결제하기">
-						</form>
 						
                         <!-- 수정, 삭제 버튼 -->
                         <form id="update" action="/product/${oneProduct.id}/update">
@@ -424,12 +384,15 @@ function paymentComplete(data){
                         </form>
                
                     </div>
-                        
-                        <!-- 채팅버튼 -->
-                        <div class="product-detail-chatbutton">
-                            <div id="zzimtd" class="zzim-box"><span id="zzimSpan" class="zzim-button">${zzim}</span>
-                            </div>
 
+                        <div class="product-detail-chatbutton">
+                        
+                        <!-- 찜버튼 -->
+                        <div id="zzimtd" class="zzim-box"><span id="zzimSpan" class="zzim-button">${zzim}</span>
+                        </div>
+                      
+
+                        <!-- 채팅버튼 -->
                             <c:if test="${sessionid != oneProduct.userId && not empty sessionid }">
                                 <form id="chatSubmit_form" action="/chatMessage" method="GET">
                                     <a id="chatLink" href="javascript:{}" onclick="chatSubmit()">
@@ -524,8 +487,6 @@ function paymentComplete(data){
         </div>
         
 </div> 
-
-
         
             <!-- 예약 테이블 노출 설정 -->
     <script>
@@ -542,7 +503,7 @@ function paymentComplete(data){
             reserveBox.classList.add('close');
         })
 
-        let reservedTableItem = document.querySelectorAll('.reserved-table-item')
+        let reservedTableItem = document.querySelectorAll('.reserved-table-item');
 
         for(let i = 0; i< reservedTableItem.length; i++) {
             if(i%2 == 0){
@@ -551,11 +512,6 @@ function paymentComplete(data){
                 reservedTableItem[i].style.backgroundColor = "rgb(243, 243, 243)";
             }
         };
-
-
-        //document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
-
-
     </script>
 
 
@@ -569,24 +525,23 @@ function paymentComplete(data){
         cautionButton.addEventListener('click', function(){
             cautionBox.classList.remove('close');
             reservedContainer2.classList.add('close')
-            cautionButton.style.backgroundColor="#6462cb";
+            cautionButton.style.backgroundColor="orange";
             cautionButton.style.color="white";
             reservedButton.style.backgroundColor="white";
-            reservedButton.style.color = "#6462cb";
+            reservedButton.style.color = "orange";
 
         })
         reservedButton.addEventListener('click', function(){
             reservedContainer2.classList.remove('close');
             cautionBox.classList.add('close')
-            reservedButton.style.backgroundColor="#6462cb";
+            reservedButton.style.backgroundColor="orange";
             reservedButton.style.color="white";
             cautionButton.style.backgroundColor="white";
-            cautionButton.style.color = "#6462cb";
+            cautionButton.style.color = "orange";
         })
-
-
-
     </script>
+    
+    
     <script src="${path}/js/oneproduct.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

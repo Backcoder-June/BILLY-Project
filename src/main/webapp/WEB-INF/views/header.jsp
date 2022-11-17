@@ -126,7 +126,7 @@
 				<a class="loginBtn" href="/login">로그인</a>
 				<% } else { %>
     			<div class="header-notice">
-    			<a href="/chatList"><img src="/pictures/notice.png" width="23">채팅 &nbsp; <span id="messageAlert" style=color:orange></span></a>
+    			<a href="/chatList"><img src="/pictures/notice.png" width="23">채팅 &nbsp; <span id="messageAlert" style="color:orange; font-weight:700;"></span></a>
     			</div>
 					<div>
 					<a  class="manager-button"  href="/admin_memlist">관리자</a>
