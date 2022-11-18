@@ -525,19 +525,19 @@
         cautionButton.addEventListener('click', function(){
             cautionBox.classList.remove('close');
             reservedContainer2.classList.add('close')
-            cautionButton.style.backgroundColor="orange";
-            cautionButton.style.color="white";
+            cautionButton.style.backgroundColor="rgb(255,255,230)";
+            cautionButton.style.color="black";
             reservedButton.style.backgroundColor="white";
-            reservedButton.style.color = "orange";
+            reservedButton.style.color = "black";
 
         })
         reservedButton.addEventListener('click', function(){
             reservedContainer2.classList.remove('close');
             cautionBox.classList.add('close')
-            reservedButton.style.backgroundColor="orange";
-            reservedButton.style.color="white";
+            reservedButton.style.backgroundColor="rgb(255,255,230)";
+            reservedButton.style.color="black";
             cautionButton.style.backgroundColor="white";
-            cautionButton.style.color = "orange";
+            cautionButton.style.color = "black";
         })
     </script>
     

@@ -75,19 +75,19 @@
 
             // 최신순, 가격순, 조회순 선택 시 css 적용
             if (orderType == 1) {
-                $(".orderOne").attr("style", "font-weight:800; color:green");
+                $(".orderOne").attr("style", "font-weight:800; color:rgb(255,133,133)");
                 $(".orderOne2").attr("style", "font-weight:700; color: black");
             }
             if (orderType == 2) {
-                $(".orderTwo").attr("style", "font-weight:800; color:green");
+                $(".orderTwo").attr("style", "font-weight:800; color:rgb(255,133,133)");
                 $(".orderTwo2").attr("style", "font-weight:700; color: black");
             }
             if (orderType == 3) {
-                $(".orderThree").attr("style", "font-weight:800; color:green");
+                $(".orderThree").attr("style", "font-weight:800; color:rgb(255,133,133)");
                 $(".orderThree2").attr("style", "font-weight:700; color: black");
             }
             if (orderType == 4) {
-                $(".orderFour").attr("style", "font-weight:800; color:green");
+                $(".orderFour").attr("style", "font-weight:800; color:rgb(255,133,133)");
                 $(".orderFour2").attr("style", "font-weight:700; color: black");
             }
 
@@ -347,7 +347,7 @@
 
                 <!-- 스마트 검색 -->
                 <form class="smart-search-box mb-4" action="/smartSearch" method="post">
-                    <div class="smart-search-title">물품 찾기</div>
+                    <!-- <div class="smart-search-title">물품 찾기</div>  -->
                     <!-- <div class="smart-search-box-design"></div> -->
                     <table class="smartSearchBox-Table">
                     <tr>
