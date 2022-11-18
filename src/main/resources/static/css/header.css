@@ -128,14 +128,14 @@ li {
 .header-search-input {
   width: 20vw;
   height: 100%;
-  border: solid 2px orange;
+  border: solid 2px rgb(133,133,133);
   border-radius: 5px;
   margin-left: 1rem;
 }
 
 .header-search-input:focus {
   outline-style: solid;
-  outline-color: black;
+  outline-color: rgb(133,133,133);
   outline-width: 3px;
   width: 21vw;
   transition: all 0.5s;
