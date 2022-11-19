@@ -15,7 +15,8 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
     
     <script src="${path}/js/jquery-3.6.0.min.js"></script>
-    <title>커뮤니티</title>
+    <title>BILLY</title>
+    <link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
     <script>
         //검색 조건 설정
         $(document).ready(function () {
