@@ -326,11 +326,11 @@
                         <img id="carousel-box4" src="${path}/pictures/bg1.png">
                     </div>
                     <div class="carousel-item" id="carousel-box3">
-                        <img id="carousel-box4" src="${path}/pictures/bg2.png">
+                        <img id="carousel-box4" src="${path}/pictures/bg2f1.png">
                     </div>
-                    <div class="carousel-item " id="carousel-box3">
+                   <%--  <div class="carousel-item " id="carousel-box3">
                         <img id="carousel-box4" src="${path}/pictures/bg3.png">
-                    </div>
+                    </div> --%>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                     data-bs-slide="prev">

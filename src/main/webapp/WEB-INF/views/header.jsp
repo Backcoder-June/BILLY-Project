@@ -77,7 +77,7 @@
 		<div class="header-menu-logo-box">
 			
 			<span class="header-menu-title">
-				<a href="/" >
+				<a href="/allproduct/1/1" >
 				<img src="${path}/pictures/Billy.png" alt="">
 				BILLY</a>
 			</span>
@@ -184,7 +184,7 @@
 				<div class="nav-menu-box">
 					<span class="menu-icon"><a href="/login"><img                                                                                                                                                                                                                                                                                                                                                                                             
 								src="${path}/pictures/neighbour.png" alt=""></a></span>
-					<div class="menu-title close"><a href="/login">내 이웃</a></div>
+					<div class="menu-title close"><a href="/login">동네 물품</a></div>
 				</div>
 				<div class="nav-menu-box">
 
@@ -218,7 +218,7 @@
 					<div class="nav-menu-box">
 						<span class="menu-icon"><a href="/allproduct/3/1"><img
 									src="${path}/pictures/neighbour.png" alt=""></a></span>
-						<div class="menu-title close"><a href="/allproduct/3/1">내 이웃</a></div>
+						<div class="menu-title close"><a href="/allproduct/3/1">동네 물품</a></div>
 					</div>
 					<div class="nav-menu-box">
 						<span class="menu-icon"><a href="/boardList"><img

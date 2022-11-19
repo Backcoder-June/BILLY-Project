@@ -13,6 +13,11 @@ integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+f
 <link rel="stylesheet" href="${path}/css/product.css">
 <script src="${path}/js/jquery-3.6.0.min.js"></script>
 <script>
+
+
+
+
+
 //사진 업로드 취소
 function delImg(_this){
 	//기존 이미지 개수 
@@ -73,6 +78,16 @@ function delImg(_this){
 
 
 $(document).ready(function(){	   
+	
+	$("#dayPrice").on("mouseover", function(){
+		$("#priceInfo").attr("style","display:inline");
+	});
+	
+	$("#dayPrice").on("mouseleave", function(){
+		$("#priceInfo").attr("style","display:none");
+	});
+	
+	
 // 수정 확인 
   $("#updatebtn").on("click", function (e){
     if(!confirm("게시글을 수정하시겠습니까?")){
@@ -231,15 +246,15 @@ $(document).ready(function(){
 
 <form class="product-insert-table" id="uploadForm" action="/product/${updateProduct.id}/updateprocess" method="post" enctype="multipart/form-data">
 
-<input type="text" name="title" value="${updateProduct.title}" required maxlength="30"> 
+<input type="text" name="title" value="${updateProduct.title}" required maxlength="30" style="font-size:30px;"> 
 <textarea name="contents" rows="15" cols="60" required maxlength="3000">${updateProduct.contents}</textarea> 
-<input type="number" name="price" value="${updateProduct.price}" required step="500">	
-<input type="text" name="boardRegion" value="${updateProduct.boardRegion}" readonly > 
-<input type="text" name="userId" value="${updateProduct.userId}" readonly > 
+<span id="dayPrice" style="width:300px;"><input type="number" name="price" value="${updateProduct.price}" required step="1" style="width:300px;" placeholder="1일 가격"><span id="priceInfo" style="background-color:silver; display:none;">1일 대여 가격을 입력해주세요.</span></span> 
+<input type="text" name="boardRegion" value="${updateProduct.boardRegion}" readonly style="width:300px;">
+<input type="text" name="userId" value="${updateProduct.userId}" style="display:none;"> 
 
 <div class="product-insert-insert-file-box">
 <span>
-<img src="/pictures/jpgicon.png" height=40 width=40><label class="insertproduct-label-button " for="imgFile">파일선택</label> (6개까지 등록 가능합니다.)
+<img src="/pictures/jpgicon.png" height=40 width=40><label class="insertproduct-label-button " for="imgFile">파일선택</label> &nbsp;6개까지 등록 가능하며, 클릭 시 취소됩니다.
 <input id="imgFile" class="insertproduct-upload-button" type="file" name="imgFile" accept=".jpg, .jpeg, .jfif, .tiff, .gif, .bmp, .png, .heif, .bmp, .exif"> <br>
 <input id="file1" type="text" style="display:none" name="file1">
 <input id="file2" type="text" style="display:none" name="file2">
@@ -247,7 +262,6 @@ $(document).ready(function(){
 <input id="file4" type="text" style="display:none" name="file4">
 <input id="file5" type="text" style="display:none" name="file5">
 <input id="file6" type="text" style="display:none" name="file6">
-<span>(사진 등록을 취소하시려면 해당 사진을 클릭해주세요.)</span>
  
 <!-- 기존 이미지 파일들 불러오기 -->	
 <div class="insertproduct-upload-result" id="here">

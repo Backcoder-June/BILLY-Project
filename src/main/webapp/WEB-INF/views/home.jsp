@@ -27,12 +27,7 @@ $(document).ready(function(){
 </head>
 <body>
 
-    <jsp:include page="/WEB-INF/views/header.jsp">
- 
-        <jsp:param value="false" name="mypage" />
-
-
-    </jsp:include>
+    <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 
 
         <div class="home3">
@@ -47,12 +42,7 @@ $(document).ready(function(){
         
       
 
-        <div class="button-box">
-            <span><a href="/allproduct/1/1"><img src="${path}/pictures/home.png" alt="">
-            <div>홈</div></a></span>
-            <span class="home-login"><a href="/login"><img src="${path}/pictures/on.png" alt="">
-            <div>로그인</div></a></span>
-        </div>
+       
 
 
 
@@ -85,21 +75,6 @@ $(document).ready(function(){
 <br> -->
 
 <script>
-    let check =[]
-    check.push(sessionId);
-    
-
-    let signBox = document.querySelector('.header-sign-box');
-
-    signBox.classList.add('close');
-
-    let homeLogin = document.querySelector('.home-login');
-
-    console.log(check);
-
-    if(check != ""){
-        homeLogin.classList.add('close');
-    }
 
 
 
