@@ -8,7 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Connect Us</title>
+<title>BILLY</title>
+<link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
 <script src="${path}/js/jquery-3.6.0.min.js" ></script>
 <script src="${path}/js/stomp.js" type="text/javascript"></script>
 <script src="${path}/js/sockjs.js" type="text/javascript"></script>
