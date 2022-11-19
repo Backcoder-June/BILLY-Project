@@ -6,8 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Connect Us</title>
-<link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/favicon.ico">
+<title>BILLY</title>
+<link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <link rel="stylesheet" href="${path}/css/header.css">
@@ -37,9 +37,15 @@ $(document).ready(function(){
 
         <div class="home3">
             <div class="bg">
+            
             <img src="${path}/pictures/bg.png" alt="">
+              <a href="/allproduct/1/1">
+              <span class="billyHomeLink">
+		      </span></a>
             </div>
         </div>
+        
+      
 
         <div class="button-box">
             <span><a href="/allproduct/1/1"><img src="${path}/pictures/home.png" alt="">

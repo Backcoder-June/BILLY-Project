@@ -7,7 +7,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/destroy.png">
+	<link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 	<script src="${path}/js/jquery-3.6.0.min.js"></script>
@@ -78,8 +78,8 @@
 			
 			<span class="header-menu-title">
 				<a href="/" >
-				<img src="${path}/pictures/homelogo.png" alt="">
-				품앗이 장터</a>
+				<img src="${path}/pictures/Billy.png" alt="">
+				BILLY</a>
 			</span>
 		</div>
 		<!-- navSearch -->
@@ -88,7 +88,7 @@
 			<form action="/allproduct/2/1" class="header-search-box-inner2">
 				<div class="search-input">
 				<img src="/pictures/search2.png" alt="" width=40px; height=40px;>
-				<input class="header-search-input" type="text" id="search" name="search" placeholder=" 품앗이 물품을 검색해 보세요.">
+				<input class="header-search-input" type="text" id="search" name="search" placeholder=" BILLY 에서 찾아보세요!">
 		
 				<button class="btn btn-outline-secondary header-search-button close" type="submit"
 					id="button-addon2"></button>

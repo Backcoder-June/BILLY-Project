@@ -4,6 +4,22 @@ body {
   position: relative;
 }
 
+.billyHomeLink {
+  position: absolute;
+  width: 600px;
+  height: 200px;	
+  top: 100px;
+  right : 330px;
+  z-index: 1;
+}
+
+.billyHomeLink:hover {
+  border-bottom: solid 7px silver;
+  border-right: solid 7px silver;
+  border-radius: 50px;	
+}
+
+
 .home3 {
   width: 100vw;
   height: 100vh;
