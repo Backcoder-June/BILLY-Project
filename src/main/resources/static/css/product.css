@@ -305,18 +305,20 @@
 }
 
 .product-box-item {
-  width: 15rem;
-  height: 20rem;
-  margin: 3rem;
+  width: 20rem;
+  height: 25rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
   position: relative;
-  border: 2px solid rgb(230, 230, 230);
-  border-radius: 10px;
-  box-shadow: 0px 5px 5px 5px rgb(214, 214, 214);
+  border-radius: 5px;
+  box-shadow: 0px 0px 0px 0px rgb(214, 214, 214);
   overflow: hidden;
 }
 
 .product-item-img {
-  background-color: #f3f3f3;
+  background-color: white;
   position: absolute;
   top: 0%;
   width: 100%;
@@ -539,9 +541,10 @@
   top: 40%;
   height: 75%;
   border: none;
-  background-color:rgb(255,255,230);
+  background-color:white;
   resize: none;
 }
+
 
 .product-detail-text::-webkit-scrollbar {
   width: 1rem;
@@ -796,6 +799,7 @@
 .insertproduct-container {
   padding-left: 7rem;
   width: 1280px;
+  margin-top: -5rem;
 }
 
 .insertproduct-container form {
@@ -831,21 +835,22 @@
 
 .product-insert-table input {
   width: 100%;
-  height: 2.5rem;
-  margin-top: 0.5rem;
+  height: 3rem;
+  margin-top: 0.2rem;
   padding-left: 0.5rem;
-  border: 2px solid #6462cb;
-  background-color: rgb(243, 243, 243);
-  border-radius: 5px;
+  border: 2px solid white;
+  font-size: 16px;
 }
 
 .product-insert-table textarea {
   width: 100%;
   margin-top: 0.5rem;
   padding-left: 0.5rem;
-  border: 2px solid #6462cb;
-  background-color: rgb(243, 243, 243);
-  border-radius: 5px;
+  padding-top: 1rem;
+  border-top: 2px solid silver;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
   resize: none;
 }
 

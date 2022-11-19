@@ -186,19 +186,19 @@
 				<form id="uploadForm" action="/registerProduct" method="post" enctype="multipart/form-data">
 
 					<div class="product-insert-table">
-						<input type="text" name="title" placeholder="제목" required="required" maxlength="30">
-						<textarea id="contents" name="contents" rows="15" cols="60" placeholder="내용"
+						<input type="text" name="title" placeholder="제목을 입력하세요" required="required" maxlength="30" style="font-size:30px;">
+						<textarea id="contents" name="contents" rows="15" cols="60" placeholder="물건에 대한 정보를 알려주세요."
 							required="required" maxlength="3000"></textarea>
-						<input type="number" name="price" placeholder="1일 가격" required step="500">	
-						<input type="text" name="boardRegion" value="${region}" placeholder="사는 곳" readonly>
-						<input type="text" name="userId" value="${sessionScope.sessionid }" placeholder="작성자" readonly>
+						<input type="number" name="price" placeholder="1일 가격" required step="1" style="width:300px;">	
+						<input type="text" name="boardRegion" value="${region}" placeholder="사는 곳" readonly style="width:300px;">
+						<input type="text" name="userId" value="${sessionScope.sessionid }" style="display:none;">
 					</div>
 
 
 					<br>
 					<div class="product-insert-insert-file-box">
 					<span >
-					<img src="/pictures/jpgicon.png" height=40 width=40> &nbsp; <label class="insertproduct-label-button" for="imgFile">파일선택    </label> ❗ 사진 최대 6장, 클릭시 삭제됩니다.
+					<img src="/pictures/jpgicon.png" height=40 width=40> &nbsp; <label class="insertproduct-label-button" for="imgFile">파일선택    </label> &nbsp;6개까지 등록 가능하며, 클릭 시 취소됩니다. 
 					<input id="imgFile" class="insertproduct-upload-button" type="file" name="imgFile" accept=".jpg, .jpeg, .jfif, .tiff, .gif, .bmp, .png, .heif, .bmp, .exif"><br>
 					<input id="file1" type="text" style="display:none" name="file1">
 					<input id="file2" type="text" style="display:none" name="file2">

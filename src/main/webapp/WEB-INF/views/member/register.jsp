@@ -307,7 +307,7 @@
 				$('#name_check').css("color", "red");
 				name_check = false;
 				btn.attr('disabled', true);
-			} else {
+			} else if(name.length > 1) {
 				name_check = true;
 				$('#name_check').text("✅");
 				
