@@ -68,6 +68,14 @@
 
 
 		$(document).ready(function () {
+			$("#deletebtn").on("click", function(e){
+				if(!confirm("삭제하시겠습니까?")){
+					e.preventDefault();
+					return false;
+				}
+			});
+			
+			
 
 			$("#submitBtn").on("click", function () {
 				let secret;

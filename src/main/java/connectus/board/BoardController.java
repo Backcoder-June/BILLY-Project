@@ -173,10 +173,9 @@ public class BoardController {
 	}
 	
 	@GetMapping("/boarddelete")
-	public ModelAndView boardDelete(@RequestParam(value="page", required = false, defaultValue = "1") int page,int seq) {
-		ModelAndView mv = new ModelAndView();
+	public String boardDelete(@RequestParam(value="page", required = false, defaultValue = "1") int page,int seq) {
 		int deleteCount = boardService.deleteBoard(seq);
-		return mv;
+		return "redirect:/boardList";
 	}
 	
 	@GetMapping("/boardupdate/{boardid}")
