@@ -558,8 +558,9 @@
                                 </div>
                             </c:if>
 
-                            <span class="reserved" style=color:red>${reservedNowImg} </span>
-                            <div class="product-item-title"> <a href="/product/${product.id}"> ${product.title}</a>
+                           
+                            <div class="product-item-title"> <a href="/product/${product.id}"> 
+                            <span class="reserved" style=color:red;>${reservedNowImg} </span> &nbsp; ${product.title}</a>
                             </div>
                             <div class="product-item-date">${dateDiffShow}</div>
                             <div class="product-item-num" id="productid${vs.index}" style="display:none">${product.id}

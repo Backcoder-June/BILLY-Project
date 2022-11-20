@@ -181,30 +181,24 @@
         <!-- 예약 테이블 -->
             <form class="reserve-box close" action="/product/reservationinput" method="post">
                 <div class="reserve-box-close-button">❌</div>
-                <p>예약하기</p>
+                <p> &nbsp;예약하기</p>
                 <table>
                 <tr>
-                <th>번호 <br>  <input type="text" name="boardId" value="${oneProduct.id}" readonly></th>
+                <th>물품 주인<br>  <input class="date2" type="text" name="sellerId" value="${oneProduct.userId}" readonly style="width:90%"></th> 
                 </tr>
                 <tr>
-                <th>렌터 <br>  <input class="date1" type="text" name="buyerId" value="${sessionScope.sessionid}" readonly></th> 
+                <th>빌림 시작 <br> <input type="date" name="startRental" required style="width:150px;"></th> 
+                <th>빌림 종료 <br> <input type="date" name="endRental" required style="width:150px; margin-right:30px;"></th> 
                 </tr>
                 <tr>
-                <th>오너<br>  <input class="date2" type="text" name="sellerId" value="${oneProduct.userId}" readonly></th> 
+                <th>희망비용 <br> <input type="number" name="price" step="1" required style="width:90%">원</th> 
                 </tr>
                 <tr>
-                <th>커넥트시작 <br> <input type="date" name="startRental" required></th> 
-                </tr>
-                <tr>
-                <th>커넥트종료 <br> <input type="date" name="endRental" required></th> 
-                </tr>
-                <tr>
-                <th>희망비용 <br> <input type="number" name="price" step="500" required>원</th> 
-                </tr>
-                <tr>
-                <th><input type="submit" value="예약" id="reserve-off-button"></th>
+                <th colspan="2"><input type="submit" value="예약" id="reserve-off-button" style="width:300px; margin-left:30px; font-weight:700;"></th>
                 </tr> 
                 </table>
+                <input type="text" name="boardId" value="${oneProduct.id}" readonly style="display:none;">
+                <input class="date1" type="text" name="buyerId" value="${sessionScope.sessionid}" readonly style="display:none;">
                 </form>
   
       
@@ -496,12 +490,14 @@
 
 
         reserveOnButton.addEventListener('click', function(){
+        	if(sessionId != ''){
             reserveBox.classList.remove('close');
-        })
+        	}
+        });
 
         reserveOffButton.addEventListener('click', function(){
             reserveBox.classList.add('close');
-        })
+        });
 
         let reservedTableItem = document.querySelectorAll('.reserved-table-item');
 
