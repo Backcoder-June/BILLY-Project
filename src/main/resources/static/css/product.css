@@ -326,13 +326,6 @@
   transition: all 0.2s;
 }
 
-.reserved {
-  position: absolute;
-  top: none;
-  right: 3%;
-  bottom: 12%;
-  left: none;
-}
 
 .product-item-img:hover {
   width: 105%;
@@ -717,7 +710,7 @@
   background-color: white;
   width: 20%;
   right: 10%;
-  height: 50%;
+  height: 39%;
   top: 12rem;
   border: 2px solid orange;
   box-shadow: 5px 5px 10px grey;
@@ -741,14 +734,14 @@
 }
 
 .reserve-box table th {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
 .reserve-box table input {
   border: none;
   border-bottom: solid 2px orange;
-  background-color: rgb(240, 240, 240);
-  border: none;
+  background-color: white;
+  border: solid orange 1px;
   border-radius: 5px;
 }
 
