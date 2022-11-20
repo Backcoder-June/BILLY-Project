@@ -264,7 +264,6 @@ $(document).ready(function(){
         let messageFormContent = document.querySelectorAll('.message-content');
         let messageForm = document.querySelectorAll('.message-id-time-content');
         console.log(sessionId);
-        console.log(messageFormId[0].value);
      
 
         for(let i = 0; i<messageForm.length; i++){

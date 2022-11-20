@@ -200,6 +200,7 @@
 							${seqList.title}
 						</div>
 						<div>
+							<span>${seqList.region}</span>
 							<span>${seqList.writer} </span>|
 							<span>조회수 ${seqList.viewcount } </span>|
 							<span>${seqList.writingtime }</span>

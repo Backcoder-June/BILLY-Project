@@ -28,7 +28,8 @@
         <div class="content-container">
             
     	   <div class="chat-container">
-            <p class="chatTitle">Chat List</p>
+            <p class="chatTitle">Chat List<br>
+          <span id="noChat" >채팅내역이 없습니다.</span></p>
     		    <div class="chatlist-box">
      	 	    </div>
       	   </div>
@@ -56,7 +57,11 @@
             		opponent = sellerId; 
             	}
                 $(chatList).prepend('<div class=chat-list-box chatMessageInfo' + i + '><div class="chatbox wrapPr_img"><img height=100% width=67 class="chatbox-img" src="/upload/' + img1 + '"><a href="/chatRoom/' + pr_id + '/' + buyerId  + '"><div class=chat-title>'+ pr_title+'</div><div class=chat-name><span style="color:orange; font-size:15px; font-weight : bold;">'+ opponent + '</span>  님 과의 채팅방'+'</div> <div class="wrapSellerTitle' + i +'"></div></div>');
+                
+                
             }
+            
+            
     
             //페이지가 로드되는 시점 한 번만 출력하면 되는 div, img를 출력하는 메서드
             // function addChatDivImg(idx, pr_id, buyerId, pr_title, img1) {
@@ -78,7 +83,6 @@
                     contentType: "application/json",
                  
                     success: function (data) {
-    
                         var parsed = JSON.parse(data);
                         var length = parsed.chatList.length;
                         for (var i = 0; i < length; i++) {
