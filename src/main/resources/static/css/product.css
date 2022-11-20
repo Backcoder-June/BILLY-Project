@@ -835,6 +835,10 @@
   font-size: 16px;
 }
 
+.product-insert-table input:focus {
+  border: 2px solid white;	
+}
+
 .product-insert-table textarea {
   width: 100%;
   margin-top: 0.5rem;

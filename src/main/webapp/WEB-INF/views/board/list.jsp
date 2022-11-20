@@ -85,6 +85,17 @@
 
             <div class="list-container">
                 <p class="mb-5 list-title">커뮤니티</p>
+                   <!-- 검색 -->
+                <form action="boardSearch" class="list-search-form">
+                    <select class="list-search-form-select" name="searchOption" id="searchOption">
+                        <option id = "searchByAll">전체</option>
+                        <option id = "searchByTitle">제목</option>
+                        <option id = "searchByWriter">작성자</option>
+                    </select>
+                    <input class="list-search-form-input" style="width:300px; " type="text" name="boardsearch" id="boardsearch">
+                    <input class="list-search-form-button" type="submit" value="검색">
+        		<a class="list-search-form-write-button" id="community" href="boardwrite">글쓰기</a>
+                </form>
                 
                     <div class="list-clean-box">
                         <a href="boardlist" id="boardlist">내 동네</a>
@@ -98,6 +109,7 @@
                         <td  style="width : 10%" >번호</td>
                         <td style="width : 15%" ></td>
                         <td >제목</td>
+                        <td style="width : 10%">동네</td>
                         <td style="width : 10%">작성자</td>
                         <td style="width : 10%">작성시간</td>
                 
@@ -110,15 +122,16 @@
 
                             <td>${board.seq }</td>
                             <c:if test="${empty board.img }">
-                            <td><img width=50 height=50
+                            <td><img width=100 height=100
                                 src="/pictures/noimg.png"></td>
 							</c:if>
                             <c:if test="${!empty board.img }">
-                            <td><img width=50 height=50
+                            <td><img width=100 height=100
                                 src="/upload/${board.img }"></td>
 							</c:if>
                             <td><a href="boarddetail?seq=${board.seq }">${board.title }</a>
                             </td>
+                            <td>${board.region }</td>
                             <td>${board.writer }</td>
                             <fmt:parseDate value="${board.writingtime}" var="now" pattern="yyyy-MM-dd" />
                             <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="currentForm" />
@@ -130,21 +143,11 @@
                 </table>
                  </div>
                  
-                 <!-- 검색 -->
-                <form action="boardSearch" class="list-search-form">
-                    <select class="list-search-form-select" name="searchOption" id="searchOption">
-                        <option id = "searchByAll">전체</option>
-                        <option id = "searchByTitle">제목</option>
-                        <option id = "searchByWriter">작성자</option>
-                    </select>
-                    <input class="list-search-form-input" type="text" name="boardsearch" id="boardsearch">
-                    <input class="list-search-form-button" type="submit" value="검색">
-        		<a class="list-search-form-write-button" id="community" href="boardwrite">글쓰기</a>
-                </form>
+              
         		
         		
                 
-                <div class="mt-2">
+                <div class="mt-2 pagingNum">
             <% int totalPage = (Integer)request.getAttribute("totalPage");
             if(request.getAttribute("option").equals("normal")){
 				for(int i = 1; i<=totalPage; i++){ %>
@@ -159,14 +162,9 @@
                 
                 </div>
             </div>
-
-
-
-
-
         </div>
     </div>
-
+   
                 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
                     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
                     crossorigin="anonymous"></script>
