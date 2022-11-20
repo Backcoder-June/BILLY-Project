@@ -47,7 +47,6 @@
                     <div class="mypage-title">내 물건</div>
                     <div class="mypage-title">내가 쓴 글</div>
                     <div class="mypage-title">찜리스트</div>
-                    <div class="mypage-title">탈퇴하기</div>
                 </div>
                 <div class="mypage-container-inner-box">
                     <p class="myproduct-box-title">${member.name } 님의 정보</p>
@@ -80,7 +79,7 @@
                         <!-- <input class="mypage-info-button" type="button" onclick="location.href='delete'" value="회원탈퇴"> -->
                         <input class="mypage-info-button" type="button" onclick="location.href='passwordModify'"
                             value="비밀번호 변경">
-                        <input class="mypage-info-button" type="button" onclick="back()" value="뒤로">
+                        <input class="mypage-info-button" type="button" onclick="location.href='delete'" value="회원탈퇴">
                     </div>
                 </div>
 
@@ -149,7 +148,6 @@
                         }
                     </script>
                 </div>
-                <!-- 찜목록 div 정훈님작업 -->
 
                 <div class="mypage-container-inner-box close">
                     <p class="myproduct-box-title">찜 리스트</p>
@@ -182,12 +180,7 @@
                 </div>
 
 
-                <div class="mypage-container-inner-box close">
-                    <p class="myproduct-box-title">탈퇴하기</p>
-                    <jsp:include page="/WEB-INF/views/mypage/delete.jsp">
-                        <jsp:param value="false" name="mypage" />
-                    </jsp:include>
-                </div>
+             
        	    </div>
         </div>
     </div>
