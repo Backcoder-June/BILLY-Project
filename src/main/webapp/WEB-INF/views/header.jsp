@@ -131,7 +131,7 @@
 					<div>
 					<a  class="manager-button"  href="/admin_memlist">관리자</a>
 					</div>
-					<a href="/mypage" class="mypage">마이페이지 </a>
+					<a href="/mypage" class="mypage">마이페이지</a>
 					<a id="logoutchk" href="/logout">로그아웃</a>
 					<% } %>
 		</div>

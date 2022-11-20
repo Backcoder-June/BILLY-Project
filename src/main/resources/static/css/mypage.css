@@ -235,10 +235,16 @@ li {
 .mypage-delete-title {
   width: 100%;
   font-size: 1rem;
+  text-align: center;
 }
 
 .mypage-delete-box {
-  width: 25rem;
+ width: 25rem;
+ display:inline-block;
+ margin-top: 20rem;
+ background-color: white;
+ padding: 2rem;
+ border: solid 2px #6462cb;
 }
 
 .form-group {

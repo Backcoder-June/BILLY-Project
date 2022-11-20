@@ -28,7 +28,7 @@
         <div class="content-container">
             
     	   <div class="chat-container">
-            <p class="chatTitle">Connect List</p>
+            <p class="chatTitle">Chat List</p>
     		    <div class="chatlist-box">
      	 	    </div>
       	   </div>

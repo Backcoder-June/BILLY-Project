@@ -243,7 +243,7 @@ if(storageCoords != "" && storageCoords != null){
 		if(map.innerText == ""){
 		map.style.transform = 'translateX(0px)';
 		map2.style.transform = 'translateX(0px)';
-		alert('위치가 선택되지 않았습니다.')
+		alert('약속장소를 정해주세요.')
 		}else{
 			if(count%2 !=0 ){
 				setTimeout(()=>{
