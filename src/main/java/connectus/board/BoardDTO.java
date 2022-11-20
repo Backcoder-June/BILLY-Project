@@ -7,13 +7,14 @@ public class BoardDTO {
 	private int viewcount;
 	private String writingtime;
 	private String img;
+	private String region;
    
    
    
    
 public BoardDTO() {}  
 public BoardDTO(int seq, String title, String contents, String writer, String pw, int viewcount, String writingtime,
-		String img) {
+		String img, String region) {
 	this.seq = seq;
 	this.title = title;
 	this.contents = contents;
@@ -22,6 +23,15 @@ public BoardDTO(int seq, String title, String contents, String writer, String pw
 	this.viewcount = viewcount;
 	this.writingtime = writingtime;
 	this.img = img;
+	this.region = region;
+}
+
+
+public String getRegion() {
+	return region;
+}
+public void setRegion(String region) {
+	this.region = region;
 }
 public String getImg() {
 	return img;

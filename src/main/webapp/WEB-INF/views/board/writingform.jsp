@@ -31,18 +31,24 @@
 		<a href="/boardlist">리스트보기</a>
 		<!-- content-section -->
 		<div class="content-container">
+		
+			<div class="list-title" style="margin-left:1rem; margin-top: -3rem; margin-bottom: 1rem; border:none;width:70%;">커뮤니티</div>
+		
+		
 			<!-- 본문 -->
 			<div class="list-container">
 
 				<form class="write-form" action="boardwrite" method="post" enctype="multipart/form-data">
-					<input class="write-form-title mb-2" type=text name="title" placeholder="Title" required>
+					<input class="write-form-title mb-2" type=text name="title" placeholder="제목을 입력하세요" required>
+					
+					<textarea class="write-form-textarea"  rows=14 name="contents" placeholder="본문"></textarea>
+					<input class="write-form-region mt-2 mb-2" type=text name="region" placeholder="동네" value="${region }" readonly>
+					<input type=text name="writer" placeholder="Writer" value="${sessionid }" readonly style="display:none;">
 					<label class="list-write-file-button" for="file1">파일선택</label>
 					<input id="file1" type="file" name="file1" class="close">
 					<p>사진은 *.png, *.jpeg만 가능합니다</p>
-					<textarea class="write-form-textarea"  rows=10 name="contents" placeholder="내용을 입력하세요."></textarea>
-					<input class="write-form-writer mt-2 mb-2" type=text name="writer" placeholder="Writer" value="${sessionid }" readonly>
 					<br>
-					<input id="register" class="write-form-button" type=submit value="글쓰기">
+					<input id="register" class="write-form-button" type=submit value="작성완료">
 				</form>
 			</div>
 		</div>

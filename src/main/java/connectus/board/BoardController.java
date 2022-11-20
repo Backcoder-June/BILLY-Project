@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import connectus.member.MemberDAO;
 import connectus.product.ProductService;
 
 
@@ -34,6 +35,8 @@ public class BoardController {
 	BoardService boardService;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	MemberDAO memberDAO;
 	
 	// 전체 게시판 
 	@GetMapping("/boardList")
@@ -61,16 +64,23 @@ public class BoardController {
 
 	
 	@GetMapping("/boardwrite")
-	public String writingform(Model model) {
+	public String writingform(Model model, HttpSession session) {
+		String region = "동";
+		String sessionid = (String)session.getAttribute("sessionid");
+		// 지역 set 
+		if(sessionid != null) {
+		String extraaddr = memberDAO.getRegion(sessionid);
+		region = extraaddr;
+		}
 		// 검색랭킹 
 		List<String> searchLankingList = productService.searchLanking();				
 		model.addAttribute("searchLankingList", searchLankingList);
+		model.addAttribute("region", region);
 		return "board/writingform";
 	}
 	
 	@PostMapping("/boardwrite")
 	public String writingprocess(@RequestParam(value="page", required = false, defaultValue = "1") int page, BoardDTO dto, MultipartFile file1) throws IOException {
-
 		String savePath = "c:/upload/";
 
 		String newname = null;
