@@ -442,7 +442,7 @@
                 <div class="zzimproduct-list-container">
 
                     <div class="zzimproduct-list-box">
-                        <p class="zzim-title" id="zzimListLink">찜 리스트<a class="zzim-link"
+                        <p class="zzim-title" id="zzimListLink">BILLY 리스트<a class="zzim-link"
                                 href="/mypage?zzimListLink=1">🧡</a></p>
                         <div id="zzimProducts" class="zzim-product">
                             <c:forEach items="${zzimProducts}" var="zzimProduct" varStatus="status">

@@ -281,18 +281,11 @@ public class BoardController {
 	}
 
 	@PostMapping("/boardupdate/{boardid}")
-	String updateBoardprocess(@PathVariable("boardid")int seq, BoardDTO dto, MultipartFile file1 ) throws IllegalStateException, IOException {
-		
-
-
-//		String savePath = "/Users/youngban/upload/";
+	String updateBoardprocess(@PathVariable("boardid")int seq, BoardDTO dto, MultipartFile file1) throws IllegalStateException, IOException {
 		String savePath = "c:/upload/";
 
-
 		String newname = null;
-//		System.out.println(file1);
 		if(!file1.isEmpty()) {
-			
 			String originalname1 = file1.getOriginalFilename(); //a.txt
 			String onlyfilename = originalname1.substring(0, originalname1.indexOf("."));
 			String extname = originalname1.substring(originalname1.indexOf(".")); // .txt
@@ -301,6 +294,8 @@ public class BoardController {
 			file1.transferTo(servefile1);
 			dto.setImg(newname);
 		}
+		
+		
 		
 		boardService.updateBoard(dto);
 		

@@ -93,7 +93,7 @@ $(document).ready(function(){
   $("#updatebtn").on("click", function (e){
     if(!confirm("게시글을 수정하시겠습니까?")){
       e.preventDefault();
-    }else {alert("수정이 완료되었습니다.")}
+    }
   }); //on updatebutton
 
  

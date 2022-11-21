@@ -79,8 +79,6 @@ public class BoardService {
 	  }
 	  
 	  public List<BoardDTO> getMyRegionSearchList(HashMap<String, String> map) {
-		  System.out.println("서비스 region : " + map.get("region"));
-		  System.out.println("서비스 search : " + map.get("boardsearch"));
 		  return boardDAO.getMyRegionSearchList(map);
 	  }
 	  

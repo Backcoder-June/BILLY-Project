@@ -29,7 +29,10 @@ integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+f
                 <textarea class="write-form-textarea mt-2"  rows=10 name="contents" >${updated_board.contents }</textarea>
                 <label class="list-update-file-button" for="file1">파일선택</label>
                 <input class="close" id="file1" type="file" name="file1">
-                <input class="write-form-button"  type="submit" class="update-button" value="수정완료">
+                <input id="img" type="text" name="img" style="display:none;">
+                <input id="boardImgTitle" name="boardImgTitle" class="boardImg-Title" type="text" style="display:unset" readonly>
+				<input id="Cancel-boardImg-Title" type="button" value="취소">
+                <input id="updatebtn" class="write-form-button"  type="submit" class="update-button" value="수정완료">
             </form>
         </div>
 
@@ -38,6 +41,42 @@ integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+f
 
         </div>
         </div>
+        
+<script>
+var img1 = '${updated_board.img}';
+
+//수정 확인 
+$("#updatebtn").on("click", function (e){
+	
+  if(!confirm("게시글을 수정하시겠습니까?")){
+    e.preventDefault();
+  }
+}); //on updatebutton
+
+
+//이미지 선택 시 표기 
+$("#file1").change(function(e) {
+	  let img1 = $("#file1").val();
+	  $("#boardImgTitle").val(img1);
+});
+
+// 이미지 선택 취소 
+$("#Cancel-boardImg-Title").on("click", function(){
+$("#file1").val("");
+$("#boardImgTitle").val("");
+$("#img").val("");
+});
+
+
+// 기존 이미지 file 에 등록 
+if(img1 != ""){
+	  $("#img").val(img1);
+	  let onlyImgName = img1.substring(0,img1.indexOf("(")) + img1.substring(img1.indexOf(")")+1) ;
+	  $("#boardImgTitle").val(onlyImgName);
+	  }
+	  
+
+</script>        
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

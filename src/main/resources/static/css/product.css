@@ -140,16 +140,16 @@
 
 .zzim-title {
   width: 150%;
-  height: 2rem;
-  border: solid rgb(255,133,133) 3px;
+  height: 3rem;
+  border: solid rgb(247,99,12) 3px;
   border-radius: 5px;
   background-color: white;
   color: black;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 600;
   position: relative;
 }
 
@@ -208,7 +208,7 @@
 }
 
 .zzim-product::-webkit-scrollbar-thumb {
-  background-color: rgb(255,133,133);
+  background-color: rgb(247,99,12);
   border-radius: 10px;
 }
 
