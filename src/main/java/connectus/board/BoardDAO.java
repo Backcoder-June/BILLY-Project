@@ -20,8 +20,13 @@ public interface BoardDAO {
 	  public int insertBoard(BoardDTO dto);
 
 	  public int getTotalBoard();
+	  
+	  public int getMyRegionTotalBoard(String region);
 	
 	  public List<BoardDTO> pagingList(int limit);
+	  
+	  public List<BoardDTO> myRegionPagingList(int limit, String region);
+	  
 	  
 	  public int updateSeq(int seq);
 	  
@@ -45,13 +50,27 @@ public interface BoardDAO {
 	  
 	  public int getTotalWriterBoard2(String searchVal);
 	  
+	  // 검색
 	  public int getSearchCount(HashMap<String, String> map);
+	  
+	  public int getMyRegionSearchCount(HashMap<String, String> map);
+	  
+	  public List<BoardDTO> getSearchList(HashMap<String, String> map);
+	  
+	  public List<BoardDTO> getMyRegionSearchList(HashMap<String, String> map);
+	  
+	
+
+	  
 	  
 	  public int getSearchByAllCount(String boardsearch);
 	  
-	  public List<BoardDTO> getSearchList(HashMap<String, String> map);
+	  public int getMyReionSearchByAllCount(String boardsearch, String region);
+	  
 
 	  public List<BoardDTO> getSearchListByAll(String boardsearch, int limit);
+	  
+	  public List<BoardDTO> getMyRegionSearchListByAll(String boardsearch, int limit, String region);
 	  
 	  
 	  

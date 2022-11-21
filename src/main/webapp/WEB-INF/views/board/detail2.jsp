@@ -46,16 +46,6 @@
 
                  /* + "<input class='updateContents type='hidden' name='updateContents' value=" + item.updateContents +">" */
                  + (sessionId == item.writer ? "<input class='updateBtn' type='button' value='수정'><input class='deleteBtn' type='button' value='삭제'><input type=hidden id=comment_seq value=" + item.comment_seq + ">" : "")
-
-
-                 //ajax비동기 부분 추가 새로고침 건너고
-
-
-
-
-
-
-
               );
            });
         },
@@ -104,7 +94,7 @@
 									: (res.secret != 1 ? "<p class='contents'>" + res.contents + "</p>" : ""))
 
 								+ "<input class='commentSeq' type='hidden' name='commentSeq' value=" + res.commentSeq + ">"
-// === 여기 수정삭제 버튼 입니다 ===
+// 수정삭제 버튼 
 								+ (sessionId == res.writer ? "<input class='updateBtn' type='button' value='수정'><input class='deleteBtn' type='button' value='삭제'>" : "")
 							);
 							$("#commentNum").html("댓글 " + listNum);
@@ -185,12 +175,11 @@
 
 	<div class="main-container">
 		<!-- header-section -->
-		<jsp:include page="/WEB-INF/views/header.jsp">
-			<jsp:param value="false" name="mypage" />
-		</jsp:include>
+		<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 		<!-- content-section -->
 		<div class="content-container">
 			<div class="list-container">
+			<p class="mb-1 list-title"><a class="list-title" href="/boardList">커뮤니티</a></p>
 
 
 				<div class="detail-box">
@@ -216,11 +205,10 @@
 						</div>
 					</div>
 					<div class="detail-content-box">
-						<div>
-							<img alt="사진이 없어요" width=200 height=200 src="/upload/${seqList.img }">
-						</div>
-						
-						${seqList.contents }
+						<div class="boardImg">
+							<img alt="사진이 없어요" width=100% height=100% src="/upload/${seqList.img }">
+					</div>
+						<textarea class="boardContent" disabled>${seqList.contents }</textarea>
 					</div>
 
 				</div>

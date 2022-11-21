@@ -86,20 +86,21 @@
             <div class="list-container">
                 <p class="mb-5 list-title"><a class="list-title" href="/boardList">커뮤니티</a></p>
                    <!-- 검색 -->
-                <form action="boardSearch" class="list-search-form">
+                <form action="myRegionBoardSearch" class="list-search-form">
                     <select class="list-search-form-select" name="searchOption" id="searchOption">
                         <option id = "searchByAll">전체</option>
                         <option id = "searchByTitle">제목</option>
                         <option id = "searchByWriter">작성자</option>
                     </select>
                     <input class="list-search-form-input" style="width:300px; " type="text" name="boardsearch" id="boardsearch">
+                    <input type="text" name="region" value="${region }" style="display:none;">
                     <input class="list-search-form-button" type="submit" value="검색">
         		<a class="list-search-form-write-button" id="community" href="boardwrite">글쓰기</a>
                 </form>
                 
                     <div class="list-clean-box">
                         <a href="boardList" id="boardlist">전체</a>
-                        <a href="myRegionboardList" id="boardlist">내 동네</a>
+                        <a href="myRegionboardList?region=${region }" id="boardlist">내 동네</a>
                         <a href="boardSearch" id="boardlist">주변 동네</a>
                     </div>
                     <div class="list-table mt-1 mb-3">
@@ -151,11 +152,11 @@
             <% int totalPage = (Integer)request.getAttribute("totalPage");
             if(request.getAttribute("option").equals("normal")){
 				for(int i = 1; i<=totalPage; i++){ %>
-			<a href="boardList?page=<%=i%>" ><%=i%></a>
+			<a href="myRegionboardList?page=<%=i%>" ><%=i%></a>
 			<%}
 			}else if(request.getAttribute("option").equals("search")){
 				for(int i = 1; i<=totalPage; i++){ %>
-				<a href="boardSearch?page=<%=i%>&searchOption=<%=request.getAttribute("searchOption")%>&boardsearch=<%=request.getAttribute("boardsearch")%>" ><%=i%></a>
+				<a href="myRegionBoardSearch?region=${region }&page=<%=i%>&searchOption=<%=request.getAttribute("searchOption")%>&boardsearch=<%=request.getAttribute("boardsearch")%>" ><%=i%></a>
 			<%} 
 			}%>
                 
