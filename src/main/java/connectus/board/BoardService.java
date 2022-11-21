@@ -26,14 +26,20 @@ public class BoardService {
 	}
 	
 	public int getTotalBoard() {
-
 		return boardDAO.getTotalBoard();
 	}
 	
+	public int getMyRegionTotalBoard(String region) {
+		return boardDAO.getMyRegionTotalBoard(region);
+	}
+	
+	
 	public List<BoardDTO> pagingList(int limit) {
 		return boardDAO.pagingList(limit);
-
-
+	}
+	
+	public List<BoardDTO> myRegionPagingList(int limit, String region) {
+		return boardDAO.myRegionPagingList(limit, region);
 	}
 	
 
@@ -58,22 +64,46 @@ public class BoardService {
 		  return boardDAO.pagingWriterList(limit); }
 
 
+	  
+	  
 	  public int getSearchCount(HashMap<String, String> map) {
 		  return boardDAO.getSearchCount(map);
 	  }
+	  
+	  public int getMyRegionSearchCount(HashMap<String, String> map) {
+		  return boardDAO.getMyRegionSearchCount(map);
+	  }
+	  
+	  public List<BoardDTO> getSearchList(HashMap<String, String> map) {
+		  return boardDAO.getSearchList(map);
+	  }
+	  
+	  public List<BoardDTO> getMyRegionSearchList(HashMap<String, String> map) {
+		  System.out.println("서비스 region : " + map.get("region"));
+		  System.out.println("서비스 search : " + map.get("boardsearch"));
+		  return boardDAO.getMyRegionSearchList(map);
+	  }
+	  
+	  
 	  
 	  public int getSearchByAllCount(String boardsearch) {
 		  return boardDAO.getSearchByAllCount(boardsearch);
 	  }
 	  
-	  public List<BoardDTO> getSearchList(HashMap<String, String> map){
-		  return boardDAO.getSearchList(map);
+	  public int getMyReionSearchByAllCount(String boardsearch, String region) {
+		  return boardDAO.getMyReionSearchByAllCount(boardsearch, region);
 	  }
+	  
+	  
+	  
 
-	  public List<BoardDTO> getSearchListByAll(String boardsearch, int limit){
+	  public List<BoardDTO> getSearchListByAll(String boardsearch, int limit) {
 		  return boardDAO.getSearchListByAll(boardsearch, limit);
 	  }
 	  
+	  public List<BoardDTO> getMyRegionSearchListByAll(String boardsearch, int limit, String region) {
+		  return boardDAO.getMyRegionSearchListByAll(boardsearch, limit, region);
+	  }
 
 	
 

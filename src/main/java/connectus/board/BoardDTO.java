@@ -3,7 +3,6 @@ package connectus.board;
 public class BoardDTO {
 	private int seq;
 	private String title, contents, writer;
-	private String pw;
 	private int viewcount;
 	private String writingtime;
 	private String img;
@@ -13,13 +12,12 @@ public class BoardDTO {
    
    
 public BoardDTO() {}  
-public BoardDTO(int seq, String title, String contents, String writer, String pw, int viewcount, String writingtime,
+public BoardDTO(int seq, String title, String contents, String writer, int viewcount, String writingtime,
 		String img, String region) {
 	this.seq = seq;
 	this.title = title;
 	this.contents = contents;
 	this.writer = writer;
-	this.pw = pw;
 	this.viewcount = viewcount;
 	this.writingtime = writingtime;
 	this.img = img;
@@ -63,12 +61,7 @@ public String getWriter() {
 public void setWriter(String writer) {
 	this.writer = writer;
 }
-public String getPw() {
-	return pw;
-}
-public void setPw(String pw) {
-	this.pw = pw;
-}
+
 public int getViewcount() {
 	return viewcount;
 }
@@ -83,7 +76,7 @@ public void setWritingtime(String writingtime) {
 }
 @Override
 public String toString() {
-	return "BoardDTO [seq=" + seq + ", title=" + title + ", contents=" + contents + ", writer=" + writer + ", pw=" + pw
+	return "BoardDTO [seq=" + seq + ", title=" + title + ", contents=" + contents + ", writer=" + writer
 			+ ", viewcount=" + viewcount + ", writingtime=" + writingtime + ", img=" + img + "]";
 }
    

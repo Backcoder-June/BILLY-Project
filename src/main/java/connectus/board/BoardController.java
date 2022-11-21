@@ -38,9 +38,11 @@ public class BoardController {
 	@Autowired
 	MemberDAO memberDAO;
 	
-	// 전체 게시판 
+	// 전체 리스트
 	@GetMapping("/boardList")
-	public String boardList(Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
+	public String boardList(Model model, HttpSession session, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
+
+		
 		int totalboard = boardService.getTotalBoard();
 		
 		int totalPage = page;
@@ -54,13 +56,48 @@ public class BoardController {
 		List<BoardDTO> boardlst = boardService.pagingList((page-1)*10);
 		// 검색랭킹 
 		List<String> searchLankingList = productService.searchLanking();
-				
+
 		model.addAttribute("option", "normal");
 		model.addAttribute("boardlst", boardlst);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("searchLankingList", searchLankingList);
 		return "board/list";
 	}
+	
+	// 내 동네 리스트
+		@GetMapping("/myRegionboardList")
+		public String myRegionList(Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page, HttpSession session) {
+			String region = "동";
+			String sessionid = (String)session.getAttribute("sessionid");
+			// 지역 set 
+			if(sessionid != null) {
+			String extraaddr = memberDAO.getRegion(sessionid);
+			region = extraaddr;
+			}
+			int totalboard = boardService.getMyRegionTotalBoard(region);
+			
+			int totalPage = page;
+			if(totalboard % 10 == 0) {
+				totalPage = totalboard/10;  
+			}else {
+				totalPage = totalboard/10 + 1; 
+			}
+			
+		
+			List<BoardDTO> boardlst = boardService.myRegionPagingList((page-1)*10, region);
+			// 검색랭킹 
+			List<String> searchLankingList = productService.searchLanking();
+			
+			model.addAttribute("region", region);
+			model.addAttribute("option", "normal");
+			model.addAttribute("boardlst", boardlst);
+			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("searchLankingList", searchLankingList);
+			return "board/myRegionList";
+		}
+
+	
+	
 
 	
 	@GetMapping("/boardwrite")
@@ -104,7 +141,6 @@ public class BoardController {
 	// 검색 
 	@GetMapping("/boardSearch")
 	public String boardSearch(String boardsearch, String searchOption, Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
-		
 		List<BoardDTO> boardlst = new ArrayList<>();
 		int totalboard = 0; 
 		if(searchOption.equals("전체")) {
@@ -144,6 +180,57 @@ public class BoardController {
 		model.addAttribute("searchLankingList", searchLankingList);
 		return "board/list";
 	}
+	
+	// 내 동네 + 검색 
+		@GetMapping("/myRegionBoardSearch")
+		public String myRegionboardSearch(String region, String boardsearch, String searchOption, Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
+			List<BoardDTO> boardlst = new ArrayList<>();
+			int totalboard = 0; 
+			if(searchOption.equals("전체")) {
+				boardlst = boardService.getMyRegionSearchListByAll(boardsearch, (page-1)*10, region);
+				totalboard = boardService.getMyReionSearchByAllCount(boardsearch, region);
+			}else {
+				if(searchOption.equals("제목")) {
+					searchOption = "title";
+				}else if(searchOption.equals("작성자")) {
+					searchOption = "writer";
+				}
+				
+				
+				HashMap map = new HashMap<>();
+				map.put("searchOption", searchOption);
+				map.put("boardsearch", boardsearch);
+				map.put("limit", (page-1)*10);
+				map.put("region", region);
+				
+				totalboard = boardService.getMyRegionSearchCount(map);
+				boardlst = boardService.getMyRegionSearchList(map);
+			}
+				
+			int totalPage = page;
+			if(totalboard % 10 == 0) {
+				totalPage = totalboard/10;  
+			}else {
+				totalPage = totalboard/10 + 1; 
+			}
+			
+			// 검색랭킹 
+			List<String> searchLankingList = productService.searchLanking();
+			
+			model.addAttribute("region", region);
+			model.addAttribute("searchOption", searchOption);
+			model.addAttribute("boardsearch", boardsearch);
+			model.addAttribute("option", "search");
+			model.addAttribute("boardlst", boardlst);
+			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("searchLankingList", searchLankingList);
+			return "board/myRegionList";
+		}
+	
+	
+	
+	
+	
 	
 	// 상세페이지
 	@GetMapping("/boarddetail")

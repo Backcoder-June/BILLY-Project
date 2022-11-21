@@ -25,7 +25,7 @@
 
 .chatlist-box {
   width: 50%;
-  height: 500px;
+  height: 40rem;
   padding: 1%;
   padding-right: 2%;
   overflow: auto;
@@ -37,12 +37,12 @@
 }
 
 .chatlist-box::-webkit-scrollbar-track {
-  background-color: #b0b0c0;
+  background-color: silver;
   border-radius: 10px;
 }
 
 .chatlist-box::-webkit-scrollbar-thumb {
-  background-color: #6462cb;
+  background-color: rgb(133,133,133);
   border-radius: 10px;
 }
 

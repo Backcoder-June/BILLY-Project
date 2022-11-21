@@ -3,53 +3,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="connectus.board.BoardDAO" >
 	<insert id="insertBoard" parameterType="boarddto">
-		insert into BOARD(title, contents, writer, pw, viewcount, writingtime, img, region)
-		values(#{title}, #{contents}, #{writer}, #{pw}, 0, now(), #{img}, #{region})
+		insert into BOARD(title, contents, writer, viewcount, writingtime, img, region)
+		values(#{title}, #{contents}, #{writer}, 0, now(), #{img}, #{region})
 	</insert>
 		
 	<select id="getTotalBoard" resultType="int">
 		select count(*) from BOARD
 	</select>
 	
-	<select id="getTitleCount" parameterType="String" resultType="int">
-		select count(1) from BOARD order by seq desc
+	<select id="getMyRegionTotalBoard" resultType="int">
+		select count(*) from BOARD where region = #{region}
 	</select>
-	
-	<select id="getWriterCount" parameterType="String" resultType="int">
-		select count(1) from BOARD order by seq desc
-	</select>
-	
-	<select id="getTotalBoard2" resultType="int" parameterType="String">
-		select count(1) from BOARD where contents = #{contents}
-	</select>
-	
-	<select id="getTotalTitleBoard2" resultType="int" parameterType="String">
-		select count(1) from BOARD where title = #{title}
-	</select>
-	
-	<select id="getTotalWriterBoard2" resultType="int" parameterType="String">
-		select count(1) from BOARD where writer = #{writer}
-	</select>
-	
 	
 	<select id="pagingList" resultType="boarddto"  >
 	select * from BOARD order by writingtime desc limit #{limit}, 10
 	</select>
 	
-	<select id="pagingTitleList" resultType="boarddto"  >
-	select * from BOARD order by title asc, writingtime desc limit 
-	<foreach collection="array" item="num" separator=",">
-	#{num}
-	</foreach>
+	<select id="myRegionPagingList" resultType="boarddto"  >
+	select * from BOARD where region = #{region}  
+	order by writingtime desc limit #{limit}, 10
 	</select>
 	
-	<select id="pagingWriterList" resultType="boarddto"  >
-	select * from BOARD order by writer asc, writingtime desc limit 
-	<foreach collection="array" item="num" separator=",">
-	#{num}
-	</foreach>
-	</select>
-	
+
 	<update id="updateSeq" parameterType="int">
 		update BOARD set viewcount = viewcount + 1 where seq = #{seq}
 	</update>
@@ -76,24 +51,57 @@
 	</update>
 	
 	
+	<!-- 검색 -->
+	
 	<select id="getSearchCount" resultType="int" parameterType="hashMap">
 	select count(*) from BOARD where ${searchOption} like concat('%', #{boardsearch}, '%')   
 	</select>
 	
-	<select id="getSearchByAllCount" resultType="int">
-	select count(*) from BOARD where title like concat('%', #{boardsearch}, '%')
-	or writer like concat('%', #{boardsearch}, '%')    
+	<select id="getMyRegionSearchCount" resultType="int" parameterType="hashMap">
+	select count(*) from BOARD where ${searchOption} like concat('%', #{boardsearch}, '%') and 
+	region = #{region}   
 	</select>
 	
 	<select id="getSearchList" resultType="boarddto" parameterType="hashMap">
 	select * from BOARD where ${searchOption} like concat('%', #{boardsearch}, '%')   
 	order by writingtime desc limit #{limit}, 10
 	</select>
+
+
+	<select id="getMyRegionSearchList" resultType="boarddto" parameterType="hashMap">
+	select * from BOARD where ${searchOption} like concat('%', #{boardsearch}, '%') and 
+	region = #{region}    
+	order by writingtime desc limit #{limit}, 10
+	</select>
+	
+		<select id="getSearchByAllCount" resultType="int">
+	select count(*) from BOARD where 
+	(title like concat('%', #{boardsearch}, '%')
+	or writer like concat('%', #{boardsearch}, '%')) 
+	</select>
+	
 	
 	<select id="getSearchListByAll" resultType="boarddto">
-	select * from BOARD 
-	where title like concat('%', #{boardsearch}, '%')
-	or writer like concat('%', #{boardsearch}, '%')    
+	select * from BOARD where 
+	(title like concat('%', #{boardsearch}, '%')
+	or writer like concat('%', #{boardsearch}, '%')) 
+	order by writingtime desc limit #{limit}, 10
+	</select>
+
+	
+	<select id="getMyReionSearchByAllCount" resultType="int">
+	select count(*) from BOARD where 
+	(title like concat('%', #{boardsearch}, '%')
+	or writer like concat('%', #{boardsearch}, '%')) 
+	and region = #{region} 
+	</select>
+	
+	
+	<select id="getMyRegionSearchListByAll" resultType="boarddto">
+	select * from BOARD where 
+	(title like concat('%', #{boardsearch}, '%')
+	or writer like concat('%', #{boardsearch}, '%')) 
+	and region = #{region}    
 	order by writingtime desc limit #{limit}, 10
 	</select>
 	
