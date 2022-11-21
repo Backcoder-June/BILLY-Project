@@ -18,11 +18,13 @@
     <title>BILLY</title>
     <link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
     <script>
-        //검색 조건 설정
+        //검색 조건 유지 
         $(document).ready(function () {
         	let boardsearch = '${boardsearch}';
         	let searchOption = '${searchOption}';
 			let option = '${option}';
+         	let sessionId = '${sessionScope.sessionid}'; 	
+
         	
         if(option=='search'){	
         	if(searchOption == '전체'){
@@ -37,34 +39,25 @@
         }	
 
         
-        
-            $("#search_icon").on('click', function () {
-                location.href = "boardContent";
-            }); // search on click 
-
             
          	$("#community").on('click', function (e) { 
-             	let sessionId = '${sessionScope.sessionid}'; 	
                 if (sessionId == "") {
                 	e.preventDefault();
                     alert("로그인이 필요합니다.");
        				 }
-                 }); // community on click  
+            }); // community on click
+                 
 
+            $("#myRegionBoard").on('click', function (e) {
+            	  if (sessionId == "") {
+                  	e.preventDefault();
+                      alert("로그인이 필요합니다.");
+         		    }
+            }); // search on click                  
+
+                 
             
-            //글쓰기 권한 설정
-            
-            /*  function writeLink(){
-                  let sessionId = '${sessionScope.sessionid}'; 
-             	document.getElementById("register").addEventListener("click", writeLink);
-             
-             	if (sessionId == null) { 
-                     window.alert("로그인 먼저 하세요.");
-         	
-        				 }
-              	
-              	 
-             };  */
+         
             
         }); //onload 
     </script>
@@ -98,9 +91,9 @@
                 </form>
                 
                     <div class="list-clean-box">
-                        <a href="boardList" id="boardlist">전체</a>
-                        <a href="myRegionboardList" id="boardlist">내 동네</a>
-                        <a href="boardSearch" id="boardlist">주변 동네</a>
+                        <a href="boardList">전체</a>
+                        <a href="myRegionboardList" id="myRegionBoard">내 동네</a>
+                        <a href="boardSearch">주변 동네</a>
                     </div>
                     <div class="list-table mt-1 mb-3">
                 <table id="tableboard" style="width : 100%">
