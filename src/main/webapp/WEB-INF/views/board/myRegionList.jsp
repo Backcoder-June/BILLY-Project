@@ -87,7 +87,6 @@
                     <div class="list-clean-box">
                         <a href="boardList">전체</a>
                         <a href="myRegionboardList?region=${region }" id="myRegionBoard">내 동네</a>
-                        <a href="boardSearch">주변 동네</a>
                     </div>
                     <div class="list-table mt-1 mb-3">
                 <table id="tableboard" style="width : 100%">
@@ -135,22 +134,79 @@
         		
                 
                 <div class="mt-2 pagingNum">
+                <span id="pagingPrevious" style="cursor:pointer">◁</span>
             <% int totalPage = (Integer)request.getAttribute("totalPage");
             if(request.getAttribute("option").equals("normal")){
 				for(int i = 1; i<=totalPage; i++){ %>
-			<a href="myRegionboardList?page=<%=i%>" ><%=i%></a>
+			<a href="myRegionboardList?page=<%=i%>" id="pagingNum<%=i%>" ><%=i%></a>
 			<%}
 			}else if(request.getAttribute("option").equals("search")){
 				for(int i = 1; i<=totalPage; i++){ %>
-				<a href="myRegionBoardSearch?region=${region }&page=<%=i%>&searchOption=<%=request.getAttribute("searchOption")%>&boardsearch=<%=request.getAttribute("boardsearch")%>" ><%=i%></a>
+				<a id="pagingNum<%=i%>" href="myRegionBoardSearch?region=${region }&page=<%=i%>&searchOption=<%=request.getAttribute("searchOption")%>&boardsearch=<%=request.getAttribute("boardsearch")%>" ><%=i%></a>
 			<%} 
 			}%>
-                
-                
+			<span id="pagingNext" style="cursor:pointer">▷</span>
                 </div>
             </div>
         </div>
     </div>
+
+<script>
+// 페이징 Next, Previous 처리 
+var pagingNum = ${page};
+let totalPage = ${totalPage};
+let pagingSkip = 5;
+
+function paging(){
+	for(var i = pagingNum; i< pagingNum + pagingSkip; i++ ){
+	$("#pagingNum" + i).attr("style", "display:inline");
+	}
+	pagingSkipButtonRemover();
+	$("#pagingNum" + pagingNum).attr("style", "background-color: orange;");
+}
+
+function pagingSkipButtonRemover(){
+	if(pagingNum <= 1){
+		$("#pagingPrevious").attr("style", "display:none");
+	}
+	if(pagingNum > 1){
+		$("#pagingPrevious").attr("style", "display:inline; cursor:pointer;");
+	}
+	
+	if(pagingNum + pagingSkip > totalPage){
+		$("#pagingNext").attr("style", "display:none");
+	}
+	if(pagingNum + pagingSkip <= totalPage){
+		$("#pagingNext").attr("style", "display:inline; cursor:pointer;");
+	}
+}
+
+
+$("#pagingNext").on("click", function(){
+	for(var i = pagingNum; i< pagingNum + pagingSkip; i++ ){
+		$("#pagingNum" + i).attr("style", "display:none");
+		}
+	pagingNum = pagingNum + pagingSkip; 
+	paging();
+	pagingSkipButtonRemover();
+
+});
+
+$("#pagingPrevious").on("click", function(){
+	for(var i = pagingNum; i< pagingNum + pagingSkip; i++ ){
+		$("#pagingNum" + i).attr("style", "display:none");
+		}
+	pagingNum = pagingNum - pagingSkip; 
+	paging();
+	$("#pagingNum" + pagingNum).attr("style", "background-color: white;");
+	pagingSkipButtonRemover();
+});
+
+// 페이징 최초 실행 
+paging();
+
+
+</script>   
    
                 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
                     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

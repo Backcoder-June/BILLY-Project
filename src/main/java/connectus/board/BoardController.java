@@ -56,7 +56,8 @@ public class BoardController {
 		List<BoardDTO> boardlst = boardService.pagingList((page-1)*10);
 		// 검색랭킹 
 		List<String> searchLankingList = productService.searchLanking();
-
+		
+		model.addAttribute("page", page);
 		model.addAttribute("option", "normal");
 		model.addAttribute("boardlst", boardlst);
 		model.addAttribute("totalPage", totalPage);
@@ -87,7 +88,7 @@ public class BoardController {
 			List<BoardDTO> boardlst = boardService.myRegionPagingList((page-1)*10, region);
 			// 검색랭킹 
 			List<String> searchLankingList = productService.searchLanking();
-			
+			model.addAttribute("page", page);
 			model.addAttribute("region", region);
 			model.addAttribute("option", "normal");
 			model.addAttribute("boardlst", boardlst);
@@ -171,7 +172,7 @@ public class BoardController {
 		
 		// 검색랭킹 
 		List<String> searchLankingList = productService.searchLanking();
-		
+		model.addAttribute("page", page);
 		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("boardsearch", boardsearch);
 		model.addAttribute("option", "search");
@@ -216,7 +217,7 @@ public class BoardController {
 			
 			// 검색랭킹 
 			List<String> searchLankingList = productService.searchLanking();
-			
+			model.addAttribute("page", page);
 			model.addAttribute("region", region);
 			model.addAttribute("searchOption", searchOption);
 			model.addAttribute("boardsearch", boardsearch);
