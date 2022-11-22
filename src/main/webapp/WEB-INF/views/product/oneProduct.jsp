@@ -99,10 +99,11 @@
                 let intReservId = parseInt(eachReservId);
 
                 $("#reservCheck" + i).on("click", function (e) {
-                    if (sessionId == "") {
-                        alert("로그인이 필요합니다.");
+                    if (sessionId == "" || sessionId != userId) {
+                        alert("해당 물건의 주인만 가능합니다.");
                         return false;
                     }
+               
 
                     $.ajax({
                         type: "POST",
@@ -438,10 +439,8 @@
                         <th>예약종료</th>
                         <th>희망비용</th>
                         <th>빌리는사람</th>
-                       <c:if test="${sessionid == oneProduct.userId }">
                         <th>렌탈 확정</th>
                         <th></th>
-                        </c:if>
                     </tr>
     
                     <c:forEach items="${reservationList}" var="reserv" varStatus="vs">
@@ -467,8 +466,8 @@
                             <td>${reserv.endRental}</td>
                             <td>${ReservPriceFormat}원</td>
                             <td>${reserv.buyerId}</td>
-                            <c:if test="${sessionid == oneProduct.userId }">
                             <th><span id="reservCheck${vs.index}">${reservation}</span></th>
+                            <c:if test="${sessionid == oneProduct.userId }">
                             <th><span id="reservDelete${vs.index}"><button class="reserved-delete">삭제하기</button></span></th>
                             </c:if>
                             
@@ -512,6 +511,7 @@
 
 
     <script>
+    // 예약박스, 주의사항박스 
         let reservedButton = document.querySelector('.oneproduct-reserved-title-button');
         let cautionButton = document.querySelector('.oneproduct-reserved-title-button2');
         let reservedContainer = document.querySelector('.reserved-connect-container');
