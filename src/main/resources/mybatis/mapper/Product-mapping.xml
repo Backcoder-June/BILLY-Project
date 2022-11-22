@@ -42,7 +42,7 @@
 	</select>
 
 
-
+	
 
 
 	<select id="oneProduct" resultType="productdto">
@@ -175,7 +175,7 @@
 	</select>
 	
 	<!-- 가까운 동네 검색 -->
-	<select id="NoLimitTitle_Region" resultType="Integer">
+	<select id="NoLimitTitle_Price" resultType="Integer">
 	select PRODUCT.id from PRODUCT 
 	where PRODUCT.title like concat('%', #{title}, '%')
 	and PRODUCT.price &gt; #{minPrice} -1
@@ -212,12 +212,16 @@ and
 	select PRODUCT.id from PRODUCT inner join MEMBERS on PRODUCT.userid = MEMBERS.userid where MEMBERS.id = #{id}	 
 	</select>	 
 	
+	<select id="getMemberId" resultType="String">
+	select userid from PRODUCT where id = #{id}
+	</select>
+	
 	<select id="searchByDistance" resultType="Integer">
 	SELECT  
     if((6371*acos(cos(radians((select substring(coords, 2, locate(',',coords)-2) from MEMBERS where userid = #{buyerId})))*cos(radians(((select substring(coords, 2, locate(',',coords)-2) from MEMBERS where userid = #{sellerId}))))*cos(radians((select substring(coords, locate(',',coords)+2, locate(')',coords)-locate(',',coords) - 2) from MEMBERS where userid = #{sellerId} ))
     -radians((select substring(coords, locate(',',coords)+2, locate(')',coords)-locate(',',coords) - 2) from MEMBERS where userid = #{buyerId})))+sin(radians((select substring(coords, 2, locate(',',coords)-2) from MEMBERS where userid = #{buyerId})))*sin(radians((select substring(coords, 2, locate(',',coords)-2) from MEMBERS where userid = #{sellerId}))))) 
     &lt; #{intKm}
-    , (select id from MEMBERS where userid = #{sellerId}), 0);
+    , 1, 0);
 	</select>	 
 	
 	<select id="getDistance" resultType="Double">

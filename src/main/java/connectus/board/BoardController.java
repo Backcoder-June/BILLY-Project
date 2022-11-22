@@ -67,7 +67,7 @@ public class BoardController {
 	// 내 동네 리스트
 		@GetMapping("/myRegionboardList")
 		public String myRegionList(Model model, @RequestParam(value="page", required = false, defaultValue = "1") int page, HttpSession session) {
-			String region = "동";
+			String region = "";
 			String sessionid = (String)session.getAttribute("sessionid");
 			// 지역 set 
 			if(sessionid != null) {
@@ -102,7 +102,7 @@ public class BoardController {
 	
 	@GetMapping("/boardwrite")
 	public String writingform(Model model, HttpSession session) {
-		String region = "동";
+		String region = "";
 		String sessionid = (String)session.getAttribute("sessionid");
 		// 지역 set 
 		if(sessionid != null) {
