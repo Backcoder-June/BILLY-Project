@@ -54,7 +54,7 @@ public class ProductController {
 	// 물품 조회
 	@GetMapping("/allproduct/{searchType}/{orderType}")
 	public String allProduct(Model model, HttpSession session, String item, String search, @PathVariable("searchType")int searchType, @PathVariable("orderType")int orderType) throws Exception {
-		String region = "동"; 
+		String region = ""; 
 		String sessionid = null;
 		// 지역 set 
 		if(session.getAttribute("sessionid")!=null) {
@@ -196,7 +196,7 @@ public class ProductController {
 		@PostMapping("/allproduct/ajax/{searchType}/{orderType}")
 		public List<ProductDTO> scrollProduct(Model model, HttpSession session, SmartSearchDTO smartSearchDTO, String item, String search, String scrollCount, String distanceKm, @PathVariable("searchType")int searchType, @PathVariable("orderType")int orderType) throws Exception {
 			int limit = Integer.parseInt(scrollCount)*12;
-			String region = "동";
+			String region = "";
 			String sessionid = (String)session.getAttribute("sessionid");
 			// 지역 set 
 			if(sessionid != null) {
@@ -325,23 +325,22 @@ public class ProductController {
 	@PostMapping("/smartSearch")
 	public String smartSearch(SmartSearchDTO smartSearchDTO, Model model, HttpSession session, String distanceKm) throws Exception {
 		String sessionid = (String)session.getAttribute("sessionid");
-		String extraaddr = memberDAO.getRegion(sessionid);
-		String region = "동"; 
-		if(extraaddr != null) {
-		region = extraaddr;
-	}
-		
+		String region = "";
+		if(sessionid != null) {
+			region = memberDAO.getRegion(sessionid);
+		}
+
 		if(smartSearchDTO.getSmartRegion()==null) {
-			smartSearchDTO.setSmartRegion("동");
+			smartSearchDTO.setSmartRegion("");
 		}
 		
 		// 검색조건 넘기기 
 		String regionOption = "";
-		if(smartSearchDTO.getSmartRegion().equals("동")) {
+		if(smartSearchDTO.getSmartRegion().equals("")) {
 			regionOption = "1";
-		}else if( !region.equals("동") && smartSearchDTO.getSmartRegion().equals(region)) {
+		}else if( !region.equals("") && smartSearchDTO.getSmartRegion().equals(region)) {
 			regionOption = "2"; 
-		}else if(!smartSearchDTO.getSmartRegion().equals("동") && !smartSearchDTO.getSmartRegion().equals(region)) {
+		}else if(!smartSearchDTO.getSmartRegion().equals("") && !smartSearchDTO.getSmartRegion().equals(region)) {
 			regionOption = "5";
 		}
 		
@@ -353,22 +352,19 @@ public class ProductController {
 			regionOption ="4";
 			}
 		}
-			
-		
 		
 		// 검색어 순위 반영
 		if(smartSearchDTO.getSmartTitle()!=null && !smartSearchDTO.getSmartTitle().isBlank() && !smartSearchDTO.getSmartTitle().isEmpty()) {
 		String search = smartSearchDTO.getSmartTitle();
-		if(productService.searchCheck(search)==0) {
-			productService.insertSearch(search);
-		}else if(productService.searchCheck(search)>0) {
-			productService.updateSearchCount(search);
-		}
+			if(productService.searchCheck(search)==0) {
+				productService.insertSearch(search);
+			}else if(productService.searchCheck(search)>0) {
+				productService.updateSearchCount(search);
+			}
 		}
 		
 		// 제목,지역, 가격으로 검색한 상품리스트
 		List<Integer> titleRegion = new ArrayList<>();
-
 		
 		// 가격 세팅 
 		if(smartSearchDTO.getSmartPriceMax()=="") {
@@ -377,53 +373,48 @@ public class ProductController {
 			smartSearchDTO.setSmartPriceMin("0"); }
 		
 		
-		if(distanceKm==null) {
-				titleRegion = productService.searchByTitle_Region(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartRegion(), smartSearchDTO.getSmartPriceMin(), smartSearchDTO.getSmartPriceMax(), 0);}
-
 		// 거리 
-		ArrayList<Integer> innerDistanceIdList = new ArrayList<>();
+		if(distanceKm==null) {
+				titleRegion = productService.searchByTitle_Region(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartRegion(), 
+						smartSearchDTO.getSmartPriceMin(), smartSearchDTO.getSmartPriceMax(), 0);}
+
+		List<Integer> innerDistanceList = new ArrayList<>();
 			if(distanceKm!=null && (distanceKm.equals("5") || distanceKm.equals("15"))) {
 				int intKm = Integer.parseInt(distanceKm);
-				
-				titleRegion = productService.NoLimitTitle_Region(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartPriceMin(), smartSearchDTO.getSmartPriceMax());
-				
+				titleRegion = productService.NoLimitTitle_Price(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartPriceMin(), smartSearchDTO.getSmartPriceMax());
 				for(int i=0; i<titleRegion.size(); i++) {
-						Integer innerDistanceId = productService.searchByDistance(sessionid, productService.oneProduct(titleRegion.get(i)).getUserId(), intKm );
-						if(innerDistanceId>0 && !innerDistanceIdList.contains(innerDistanceId)) {
-						innerDistanceIdList.add(innerDistanceId);
+						Integer innerDistanceId = productService.searchByDistance(sessionid, productService.getMemberId(titleRegion.get(i)), intKm );
+						if(innerDistanceId==1) {
+						innerDistanceList.add(titleRegion.get(i));
 						}
 					}
-					
-					titleRegion.clear();
-					
-					for(int j = 0; j<innerDistanceIdList.size(); j++) {
-						List<Integer> eachMemberProduct = productService.searchByTitle_Region_MemberId(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartRegion(), 0, innerDistanceIdList.get(j));
-						for(int b = 0; b<eachMemberProduct.size(); b++) {
-						
-						if(!titleRegion.contains(eachMemberProduct.get(b))) {
-						titleRegion.add(eachMemberProduct.get(b));}
-						}
-					}
+		
+				titleRegion.clear();
+				
+				for(int j = 0; j < innerDistanceList.size(); j++ ) {
+					titleRegion.add(innerDistanceList.get(j));
 				}
-		
-		ArrayList<Integer> selectedList = new ArrayList<>();
-		
+			}
+			
+			
 		// 날짜로 검색 : 해당 날짜 조건에 부합하지 않는다 => 예약이 null 값인 것과, 예약수락이 없는 리스트까지 포함됨 
-		for(int i = 0; i<titleRegion.size(); i++) {
-
+		ArrayList<Integer> selectedList = new ArrayList<>();
 		if(smartSearchDTO.getSmartStartDate() != "" && smartSearchDTO.getSmartEndDate() != "") {
-		Integer selected =  productService.searchByRentalDate(smartSearchDTO.getSmartStartDate(), smartSearchDTO.getSmartEndDate(), titleRegion.get(i));
-		
-		if(selected>0) {
-		selectedList.add(selected);  
+			for(int i = 0; i<titleRegion.size(); i++) {
+				Integer selected = productService.searchByRentalDate(smartSearchDTO.getSmartStartDate(), smartSearchDTO.getSmartEndDate(), titleRegion.get(i));
+				if(selected>0) {
+					selectedList.add(selected);  
+				}
 			}
-		}else if(smartSearchDTO.getSmartStartDate() == "" && smartSearchDTO.getSmartEndDate() == "") {
-			selectedList.add(titleRegion.get(i));
+		} 
+
+		if(smartSearchDTO.getSmartStartDate() == "" && smartSearchDTO.getSmartEndDate() == "") {
+			for(int j = 0; j < titleRegion.size(); j++) {
+				selectedList.add(titleRegion.get(j));
 			}
-		} //for 
+		}
 		
 		List<ProductDTO> list = new ArrayList<>();
-		
 		// 찾은 상품 번호로 상품 list 를 불러옴 
 		for(int i = 0; i < selectedList.size(); i++) {
 		ProductDTO searchedOne = productService.oneProduct(selectedList.get(i));
@@ -461,8 +452,6 @@ public class ProductController {
 	}
 	
 	
-	
-	
 	// 물품 상세페이지 
 	@GetMapping("/product/{productid}")
 	public String oneProduct(@PathVariable("productid")int productid, Model model, HttpSession session) throws Exception {
@@ -470,13 +459,12 @@ public class ProductController {
 		String sessionid = (String)session.getAttribute("sessionid");
 		
 		ProductDTO targetProduct = productService.oneProduct(productid);
-
 		Double distance_double = productService.getDistance(sessionid, targetProduct.getUserId());
 		int IntDistance = 0;  
 		String distance = "";
 
 		if(distance_double==null) {
-			distance = "(알수없는 위치)";
+			distance = "";
 		}else if(distance_double!=null) {
 			IntDistance = distance_double.intValue();
 			if(IntDistance==0 || IntDistance <= 1) {
@@ -524,7 +512,7 @@ public class ProductController {
 	public String registerProduct(HttpSession session, Model model) {
 		String sessionid = (String)session.getAttribute("sessionid");
 		String extraaddr = memberDAO.getRegion(sessionid);
-		String region = "동";
+		String region = "";
 		region = extraaddr;
 		// 검색랭킹 
 		List<String> searchLankingList = productService.searchLanking();
@@ -538,7 +526,6 @@ public class ProductController {
 	// 글작성 
 	@PostMapping("/registerProduct")
 	public String registerProcess(ProductDTO dto, UploadDTO uploaddto) throws Exception{
-		
 		// 이미지 Set 
 		if(uploaddto.getFile1()!=null) {
 				dto.setImg1(uploaddto.getFile1());
@@ -582,7 +569,6 @@ public class ProductController {
 	@PostMapping(value ="/ajaxUpload", produces= {"application/json; charset=utf-8"})
 	public String uploadajax(MultipartFile imgFile) throws IOException {
 		
-//		String savePath = "/Users/youngban/upload/";
 		String savePath = "c:/upload/";					
 
 		String originalname1 = imgFile.getOriginalFilename();
@@ -595,9 +581,6 @@ public class ProductController {
 		return "{\"result\" : \"" + newname + "\" }";
 	}
 
-	
-	
-	
 	
 	// 글삭제 
 	@PostMapping("/product/{productid}/delete")
@@ -691,46 +674,6 @@ public class ProductController {
 		}
 
 	
-		
-		////				// 거리 AJAX 처리 
-//		ArrayList<Integer> innerDistanceIdList = new ArrayList<>();
-//		if(distanceKm!=null && (distanceKm.equals("100") || distanceKm.equals("300"))) {
-//			int intKm = Integer.parseInt(distanceKm);
-//			System.out.println("받아온 거리"+intKm);
-//			
-//				for(int i=0; i<titleRegion.size(); i++) {
-//					Integer innerDistanceId = productDAO.searchByDistance(sessionid, productDAO.oneProduct(titleRegion.get(i)).getUserId(), intKm );
-//					if(innerDistanceId>0 && !innerDistanceIdList.contains(innerDistanceId)) {
-//					innerDistanceIdList.add(innerDistanceId);
-//					}
-//				}
-//				
-//				for(int a = 0; a<innerDistanceIdList.size(); a++) {
-//					System.out.println("거리통과한 멤버id : "+innerDistanceIdList.get(a));
-//				}
-//				
-//				titleRegion.clear();
-//				
-//				for(int j = 0; j<innerDistanceIdList.size(); j++) {
-//					List<Integer> eachMemberProduct = productDAO.searchByTitle_Region_MemberId(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartRegion(), limit, innerDistanceIdList.get(j));
-//					System.out.println("eachmb사이즈 : " + eachMemberProduct.size());
-//					
-//					for(int b = 0; b<eachMemberProduct.size(); b++) {
-//						System.out.println( innerDistanceIdList.get(j)  + "의 상품번호 : "+eachMemberProduct.get(b));
-//					
-//						if(titleRegion.size()<20) {
-//						titleRegion.add(eachMemberProduct.get(b));
-//						}
-//					}
-//				}
-//				Collections.sort(titleRegion);
-//
-//				for(int i = 0; i< titleRegion.size(); i++) {
-//					
-//					System.out.println(titleRegion.get(i));
-//				}
-//			}
-
 
 	//
 }
