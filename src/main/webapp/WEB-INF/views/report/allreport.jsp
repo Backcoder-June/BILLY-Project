@@ -16,39 +16,25 @@
 	<link rel="stylesheet" href="${path}/css/report.css">
 	<script src="${path}/js/jquery-3.6.0.min.js"></script>
 	<script Language="JavaScript">
-
 		function openWin(f, s) {
 			adWindow = window.open(f, s, 'width=200,height=100,status=no,scrollbars=auto');
 		}
-
 	</script>
-
-	<script>
-		window.addEventListener('scroll', function(){
-
-			console.log(scrollY);
-		})
-
-	</script>
-
-	<script>
-		$(document).ready(function () {
-			$("#register").on('click', function () {
-				alert("성공적으로 접수되었습니다.")
-				/* location.reload(); */
-
-				/* return false; */
-			})
-
-		})
-
-	</script>
-
 	<script>
 		$(document).ready(function () {
 			let sessionId = '${sessionScope.sessionid}';
-			/* 	 console.log(sessionid); */
-		});//ready end
+			$("#register").on('click', function(e) {
+				if(sessionId == ''){
+					alert("로그인이 필요합니다.");
+					e.preventDefault();
+					return false;
+				}else if($("#reportContent").val() != '' && $("#reportedId").val() != ''){
+				alert("성공적으로 접수되었습니다.");
+				}
+			});//onclick
+			
+		}); //onload
+
 	</script>
 </head>
 
@@ -69,8 +55,8 @@
 				<div class="customer-notice mb-3">
 					
 					<!-- <button id="customer1" onclick="alert">이용 전 약관보기<a href="customer.jsp"></a></button> -->
-					<span> 이용 전 약관보기</span> <a href="http://localhost:8090/customer" class="custmoer-btn"><button>바로가기 ▶</button></a>
-					<span>사건/사례</span> <a href="http://localhost:8090/story" class="story-btn"><button>바로가기 ▶</button></a>
+					<span>이용약관</span> <a href="story" class="story-btn"><button>바로가기 ▶</button></a>
+					<span> 자주 묻는 질문</span> <a href="customer" class="custmoer-btn"><button>바로가기 ▶</button></a>
 					<!-- <button id="customer2" onclick="alert">사건/사례</button> -->
 
 				</div>
@@ -84,7 +70,7 @@
 
 
 
-					<h2>Connectus는 고객의 불편사항을 신속하게 전달받습니다.</h2>
+					<h2>BILLY는 고객의 불편사항을 신속하게 전달받습니다.</h2>
 					<form class="report-form mt-3" action="http://localhost:8090/reportregister" method="post">
 						<div class="report-form-input">
 						<span>
@@ -98,20 +84,18 @@
 
 						<span>
 							신고접수ID <input class="writer" type="text" id="1" name="senderreport" placeholder="Writer"
-							value="${sessionid}" } readonly }>
+							value="${sessionid}" readonly >
 						</span>
 						<span>
-							신고대상 <input class="receive" type="text" id="2" name="receivereport">
+							신고대상 <input class="receive" type="text" id="reportedId" name="receivereport" required>
 							
 						</span>
 						</div>
 						<div class="report-form-textarea mt-3">
-							<textarea class="write-form" rows=10 name="reportcontents"
-							placeholder="신고할 내용을 입력하세요 (구체적인 내용을 서술하여 주시길 바랍니다)" )></textarea>
+							<textarea id="reportContent" class="write-form" rows=10 name="reportcontents"
+							placeholder="신고할 내용을 입력하세요 (구체적인 내용을 서술하여 주시길 바랍니다)" required></textarea>
 						<input id="register" class="write-button mt-2" type=submit value="신고접수">
 						</div>
-						
-						
 					</form>
 				</div>
 			</div>
