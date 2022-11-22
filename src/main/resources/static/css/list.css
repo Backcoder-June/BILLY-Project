@@ -137,10 +137,26 @@ a {
   color: #6462cb;
   border-radius: 5px;
   width: 3rem;
-  margin-left: 10px;	
-	
+  margin-left: 10px;		
 }
 
+#pagingPrevious {
+  width: 30px;
+  height: 30px; 
+  font-size: 30px;
+  padding: 10px;
+  margin: 1rem;
+  color: silver;
+}
+
+#pagingNext {
+  width: 30px;
+  height: 30px; 
+  font-size: 30px;
+  padding: 10px;
+  margin: 1rem;
+  color: silver;  
+}
 
 .pagingNum a {
   font-size: 20px;
