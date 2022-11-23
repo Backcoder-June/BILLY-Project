@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>BILLY</title>
+    <title>BILLY | 마이페이지</title>
     <link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -43,13 +43,13 @@
 
             <div class="mypage-container">
                 <div class="mypage-box-title-box">
-                    <div class="mypage-title show mt-3">내 정보</div>
-                    <div class="mypage-title">내 물건</div>
-                    <div class="mypage-title">내가 쓴 글</div>
-                    <div class="mypage-title">찜리스트</div>
+                    <div class="mypage-title show mt-3">My 정보</div>
+                    <div class="mypage-title">My 등록물품</div>
+                    <div class="mypage-title">My 커뮤니티 </div>
+                    <div class="mypage-title">My 찜리스트</div>
                 </div>
                 <div class="mypage-container-inner-box">
-                    <p class="myproduct-box-title">${member.name } 님의 정보</p>
+                    <p class="myproduct-box-title"><span style="color:orange;">${member.name }</span>회원님의 페이지</p>
                     <table class="mypage-info">
                         <tr style="background-color : rgb(243, 243, 243);">
                             <td style="width : 25%;">아이디</td>
@@ -85,7 +85,7 @@
 
                 <div class="mypage-container-inner-box close">
 
-                    <p class="myproduct-box-title">My product</p>
+                    <p class="myproduct-box-title">내가 등록한 물품</p>
                     <form class="myproduct-box" name="myproduct" action="myProduct" method="get">
 
 
@@ -116,7 +116,7 @@
 
                 <div class="mypage-container-inner-box close">
 
-                    <p class="myproduct-box-title">내가 쓴 글</p>
+                    <p class="myproduct-box-title">커뮤니티 작성글</p>
                     <form class="myproduct-box" name="mywrite" method="get">
                         <table class="myproduct-box-table">
                             <tr class="myproduct-box-table-title">

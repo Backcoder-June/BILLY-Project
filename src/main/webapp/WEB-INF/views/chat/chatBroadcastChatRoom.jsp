@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BILLY</title>
+<title>BILLY | 채팅</title>
 <link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
 <script src="${path}/js/jquery-3.6.0.min.js" ></script>
 <script src="${path}/js/stomp.js" type="text/javascript"></script>

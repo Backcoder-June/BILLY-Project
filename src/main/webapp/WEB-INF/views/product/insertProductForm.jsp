@@ -8,7 +8,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>BILLY</title>
+	<title>BILLY | 물품등록</title>
 	<link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -190,7 +190,7 @@
 						<input type="text" name="title" placeholder="제목을 입력하세요" required="required" maxlength="30" style="font-size:30px;">
 						<textarea id="contents" name="contents" rows="15" cols="60" placeholder="물건에 대한 정보를 알려주세요."
 							required="required" maxlength="3000"></textarea>
-						<input type="number" name="price" placeholder="1일 가격" required step="1" style="width:300px;">	
+						<input type="number" name="price" placeholder="1일 가격" required step="1" style="width:300px; ">	
 						<input type="text" name="boardRegion" value="${region}" placeholder="사는 곳" readonly style="width:300px;">
 						<input type="text" name="userId" value="${sessionScope.sessionid }" style="display:none;">
 					</div>
