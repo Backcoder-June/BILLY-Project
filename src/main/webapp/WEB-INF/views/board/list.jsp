@@ -15,7 +15,7 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
     
     <script src="${path}/js/jquery-3.6.0.min.js"></script>
-    <title>BILLY</title>
+    <title>BILLY | 커뮤니티</title>
     <link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
     <script>
   

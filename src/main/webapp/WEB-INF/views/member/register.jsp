@@ -7,7 +7,8 @@
 
 <head>
 <meta charset="UTF-8">
-<title>JOIN</title>
+<title>회원가입</title>
+<link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -30,7 +31,7 @@
 		<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
 		<div class="login-container2">
 			<div class="signup-box-title">
-				<span>품앗이 장터 회원가입</span>
+				<span>BILLY &nbsp; 회원가입</span>
 			</div>
 
 			<form name="form" action="register" method="post"

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BILLY</title>
+<title>BILLY | Edit</title>
 <link rel="shortcut icon" type="image/x-icon" href="${path}/pictures/Billycon.png">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
 integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -14,10 +14,6 @@ integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+f
 <link rel="stylesheet" href="${path}/css/product.css">
 <script src="${path}/js/jquery-3.6.0.min.js"></script>
 <script>
-
-
-
-
 
 //사진 업로드 취소
 function delImg(_this){
@@ -95,7 +91,6 @@ $(document).ready(function(){
       e.preventDefault();
     }
   }); //on updatebutton
-
  
   var img1 = '${updateProduct.img1}'; 
   var img2 = '${updateProduct.img2}'; 
@@ -149,11 +144,6 @@ $(document).ready(function(){
 	  $("#newVideoTitle").attr("style", "display:unset");
   });
   
-  
-  
-  
-  
-  
 	//동영상 업로드 취소 
 	$("#insertproduct-upload-button2").on("click", function(){
 	$("#video1").val("");
@@ -161,9 +151,6 @@ $(document).ready(function(){
 	$("#newVideoTitle").val("");
 
 	});
-  
-  
-  
   
   // 이미지 파일 업로드 
   $("#imgFile").change(function(e) {
@@ -189,20 +176,15 @@ $(document).ready(function(){
 		data : data,
 		type : "post",
 		dataType : "json",
-
 		encType : "multipart/form-data",
 		processData : false,  
 		contentType : false,  
 
 		success : function(resp){ 
-			
-			
 			var str = '<span>';
 			str += "<img src='/upload/"+resp.result+"' height=65 width=65 style='cursor:pointer' onclick='delImg(this)' >";
             str += '</span>';
-
             $(str).appendTo('#here');
-			
 			
 			// ajax 로 받아온걸 file에 순서대로 집어 넣음 
 		 	switch ("") {
@@ -235,21 +217,16 @@ $(document).ready(function(){
 
 
 	<div class="main-container">
-        <!-- header-section -->
-        <jsp:include page="/WEB-INF/views/header.jsp"> <jsp:param value="false" name="mypage"/></jsp:include>
-        <!-- content-section -->
+        <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
         <div class="content-container">
 			<div class="insertproduct-container">
 
 		<h1 class="insertproduct-title" class="title"> 게시물 수정</h1> 
-
-
-
 <form class="product-insert-table" id="uploadForm" action="/product/${updateProduct.id}/updateprocess" method="post" enctype="multipart/form-data">
 
 <input type="text" name="title" value="${updateProduct.title}" required maxlength="30" style="font-size:30px;"> 
 <textarea name="contents" rows="15" cols="60" required maxlength="3000">${updateProduct.contents}</textarea> 
-<span id="dayPrice" style="width:300px;"><input type="number" name="price" value="${updateProduct.price}" required step="1" style="width:300px;" placeholder="1일 가격"><span id="priceInfo" style="background-color:silver; display:none;">1일 대여 가격을 입력해주세요.</span></span> 
+<span id="dayPrice" style="width:300px;"><input type="number" name="price" value="${updateProduct.price}" required step="1" style="width:300px; border-bottom:solid 1px silver;" placeholder="1일 가격" ><span id="priceInfo" style="background-color:silver; display:none;">1일 대여 가격을 입력해주세요.</span></span> 
 <input type="text" name="boardRegion" value="${updateProduct.boardRegion}" readonly style="width:300px;">
 <input type="text" name="userId" value="${updateProduct.userId}" style="display:none;"> 
 

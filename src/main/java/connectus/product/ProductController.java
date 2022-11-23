@@ -133,19 +133,21 @@ public class ProductController {
 		}
 		
 		
-		if(sessionid != null) {
-		// 찜 set 
+		// 렌탈 및 찜 표시 
 		for (ProductDTO dto : list) {
 			int productseq = (int)dto.getId();
 			
+			// 찜체크는 세션이 있을 때만 
+			if(sessionid != null) {
 			int zzim = 0; 
 			Object zzimcheck = productService.zzimCount(productseq, sessionid);
 			if(zzimcheck!=null) {
 				zzim = 1; 
 			}
 			dto.setZzim(zzim);
+			}//세션 확인 
 			
-			// 렌탈중 표시 set ( 조회하는 시점에서 확인 ) 
+			// 렌탈중 표시 set ( 조회하는 시점에서 확인 / 세션이 없어도 적용 ) 
 			List<ReservationDTO> reservations = reservationService.getReservationDate(productseq);
 			
 			// 승낙된 예약이 하나도 없을 때, reservedNow=0 ( List index 개수가 없으므로 따로 처리 ) 
@@ -171,7 +173,6 @@ public class ProductController {
 				}
 			} // inner for 
 		} //  outer for 
-	} // if 
 		
 		// 상품개수 
 		int productlength = list.size();
