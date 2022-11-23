@@ -15,9 +15,29 @@
 	<link rel="stylesheet" href="${path}/css/comment.css">
 	<script src="${path}/js/jquery-3.6.0.min.js"></script>
 	<script>
+	$(document).ready(function () {
+        let sessionId = '${sessionId}';
+        let writer = '${seqList.writer}';
+        
+		// 삭제확인 
+		$("#deletebtn").on("click", function(e){
+			if(!confirm("삭제하시겠습니까?")){
+				e.preventDefault();
+				return false;
+			}
+		});
+	
+	
+	
 
+	// 댓글 ajax 바로 실행
 	$(function () {
-        let sessionId = '<%=session.getAttribute("sessionid")%>';
+		// 수정 삭제 버튼 자기물건에만 노출 	
+		if(sessionId != writer){
+			$("#boardUpdateBtn").attr("style", "display:none");
+			$("#boardDeleteBtn").attr("style", "display:none");
+		}
+		
         let list = [];
 
         $.ajax({
@@ -57,13 +77,6 @@
 })
 
 
-		$(document).ready(function () {
-			$("#deletebtn").on("click", function(e){
-				if(!confirm("삭제하시겠습니까?")){
-					e.preventDefault();
-					return false;
-				}
-			});
 			
 			
 
@@ -126,7 +139,6 @@
 
 
 			} else if ($(e.target).hasClass("completeBtn")) {		// 수정완료
-				alert($("#updateContents").val());
 				let updateSecret;
 				if ($("#secretUpdateBtn").is(":checked") == true) { updateSecret = 1 } else { updateSecret = 0 };
 
@@ -151,7 +163,6 @@
 			
 		} else if ($(e.target).hasClass("deleteBtn")) {		// 삭제
 			//let commentSeq = $(e.target).prevAll(".commentSeq").val();
-			alert($("#comment_seq").val());
 			$.ajax({
 				url: "boarddetail/" + ${ param.seq } + "/deleteComment",
 				data: {commentSeq: $("#comment_seq").val()},
@@ -185,11 +196,11 @@
 				<div class="detail-box">
 					<div class="detail-delete-box">
 					<form action="boardupdate/${seqList.seq}">
-						<input type="submit" value="수정" id="updatebtn">
+						<input type="submit" value="수정" id="boardUpdateBtn">
 					</form>
 					<form action="boarddelete">
 						<input type="hidden" name="seq" value="${seqList.seq}">
-						<input type="submit" value="삭제" id="deletebtn" >
+						<input type="submit" value="삭제" id="boardDeleteBtn" >
 					</form>
 					</div>
 					<div class="detail-title-box">

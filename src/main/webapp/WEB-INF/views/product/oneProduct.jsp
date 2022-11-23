@@ -80,7 +80,6 @@
                     success: function (resp) {
                         0
                         if (resp.result == 0) {
-                            alert("찜!");
                             $("#zzimSpan").html("<img src='/pictures/heart2.png' style=cursor:pointer; width=30; height=30'>")
                         }
                         else if (resp.result == 1) {
