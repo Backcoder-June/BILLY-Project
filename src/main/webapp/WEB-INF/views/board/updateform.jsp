@@ -26,8 +26,8 @@ integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+f
             <form  class="write-form mb-2"  action="${updated_board.seq }" method="post" enctype="multipart/form-data">
                 <input type=hidden name="seq" value=${updated_board.seq } readonly="readonly">
                 <input class="write-form-title mb-2" type="text" name="title" value=${updated_board.title }>
-                <textarea class="write-form-textarea mt-2"  rows=10 name="contents" >${updated_board.contents }</textarea>
-                <label class="list-update-file-button" for="file1">파일선택</label>
+                <textarea class="write-form-textarea mt-2"  rows=17 name="contents" >${updated_board.contents }</textarea>
+                <label class="list-update-file-button" for="file1" style="cursor:pointer;">파일선택</label>
                 <input class="close" id="file1" type="file" name="file1">
                 <input id="img" type="text" name="img" style="display:none;">
                 <input id="boardImgTitle" name="boardImgTitle" class="boardImg-Title" type="text" style="display:unset" readonly>

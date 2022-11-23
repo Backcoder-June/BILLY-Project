@@ -235,10 +235,7 @@ public class BoardController {
 	
 	// 상세페이지
 	@GetMapping("/boarddetail")
-	public ModelAndView boarddetail(int seq,HttpServletRequest request, HttpServletResponse response,String Clicked) {
-		
-
-		
+	public String boarddetail(Model model, int seq, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String sessionId = (String)session.getAttribute("sessionid");
 		
@@ -248,14 +245,12 @@ public class BoardController {
 					
 		//조회 리턴
 		BoardDTO dto = boardService.getBoardSeqLst(seq);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("searchLankingList", searchLankingList);
-		mv.addObject("updateSeq",updateCount);
-		mv.addObject("seqList",dto);
-		mv.addObject("sId",sessionId);
-		mv.setViewName("board/detail2");
 		
-		return mv;
+		model.addAttribute("searchLankingList", searchLankingList);
+		model.addAttribute("updateSeq",updateCount);
+		model.addAttribute("seqList",dto);
+		model.addAttribute("sessionId",sessionId);
+		return "board/detail2";
 		
 		
 	}
