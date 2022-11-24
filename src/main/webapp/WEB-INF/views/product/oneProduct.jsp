@@ -194,7 +194,7 @@
                 <th>희망비용 <br> <input type="number" name="price" step="1" required style="width:90%">원</th> 
                 </tr>
                 <tr>
-                <th colspan="2"><input type="submit" value="예약" id="reserve-off-button" style="width:300px; margin-left:30px; font-weight:700;"></th>
+                <th colspan="2"><input type="submit" value="예약 신청" id="reserve-off-button" style="width:300px; margin-left:30px; font-weight:700;"></th>
                 </tr> 
                 </table>
                 <input type="text" name="boardId" value="${oneProduct.id}" readonly style="display:none;">

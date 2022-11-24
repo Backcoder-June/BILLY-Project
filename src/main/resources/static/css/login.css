@@ -73,8 +73,8 @@ a {
 
 .loginTitle {
   text-align: center;
-  margin-top: 100px;	
-  font-size: 30px;
+  margin-top: 130px;	
+  font-size: 38px;
   color: #6462cb; 
 	
 }
@@ -114,20 +114,35 @@ table.loginInfoTable th {
 }
 
 table.loginInfoTable td {
-  	border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   background: #f3f6f7;
 }
 
 
+
 .join_findInfoBTN button {
 	width: 120px;
-	background-color: silver;
-	border: solid 3px #6462cb;
+	background-color: rgb(255,255,230);
+	border: solid 3px orange;
 	
   /* margin-top: 10px;
   width: 150px;
   margin-left: 680px;	
 	 */
+}
+
+
+.billyLoginIcon {
+  position: absolute;
+  margin-left: 24.5rem;
+  margin-top: -103px;
+	
+}
+
+.find-idpw-button {
+	margin-bottom: 0.15rem;
+	margin-right: 1rem;
+	border-radius: 10px;
 }
 
 
@@ -157,6 +172,7 @@ table.loginInfoTable td {
   border: none;
   background-color: #6462cb;
   color: white;
+  box-shadow: 5px 5px 5px rgb(228, 228, 228);
 }
 
 .id-check-box {
@@ -201,7 +217,7 @@ table.loginInfoTable td {
 .login-box-kakao-naver > div {
   padding: 3px;
   width: 100%;
-  box-shadow: 0px 5px 5px rgb(228, 228, 228);
+  box-shadow: 5px 5px 5px rgb(228, 228, 228);
   text-align: center;
 }
 
