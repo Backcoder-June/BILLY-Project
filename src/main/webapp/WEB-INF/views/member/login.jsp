@@ -34,8 +34,9 @@
                         <div class="id-check-box"><input class="remember-id mb-2" type="checkbox"><span>아이디 기억하기</span>
                         </div>
                         
-                        <input class="login-button" type="submit" id="btn" value="login">
+                        <input class="login-button" type="submit" id="btn" value="  BILLY 로그인" >
                     </form>
+                   <img class="billyLoginIcon" src="/pictures/Billycon.png" width=40; height=40;>
                     
                     <div class="login-box-kakao-naver">
                         <div>
@@ -47,12 +48,12 @@
                     
                     
                          
-                         <br><br>
+                         <br><br><br><br><br><br>
                     
                     <div class="join_findInfoBTN">
                     <table class="loginInfoTable">
                     <tr>
-                    <th>아직 회원이 아니신가요?</th>
+                    <th>아직 BILLY 회원이 아니신가요?</th>
                     <td><a href="register" id="btn"><button class="find-idpw-button" id="btn" type="button">회원가입</button></a></td>
                     </tr>
                     <tr>

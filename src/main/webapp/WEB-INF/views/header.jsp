@@ -67,7 +67,7 @@
 	
 		</script>
 		
-	<title>ConnectUs</title>
+	<title>BILLY</title>
 </head>
 
 <body>
