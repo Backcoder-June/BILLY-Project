@@ -13,64 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ReportController {
-
-	
 	@Autowired
 	ReportDAO ReportDAO;
 	
-	
-	
-	@PostMapping("/reportselect")
-	public List<ReportDTO> getAllSeq(HttpSession session,Model model, String reportcontents, ReportDTO dto, int reportSeq) throws Exception {
-		String sessionid = (String)session.getAttribute("sessionid");
-//		model.addAttribute("report" ,reportcontents);
-		System.out.println(sessionid);
-		List<ReportDTO> reportList = ReportDAO.getAllSeq(reportSeq);
-		System.out.println(reportList.size());
-		return reportList;
-		
-	}
-
 	@GetMapping("/reportregister")
 	public String insertReportform() {
 		return "report/allreport";
 	}
 	
-	
 	@PostMapping("/reportregister")
-	public String  insertReport(HttpSession session, ReportDTO dto) {
-		
-		String sessionid = (String)session.getAttribute("sessionid");
+	public String  insertReport(ReportDTO dto) {
 		 ReportDAO.insertReport(dto);
-		 
-		 System.out.println(sessionid);
-//		 System.out.println(dto.toString());
 		return "redirect:/reportregister";
-		
-		
 	}
 	
 
-	
-
-	@PostMapping("/reportdelete")
-	public void deleteReport(int reportSeq) {
-		ReportDAO.deleteReport(reportSeq);
-	}
-	
-	
-
-	@PostMapping("/reportupdate")
-	public ReportDTO changeReport(ReportDTO dto, String updatecontents, String updatekind, String reportSeq) {
-		
-		int reportSeqInt = Integer.parseInt(reportSeq);
-		dto.setReportcontents(updatecontents);
-		dto.setReportkind(updatekind);
-		ReportDAO.changeReport(dto);
-		
-		return ReportDAO.getReport(reportSeqInt);
-	}
-	
+	// 약관 정책 페이지 
 	@RequestMapping(value = "/customer")
 	public String customer() {
 		return "report/customer";

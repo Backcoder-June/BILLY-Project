@@ -30,7 +30,7 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder encoderPassword;
 
-	//카카오 로그인 클릭
+	//카카오 로그인
 	@GetMapping(value="login-kakao")
 	public String sign_in(@RequestParam("userid")String userid) {				
 		try {
@@ -121,13 +121,12 @@ public class MemberController {
 	}
 	
 	
-	//회원가입
-
+	//회원가입 페이지
 	@GetMapping("/register")
 	public String registerform() {
 		return "member/register";
 	}
-	
+	//회원가입
 	@PostMapping("/register")
 	public String register(@ModelAttribute MemberDTO dto) {
 		String pw = encoderPassword.encode(dto.getPw());
@@ -158,11 +157,13 @@ public class MemberController {
 		return String.valueOf(check);
 	}
 	
+	// 아이디 찾기 페이지
 	@GetMapping(value="/findid")
 	public String findid() {
 		return "member/findid";
 	}
 	
+	// 아이디 찾기
 	@PostMapping(value="/findid")
 	public String findid_result(@RequestParam Map<String,String> info, Model model) {
 		String name = info.get("name");
@@ -181,7 +182,7 @@ public class MemberController {
 		return "member/findid_join";
 	}
 	
-	
+	// 비밀번호 찾기
 	@GetMapping(value="/findpw")
 	public String findpw() {
 		return "member/findpw";

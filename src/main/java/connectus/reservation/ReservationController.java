@@ -25,14 +25,6 @@ public class ReservationController {
 	@Autowired
 	ReservationService reservationService;
 	
-	// 필요없어짐 확인 후 삭제 
-	@PostMapping("/product/{boardid}/reservationinput")
-	public String reservationinput(@PathVariable("boardid")int boardid, String userid, Model model) {
-		
-		model.addAttribute("boardId", boardid);
-		model.addAttribute("userId", userid);
-		return "product/reservationinput";
-	}
 	
 	// 예약 추가 
 	@PostMapping("/product/reservationinput")
@@ -45,15 +37,13 @@ public class ReservationController {
 		return "redirect:/product/"+boardid;
 	}
 	
-	
+	// 예약 삭제 
 	@ResponseBody
 	@PostMapping("/product/deleteReservation")
 	public int deleteReservation(int reservId) {
 		int deleteResult = reservationService.deleteReservation(reservId);
 		return deleteResult;
 	}
-	
-	
 	
 	
 	// 렌탈중 표시 
@@ -114,16 +104,10 @@ public class ReservationController {
 					checkReserved = 0;
 				}
 			} // for 
-			
-			reservedNow = checkReserved;
+				reservedNow = checkReserved;
 		} // else if 
-		
-		
 		return "{\"result\" : \"" + reservCount + "\", \"reservedNow\" : \"" + reservedNow + "\" }";
-		
-}
+	}
 	
 	
-	
-//	
 }

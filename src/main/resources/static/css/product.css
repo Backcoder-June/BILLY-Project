@@ -913,6 +913,7 @@
   color: white;
   border-radius: 5px;
   text-align: center;
+  cursor: pointer;
 }
 
 #insertproduct-upload-button2 {
