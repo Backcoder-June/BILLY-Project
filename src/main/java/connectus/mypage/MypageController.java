@@ -62,7 +62,6 @@ public class MypageController {
 		List<String> searchLankingList = productService.searchLanking();
         
 		model.addAttribute("searchLankingList", searchLankingList);
-		
 		model.addAttribute("boardlength2", boardlength2);
 		model.addAttribute("allmyboard2",list2);
 		//찜목록
@@ -82,21 +81,20 @@ public class MypageController {
 			}
 			mav.addObject("member",member);
 		}catch (Exception e) {
-			System.out.println("catch");
 			e.printStackTrace();
 			mav.setViewName("err");
 		}
 		return mav;		
-		
 	}
 
 	
-	//회원탈퇴
+	//회원탈퇴 페이지
 	@GetMapping("/delete")
 	public String delete() {
 		return "mypage/delete";
 	}
 	
+	//회원탈퇴
 	@PostMapping("/deletemember")
 	public String deleteMember(String userid, String pw, HttpServletRequest request) {
 		session = request.getSession();
@@ -104,53 +102,44 @@ public class MypageController {
 		List<MemberDTO> member = myserv.onemember(userid);
 		String dbpassword = member.get(0).getPw();
 		if(dbpassword.equals(pw)) {
-			System.out.println("탈퇴 성공");
 			myserv.deleteMember(userid);
 			session.invalidate();
 			return "home";
 		}
-		System.out.println("비밀번호 불일치");
 		return "mypage/delete";
-		
 	}
 	
-	//회원정보수정(가져오기)
+	
+	//회원정보수정 페이지
 	@GetMapping("/mypageModify")
 	public ModelAndView modifyMember(@RequestParam String userid) throws Exception {
-		System.out.println(userid);
 		mav = myserv.modifyForm(userid);
 		MemberDTO member = myserv.memberDetail(userid);
 		mav.addObject("member",member);
 		return mav;
 	}
-	//(수정)
+	
+	//회원정보수정
 	@PostMapping("/mypageModify")
 	public ModelAndView memberModify(@ModelAttribute MemberDTO memberdto,String pw) throws Exception {			
 		List<MemberDTO> list = memserv.onemember(memberdto.getUserid());
 		String dbpassword = list.get(0).getPw();
 		if(encoderPassword.matches(pw, dbpassword)){						
-			System.out.println("수정폼 " + memberdto.getName());
 			myserv.memberModify(memberdto);
 			mav.addObject("msg","정보가 수정되었습니다.");
 			mav.addObject("url","/mypage");
-			System.out.println(memberdto.getPhone());
 			return mav;
-			
 		}
 		else {
 			mav.addObject("msg", "비밀번호 일치하지 않음");
 			mav.addObject("url","/mypageModify");
-			System.out.println("실패");
 			return mav;
 		}
-		
-		
 	}
 	
 	//비밀번호 수정(가져오기)
 	@GetMapping("/passwordModify")
 	public ModelAndView modifyPassword(@RequestParam(required=false) String userid) throws Exception{
-		System.out.println("비밀번호");
 		userid = (String)session.getAttribute("sessionid");
 		mav = myserv.passwordForm(userid);
 		MemberDTO member = myserv.memberDetail(userid);
@@ -169,7 +158,6 @@ public class MypageController {
 			myserv.passwordModify(memberdto);
 			mav.addObject("msg","비밀번호가 변경되었습니다. 다시 로그인해주세요");
 			mav.addObject("url","/login");
-			System.out.println(mav);
 			return mav;
 		}
 		else {
@@ -177,8 +165,6 @@ public class MypageController {
 			mav.addObject("url","passwordModify");
 			return mav;
 		}
-				
-				
 	}
 	
 	

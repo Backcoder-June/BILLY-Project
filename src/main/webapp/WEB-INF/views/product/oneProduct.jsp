@@ -366,7 +366,7 @@
                     </div>
                     <div class="product-detail-content-button">
 
-                                            <!-- 예약 버튼 -->
+                    <!-- 예약 버튼 -->
                     <div class="goods-detail-button-box">
 
                         <button class="reserve-on-button" id="reserve" type="submit" value="예약하기">예약하기</button>

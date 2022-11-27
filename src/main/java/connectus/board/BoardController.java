@@ -1,6 +1,5 @@
 package connectus.board;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,8 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import connectus.member.MemberDAO;
 import connectus.product.ProductService;
 
-
-
 @Controller
 public class BoardController {
 	@Autowired
@@ -41,8 +38,6 @@ public class BoardController {
 	// 전체 리스트
 	@GetMapping("/boardList")
 	public String boardList(Model model, HttpSession session, @RequestParam(value="page", required = false, defaultValue = "1") int page) {
-
-		
 		int totalboard = boardService.getTotalBoard();
 		
 		int totalPage = page;
@@ -51,7 +46,6 @@ public class BoardController {
 		}else {
 			totalPage = totalboard/10 + 1; 
 		}
-		
 	
 		List<BoardDTO> boardlst = boardService.pagingList((page-1)*10);
 		// 검색랭킹 
@@ -98,9 +92,7 @@ public class BoardController {
 		}
 
 	
-	
-
-	
+	//글 작성 페이지
 	@GetMapping("/boardwrite")
 	public String writingform(Model model, HttpSession session) {
 		String region = "";
@@ -116,7 +108,7 @@ public class BoardController {
 		model.addAttribute("region", region);
 		return "board/writingform";
 	}
-	
+	//글 작성 
 	@PostMapping("/boardwrite")
 	public String writingprocess(@RequestParam(value="page", required = false, defaultValue = "1") int page, BoardDTO dto, MultipartFile file1) throws IOException {
 		String savePath = "c:/upload/";
@@ -124,17 +116,16 @@ public class BoardController {
 		String newname = null;
 		if(!file1.isEmpty()) {
 			
-			String originalname1 = file1.getOriginalFilename(); //a.txt
+			String originalname1 = file1.getOriginalFilename(); 
 			String onlyfilename = originalname1.substring(0, originalname1.indexOf("."));
-			String extname = originalname1.substring(originalname1.indexOf(".")); // .txt
+			String extname = originalname1.substring(originalname1.indexOf("."));
 			newname = onlyfilename +"("+UUID.randomUUID().toString()+")"+extname;
-			File servefile1 = new File(savePath+newname); // a(012334434).txt
+			File servefile1 = new File(savePath+newname); 
 			file1.transferTo(servefile1);
 			dto.setImg(newname);
 		}
 
-		boardService.registerBoard(dto); //
-		
+		boardService.registerBoard(dto); 
 		return "redirect:boardList";
 	}
 	
@@ -228,10 +219,7 @@ public class BoardController {
 			return "board/myRegionList";
 		}
 	
-	
-	
-	
-	
+		
 	
 	// 상세페이지
 	@GetMapping("/boarddetail")
@@ -251,33 +239,30 @@ public class BoardController {
 		model.addAttribute("seqList",dto);
 		model.addAttribute("sessionId",sessionId);
 		return "board/detail2";
-		
-		
 	}
 	
+	//글 삭제
 	@GetMapping("/boarddelete")
 	public String boardDelete(@RequestParam(value="page", required = false, defaultValue = "1") int page,int seq) {
 		int deleteCount = boardService.deleteBoard(seq);
 		return "redirect:/boardList";
 	}
 	
+	//글 수정 페이지
 	@GetMapping("/boardupdate/{boardid}")
-	ModelAndView updateBoard(@PathVariable("boardid")int seq) {
-		//seq 글 조회 (BoardDTO)
+	public String updateBoard(@PathVariable("boardid")int seq, Model model) {
 		BoardDTO dto = boardService.getBoardSeqLst(seq);
-		
 		// 검색랭킹 
 		List<String> searchLankingList = productService.searchLanking();		
 		
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("searchLankingList", searchLankingList);
-		mv.addObject("updated_board",dto);
-		mv.setViewName("board/updateform");
-		return mv;
+		model.addAttribute("searchLankingList", searchLankingList);
+		model.addAttribute("updated_board",dto);
+		return "board/updateform";
 	}
-
+	
+	//글 수정
 	@PostMapping("/boardupdate/{boardid}")
-	String updateBoardprocess(@PathVariable("boardid")int seq, BoardDTO dto, MultipartFile file1) throws IllegalStateException, IOException {
+	public String updateBoardprocess(@PathVariable("boardid")int seq, BoardDTO dto, MultipartFile file1) throws IllegalStateException, IOException {
 		String savePath = "c:/upload/";
 
 		String newname = null;
@@ -290,12 +275,9 @@ public class BoardController {
 			file1.transferTo(servefile1);
 			dto.setImg(newname);
 		}
-		
-		
-		
 		boardService.updateBoard(dto);
-		
 		return "redirect:/boardList";
-
 	}
+
+	
 }
