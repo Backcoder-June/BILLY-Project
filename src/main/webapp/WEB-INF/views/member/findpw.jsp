@@ -33,13 +33,13 @@
 			<div class="mypage-find">
 				<p>비밀번호 찾기</p>
 				<div>
-					<label for="userid">아이디를 입력하세요.</label><br>
+					<label for="userid">아이디를 입력해 주세요.</label><br>
 					<input type="text" name="userid" id="userid" autocomplete="off" required>
 
 				</div>
 
 				<div class="mt-3">
-					<label for="email">가입시 등록한 이메일을 입력하세요.</label>
+					<label for="email">가입시 등록한 이메일을 입력해 주세요.</label>
 					<input type="text" name="email" id="email" autocomplete="off" required>
 
 				</div>

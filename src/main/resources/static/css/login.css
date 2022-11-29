@@ -123,12 +123,8 @@ table.loginInfoTable td {
 .join_findInfoBTN button {
 	width: 120px;
 	background-color: rgb(255,255,230);
-	border: solid 3px orange;
+	border: solid 3px #6462cb ;
 	
-  /* margin-top: 10px;
-  width: 150px;
-  margin-left: 680px;	
-	 */
 }
 
 

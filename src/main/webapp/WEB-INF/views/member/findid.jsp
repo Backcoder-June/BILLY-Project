@@ -36,13 +36,13 @@
 					<p>아이디 찾기</p>
 					<form action='/findid' method='post'>
 						<div>
-							<label for="name">가입시 등록한 이름을 입력하세요.</label>
+							<label for="name">가입시 등록한 이름을 입력해 주세요.</label>
 							<input type="text" name="name" id="name" autocomplete="off" required>
 	
 						</div>
 	
 						<div class="mt-3">
-							<label for="phone">가입시 등록한 휴대폰 번호를 입력하세요.</label>
+							<label for="phone">가입시 등록한 휴대폰 번호를 입력해 주세요.</label>
 							<input type="text" name="phone" id="phone" autocomplete="off" required>
 	
 						</div>
