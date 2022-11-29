@@ -195,12 +195,11 @@ if (scrollHeight == documentHeight) {   // || scrollY > (scrollCount+1) * 2400
                             if (resp.result == 0) {
                                 $("#zzimSpan" + product.id).html("<img src='/pictures/zzim-on.png' width=30 height=30 style='cursor:pointer'>")
                                 // 찜 작동 시, 해당물품 장바구니에 출력 
-                                //   $("#zzimProducts").prepend("<a href='/product/" + resp.id + "'><span class=zzim-product-title id='spanId"+ resp.id +"'><img src='/upload/"+ resp.img1 +"' width=40 height=40 style='cursor:pointer'><span>" + resp.title+"</span></span></a>");
                                 $("#zzimProducts").prepend("<div class=zzim-product2" + resp.id + "><a href=/product/" + resp.id + "><span class=zzim-product-title id='spanId" + resp.id + "'><img src='/upload/" + resp.img1 + "' width=40 height=40 style='cursor:pointer'><span>" + resp.title + "</span></span></a></div>");
                             }
                             else if (resp.result == 1) {
                                 $("#zzimSpan" + product.id).html("<img src='/pictures/zzim-off.png' width=30 height=30 style='cursor:pointer'>")
-                                // 찜 취소 시, 해당물품 장바구니에서 제거
+                                // 찜 취소 시, 해당물품 장바구니에서 제거 closest 사용
                                 //$("#spanId" + resp.id).remove();
                                 $("#spanId" + resp.id).closest('div').remove();
                             }
@@ -328,9 +327,7 @@ if (scrollHeight == documentHeight) {   // || scrollY > (scrollCount+1) * 2400
                     <div class="carousel-item" id="carousel-box3">
                         <img id="carousel-box4" src="${path}/pictures/bg2f1.png">
                     </div>
-                   <%--  <div class="carousel-item " id="carousel-box3">
-                        <img id="carousel-box4" src="${path}/pictures/bg3.png">
-                    </div> --%>
+                  
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                     data-bs-slide="prev">
@@ -409,7 +406,7 @@ if (scrollHeight == documentHeight) {   // || scrollY > (scrollCount+1) * 2400
                 <div class="zzimproduct-list-container">
 
                     <div class="zzimproduct-list-box">
-                        <p class="zzim-title" id="zzimListLink">BILLY 리스트<a class="zzim-link"
+                        <p class="zzim-title" id="zzimListLink"><a href="/mypage?zzimListLink=1">BILLY 리스트</a><a class="zzim-link"
                                 href="/mypage?zzimListLink=1">🧡</a></p>
                         <div id="zzimProducts" class="zzim-product">
                             <c:forEach items="${zzimProducts}" var="zzimProduct" varStatus="status">
