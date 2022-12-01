@@ -47,9 +47,10 @@ public class ProductController {
 	
 	
 	// 지역 Set  
-	public void setRegion(String sessionid, String region) {
+	public String setRegion(String sessionid, String region) {
 		String extraaddr = memberDAO.getRegion(sessionid);
-		region = extraaddr; 
+		region = extraaddr;
+		return region;
 	}
 	
 	// 검색어 순위 Set
@@ -57,13 +58,12 @@ public class ProductController {
 		if(search!=null && !search.isBlank() && !search.isEmpty()) {
 			if(productService.searchCheck(search)==0) {
 			productService.insertSearch(search);
-			}else if(productService.searchCheck(search)>0) {
+			}
+			if(productService.searchCheck(search)>0) {
 			productService.updateSearchCount(search);
 			}
 		}
 	}
-	
-	
 	
 	// 렌탈 상태 및 찜 정보 Set 
 	public void setProductInfo(List<ProductDTO> list, String sessionid) throws Exception {
@@ -72,13 +72,13 @@ public class ProductController {
 			
 			// 찜체크는 세션이 있을 때만 
 			if(sessionid != "") {
-			int zzim = 0; 
-			Object zzimcheck = productService.zzimCount(productseq, sessionid);
-			if(zzimcheck!=null) {
-				zzim = 1; 
-			}
+				int zzim = 0; 
+				Object zzimcheck = productService.zzimCount(productseq, sessionid);
+				if(zzimcheck!=null) {
+					zzim = 1; 
+				}
 			dto.setZzim(zzim);
-			}//세션 확인 
+			} 
 			
 			// 렌탈중 표시 set ( 조회하는 시점에서 확인 / 세션이 없어도 적용 ) 
 			List<ReservationDTO> reservations = reservationService.getReservationDate(productseq);
@@ -108,9 +108,17 @@ public class ProductController {
 		} //  outer for 
 	}
 	
-	
-	
-	
+	// 검색조건 넘기기
+	public String throwSearchOption(SmartSearchDTO smartSearchDTO, String region, String regionOption) {
+		if(smartSearchDTO.getSmartRegion().equals("")) {
+			regionOption = "1";
+		}else if( !region.equals("") && smartSearchDTO.getSmartRegion().equals(region)) {
+			regionOption = "2"; 
+		}else if(!smartSearchDTO.getSmartRegion().equals("")) {
+			regionOption = "5";
+		}
+		return regionOption;
+	}
 	
 	
 	
@@ -134,7 +142,7 @@ public class ProductController {
 		//지역 Set 
 		String region = "";
 		if(sessionid != "") {
-		setRegion(sessionid, region);
+		region = setRegion(sessionid, region);
 		}
 		
 		List<ProductDTO> list = new ArrayList<>();
@@ -180,7 +188,7 @@ public class ProductController {
 			if(orderType==4) {
 				list = productService.navSearchOrderByCount(search, 0);
 				model.addAttribute("orderType", 4);
-				}
+			}
 		}
 	
 		if (searchType==3) {
@@ -199,7 +207,6 @@ public class ProductController {
 				model.addAttribute("orderType", 4);
 			}
 		}
-		
 		
 		// 렌탈 및 찜 표시 
 		setProductInfo(list, sessionid);
@@ -239,7 +246,7 @@ public class ProductController {
 			//지역 Set 
 			String region = "";
 			if(sessionid != "") {
-			setRegion(sessionid, region);
+			region = setRegion(sessionid, region);
 			}
 			
 		
@@ -247,49 +254,47 @@ public class ProductController {
 			// 조회 Type set ( 1 = 전체 | 2 = nav검색 | 3 = 내동네 검색 | 4 = 스마트 검색 ) 
 			if(searchType ==1) {
 				if(orderType == 1) {
-			list = productService.scrollProduct(limit); 
-			} else if(orderType == 2 ) {
-			list = productService.scrollProductOrderByLowPrice(limit);
-			} else if(orderType == 3) {
-			list = productService.scrollProductOrderByHighPrice(limit);	
-			} else if(orderType == 4) {
-			list = productService.scrollProductOrderByCount(limit);
+					list = productService.scrollProduct(limit); 
+				}if(orderType == 2 ) {
+					list = productService.scrollProductOrderByLowPrice(limit);
+				}if(orderType == 3) {
+					list = productService.scrollProductOrderByHighPrice(limit);	
+				}if(orderType == 4) {
+					list = productService.scrollProductOrderByCount(limit);
+				}
 			}
-			}
-			else if (searchType==2) {
+			if (searchType==2) {
 				if(orderType == 1) {
-			list = productService.navSearch(search, limit);
-			}else if(orderType == 2) {
-			list = productService.navSearchOrderByLowPrice(search, limit);	
-			}else if(orderType == 3) {
-			list = productService.navSearchOrderByHighPrice(search, limit);	
-			}else if(orderType == 4) {
-			list = productService.navSearchOrderByCount(search, limit);	
-			}
+					list = productService.navSearch(search, limit);
+				}if(orderType == 2) {
+					list = productService.navSearchOrderByLowPrice(search, limit);	
+				}if(orderType == 3) {
+					list = productService.navSearchOrderByHighPrice(search, limit);	
+				}if(orderType == 4) {
+					list = productService.navSearchOrderByCount(search, limit);	
+				}
 			}	
-			else if (searchType==3) {
+			if (searchType==3) {
 				if(orderType==1) {
-				list = productService.neighborList(region, limit);
-			}else if(orderType==2) {
-				list = productService.neighborListOrderByLowPrice(region, limit);
-			}else if(orderType==3) {
-				list = productService.neighborListOrderByHighPrice(region, limit);
-			}else if(orderType==4) {
-				list = productService.neighborListOrderByCount(region, limit);
+					list = productService.neighborList(region, limit);
+				}if(orderType==2) {
+					list = productService.neighborListOrderByLowPrice(region, limit);
+				}if(orderType==3) {
+					list = productService.neighborListOrderByHighPrice(region, limit);
+				}if(orderType==4) {
+					list = productService.neighborListOrderByCount(region, limit);
+				}
 			}
-			}
-			else if (searchType==4) {
-				
+			if (searchType==4) {
 				// 가격 세팅 
 				if(smartSearchDTO.getSmartPriceMax()=="") {
 					smartSearchDTO.setSmartPriceMax("100000000");  }
 				if(smartSearchDTO.getSmartPriceMin()=="") {
 					smartSearchDTO.setSmartPriceMin("0"); }
 				
-				
 				// 제목,지역,가격 으로 검색한 상품리스트
 				List<Integer> titleRegion = productService.searchByTitle_Region(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartRegion(),smartSearchDTO.getSmartPriceMin(), smartSearchDTO.getSmartPriceMax(), limit);
-				
+				// 동네거리 세팅 
 				if(distanceKm!=null && (distanceKm.equals("5") || distanceKm.equals("15"))) {
 					return null;
 				}
@@ -298,21 +303,20 @@ public class ProductController {
 				
 				// 날짜로 검색 : 해당 날짜 조건에 부합하지 않는다 => 예약이 null 값인 것과, 예약수락이 없는 리스트까지 포함됨 
 				for(int i = 0; i<titleRegion.size(); i++) {
-
-				if(smartSearchDTO.getSmartStartDate() != "" && smartSearchDTO.getSmartEndDate() != "") {
-				Integer selected =  productService.searchByRentalDate(smartSearchDTO.getSmartStartDate(), smartSearchDTO.getSmartEndDate(), titleRegion.get(i));
+					if(smartSearchDTO.getSmartStartDate() != "" && smartSearchDTO.getSmartEndDate() != "") {
+						Integer selected =  productService.searchByRentalDate(smartSearchDTO.getSmartStartDate(), smartSearchDTO.getSmartEndDate(), titleRegion.get(i));
+						if(selected>0) {
+							selectedList.add(selected);  
+						}
 				
-				if(selected>0) {
-				selectedList.add(selected);  
-					}
-				}else if(smartSearchDTO.getSmartStartDate() == "" && smartSearchDTO.getSmartEndDate() == "") {
-					selectedList.add(titleRegion.get(i));
+					}else if(smartSearchDTO.getSmartStartDate() == "" && smartSearchDTO.getSmartEndDate() == "") {
+						selectedList.add(titleRegion.get(i));
 					}
 				} //for 
 				
 				// 찾은 상품 번호로 상품 list 를 불러옴 
 				for(int i = 0; i < selectedList.size(); i++) {
-				list.add(productService.oneProduct(selectedList.get(i)));
+					list.add(productService.oneProduct(selectedList.get(i)));
 				}
 			}
 			
@@ -327,10 +331,16 @@ public class ProductController {
 	// 스마트검색 
 	@PostMapping("/smartSearch")
 	public String smartSearch(SmartSearchDTO smartSearchDTO, Model model, HttpSession session, String distanceKm) throws Exception {
-		String sessionid = (String)session.getAttribute("sessionid");
+		// 세션 Set
+		String sessionid = "";
+		if(session.getAttribute("sessionid")!=null) {
+			sessionid = (String)session.getAttribute("sessionid");
+		}
+		
+		//지역 Set 
 		String region = "";
-		if(sessionid != null) {
-			region = memberDAO.getRegion(sessionid);
+		if(sessionid != "") {
+			region = setRegion(sessionid, region);
 		}
 
 		if(smartSearchDTO.getSmartRegion()==null) {
@@ -339,14 +349,9 @@ public class ProductController {
 		
 		// 검색조건 넘기기 
 		String regionOption = "";
-		if(smartSearchDTO.getSmartRegion().equals("")) {
-			regionOption = "1";
-		}else if( !region.equals("") && smartSearchDTO.getSmartRegion().equals(region)) {
-			regionOption = "2"; 
-		}else if(!smartSearchDTO.getSmartRegion().equals("") && !smartSearchDTO.getSmartRegion().equals(region)) {
-			regionOption = "5";
-		}
+		regionOption = throwSearchOption(smartSearchDTO, region, regionOption);
 		
+		// 거리 조건 검색 시 
 		if(distanceKm != null) {
 			if( distanceKm.equals("5")) {
 			regionOption ="3";
@@ -357,47 +362,44 @@ public class ProductController {
 		}
 		
 		// 검색어 순위 반영
-		if(smartSearchDTO.getSmartTitle()!=null && !smartSearchDTO.getSmartTitle().isBlank() && !smartSearchDTO.getSmartTitle().isEmpty()) {
 		String search = smartSearchDTO.getSmartTitle();
-			if(productService.searchCheck(search)==0) {
-				productService.insertSearch(search);
-			}else if(productService.searchCheck(search)>0) {
-				productService.updateSearchCount(search);
-			}
-		}
+		setSearchRank(search);
+		
 		
 		// 제목,지역, 가격으로 검색한 상품리스트
 		List<Integer> titleRegion = new ArrayList<>();
 		
 		// 가격 세팅 
 		if(smartSearchDTO.getSmartPriceMax()=="") {
-			smartSearchDTO.setSmartPriceMax("100000000");  }
+			smartSearchDTO.setSmartPriceMax("100000000");  
+		}
 		if(smartSearchDTO.getSmartPriceMin()=="") {
-			smartSearchDTO.setSmartPriceMin("0"); }
+			smartSearchDTO.setSmartPriceMin("0"); 
+		}
 		
 		
-		// 거리 
+		// 거리 검색
 		if(distanceKm==null) {
 				titleRegion = productService.searchByTitle_Region(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartRegion(), 
-						smartSearchDTO.getSmartPriceMin(), smartSearchDTO.getSmartPriceMax(), 0);}
+						smartSearchDTO.getSmartPriceMin(), smartSearchDTO.getSmartPriceMax(), 0);
+		}
 
 		List<Integer> innerDistanceList = new ArrayList<>();
-			if(distanceKm!=null && (distanceKm.equals("5") || distanceKm.equals("15"))) {
-				int intKm = Integer.parseInt(distanceKm);
-				titleRegion = productService.NoLimitTitle_Price(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartPriceMin(), smartSearchDTO.getSmartPriceMax());
-				for(int i=0; i<titleRegion.size(); i++) {
-						Integer innerDistanceId = productService.searchByDistance(sessionid, productService.getMemberId(titleRegion.get(i)), intKm );
-						if(innerDistanceId==1) {
-						innerDistanceList.add(titleRegion.get(i));
-						}
-					}
-		
-				titleRegion.clear();
-				
-				for(int j = 0; j < innerDistanceList.size(); j++ ) {
-					titleRegion.add(innerDistanceList.get(j));
+		if(distanceKm!=null && (distanceKm.equals("5") || distanceKm.equals("15"))) {
+			int intKm = Integer.parseInt(distanceKm);
+			titleRegion = productService.NoLimitTitle_Price(smartSearchDTO.getSmartTitle(), smartSearchDTO.getSmartPriceMin(), smartSearchDTO.getSmartPriceMax());
+			for(int i=0; i<titleRegion.size(); i++) {
+				Integer innerDistanceId = productService.searchByDistance(sessionid, productService.getMemberId(titleRegion.get(i)), intKm );
+				if(innerDistanceId==1) {
+					innerDistanceList.add(titleRegion.get(i));
 				}
 			}
+			titleRegion.clear();
+			
+			for(int j = 0; j < innerDistanceList.size(); j++ ) {
+				titleRegion.add(innerDistanceList.get(j));
+			}
+		}
 			
 			
 		// 날짜로 검색 : 해당 날짜 조건에 부합하지 않는다 => 예약이 null 값인 것과, 예약수락이 없는 리스트까지 포함됨 
@@ -420,16 +422,17 @@ public class ProductController {
 		List<ProductDTO> list = new ArrayList<>();
 		// 찾은 상품 번호로 상품 list 를 불러옴 
 		for(int i = 0; i < selectedList.size(); i++) {
-		ProductDTO searchedOne = productService.oneProduct(selectedList.get(i));
-		//찜세팅 
-		int zzim = 0; 
-		Object zzimcheck = productService.zzimCount((int)searchedOne.getId(), sessionid);
-		if(zzimcheck!=null) {
-			zzim = 1; 
-		}
-		searchedOne.setZzim(zzim);
-		
-		list.add(searchedOne);
+			ProductDTO searchedOne = productService.oneProduct(selectedList.get(i));
+	
+			//찜세팅 
+			int zzim = 0; 
+			Object zzimcheck = productService.zzimCount((int)searchedOne.getId(), sessionid);
+			if(zzimcheck!=null) {
+				zzim = 1; 
+			}
+			searchedOne.setZzim(zzim);
+			
+			list.add(searchedOne);
 		}
 		
 		// 상품 개수 
@@ -458,17 +461,25 @@ public class ProductController {
 	// 물품 상세페이지 
 	@GetMapping("/product/{productid}")
 	public String oneProduct(@PathVariable("productid")int productid, Model model, HttpSession session) throws Exception {
+		// 조회수 적용
 		productService.viewCount(productid);
-		String sessionid = (String)session.getAttribute("sessionid");
+		
+		// 세션 Set
+		String sessionid = "";
+		if(session.getAttribute("sessionid")!=null) {
+			sessionid = (String)session.getAttribute("sessionid");
+		}
 		
 		ProductDTO targetProduct = productService.oneProduct(productid);
+		// 거리 계산
 		Double distance_double = productService.getDistance(sessionid, targetProduct.getUserId());
 		int IntDistance = 0;  
 		String distance = "";
 
 		if(distance_double==null) {
 			distance = "";
-		}else if(distance_double!=null) {
+		}
+		if(distance_double!=null) {
 			IntDistance = distance_double.intValue();
 			if(IntDistance==0 || IntDistance <= 1) {
 				distance = "<span style=color:#32CD32>(1km 이내)</span>";
@@ -484,12 +495,10 @@ public class ProductController {
 		
 		// 찜 set
 		Object zzimcheck = productService.zzimCount(productid, sessionid);
-		
 		int zzim = 0 ; 
 		if(zzimcheck!=null) {
 			zzim = 1; 
 		}
-		
 		targetProduct.setZzim(zzim);
 		
 		// 예약테이블 set
@@ -513,10 +522,18 @@ public class ProductController {
 	//글작성 폼 
 	@GetMapping("/registerProduct")
 	public String registerProduct(HttpSession session, Model model) {
-		String sessionid = (String)session.getAttribute("sessionid");
-		String extraaddr = memberDAO.getRegion(sessionid);
+		// 세션 Set
+		String sessionid = "";
+		if(session.getAttribute("sessionid")!=null) {
+			sessionid = (String)session.getAttribute("sessionid");
+		}
+		
+		//지역 Set 
 		String region = "";
-		region = extraaddr;
+		if(sessionid != "") {
+		region = setRegion(sessionid, region);
+		}
+		
 		// 검색랭킹 
 		List<String> searchLankingList = productService.searchLanking();
 				
@@ -554,16 +571,16 @@ public class ProductController {
 		
 		String originalname1 = viedoFile.getOriginalFilename();
 		if(originalname1 != null && !originalname1.isEmpty()) {
-		String onlyfilename = originalname1.substring(0, originalname1.indexOf("."));
-		String extname = originalname1.substring(originalname1.indexOf("."));
-		String newname = onlyfilename + "(" + UUID.randomUUID().toString()+")" + extname;
-		File serverfile1 = new File(savePath + newname);
-		viedoFile.transferTo(serverfile1);
+			String onlyfilename = originalname1.substring(0, originalname1.indexOf("."));
+			String extname = originalname1.substring(originalname1.indexOf("."));
+			String newname = onlyfilename + "(" + UUID.randomUUID().toString()+")" + extname;
+			File serverfile1 = new File(savePath + newname);
+			viedoFile.transferTo(serverfile1);
 		
 			dto.setVideo(newname);
 		}
 		
-			productService.insertProduct(dto);
+		productService.insertProduct(dto);
 		return "redirect:/allproduct/1/1";
 	}
 	
@@ -571,7 +588,6 @@ public class ProductController {
 	@ResponseBody
 	@PostMapping(value ="/ajaxUpload", produces= {"application/json; charset=utf-8"})
 	public String uploadajax(MultipartFile imgFile) throws IOException {
-		
 		String savePath = "c:/upload/";					
 
 		String originalname1 = imgFile.getOriginalFilename();
@@ -610,43 +626,42 @@ public class ProductController {
 		productDTO.setId(productid);
 		
 		// 이미지 다시 Set 
-	if(uploaddto.getFile1()!=null) {
-		productDTO.setImg1(uploaddto.getFile1());
-	}
-	if(uploaddto.getFile2()!=null) {
-		productDTO.setImg2(uploaddto.getFile2());
-	}
-	if(uploaddto.getFile3()!=null) {
-		productDTO.setImg3(uploaddto.getFile3());
-	}
-	if(uploaddto.getFile4()!=null) {
-		productDTO.setImg4(uploaddto.getFile4());
-	}
-	if(uploaddto.getFile5()!=null) {
-		productDTO.setImg5(uploaddto.getFile5());
-	}
-	if(uploaddto.getFile6()!=null) {
-		productDTO.setImg6(uploaddto.getFile6());
-	}
-	
-	if(uploaddto.getVideoTitle()!=null && uploaddto.getVideoTitle()!="" && !uploaddto.getVideoTitle().isEmpty()) {
-		productDTO.setVideo(uploaddto.getVideoTitle());
-	}else {
+		if(uploaddto.getFile1()!=null) {
+			productDTO.setImg1(uploaddto.getFile1());
+		}
+		if(uploaddto.getFile2()!=null) {
+			productDTO.setImg2(uploaddto.getFile2());
+		}
+		if(uploaddto.getFile3()!=null) {
+			productDTO.setImg3(uploaddto.getFile3());
+		}
+		if(uploaddto.getFile4()!=null) {
+			productDTO.setImg4(uploaddto.getFile4());
+		}
+		if(uploaddto.getFile5()!=null) {
+			productDTO.setImg5(uploaddto.getFile5());
+		}
+		if(uploaddto.getFile6()!=null) {
+			productDTO.setImg6(uploaddto.getFile6());
+		}
 		
-	String savePath = "c:/upload/";
-	MultipartFile viedoFile = uploaddto.getVideo1();
-	
-	String originalname1 = viedoFile.getOriginalFilename();
-	if(originalname1 != null && !originalname1.isEmpty()) {
-	String onlyfilename = originalname1.substring(0, originalname1.indexOf("."));
-	String extname = originalname1.substring(originalname1.indexOf("."));
-	String newname = onlyfilename + "(" + UUID.randomUUID().toString()+")" + extname;
-	File serverfile1 = new File(savePath + newname);
-	viedoFile.transferTo(serverfile1);
-	
-		productDTO.setVideo(newname);
-	}
-	}
+		// 비디오 Set 
+		if(uploaddto.getVideoTitle()!=null && uploaddto.getVideoTitle()!="" && !uploaddto.getVideoTitle().isEmpty()) {
+			productDTO.setVideo(uploaddto.getVideoTitle());
+		}else {
+			String savePath = "c:/upload/";
+			MultipartFile viedoFile = uploaddto.getVideo1();
+			String originalname1 = viedoFile.getOriginalFilename();
+			if(originalname1 != null && !originalname1.isEmpty()) {
+				String onlyfilename = originalname1.substring(0, originalname1.indexOf("."));
+				String extname = originalname1.substring(originalname1.indexOf("."));
+				String newname = onlyfilename + "(" + UUID.randomUUID().toString()+")" + extname;
+				File serverfile1 = new File(savePath + newname);
+				viedoFile.transferTo(serverfile1);
+			
+				productDTO.setVideo(newname);
+			}
+		}
 		
 		// update 실행 
 		int updateResult = productService.updateProduct(productDTO);
@@ -656,26 +671,23 @@ public class ProductController {
 
 	
 	// 찜 
-		@ResponseBody
-		@PostMapping("/product/zzim")
-		public String updatezzim(int productseq, String memberid) throws Exception {
-			
-
-			int zzimCheck = productService.zzimCheck(productseq, memberid);
-			if (zzimCheck == 0) {
-				productService.insertZzim(productseq, memberid);
-				productService.updateZzim(productseq, memberid);
-			} else if (zzimCheck == 1) {
-				productService.updateZzimCancel(productseq, memberid);
-				productService.deleteZzim(productseq, memberid);
-			}
-			
-			ProductDTO oneProduct = productService.oneProduct(productseq);
-			
-			
-			return "{\"result\" : \"" + zzimCheck + "\", \"title\" : \"" + oneProduct.getTitle() + "\", \"img1\" : \"" + oneProduct.getImg1() + "\", \"id\" : \"" + oneProduct.getId() + "\" }";
+	@ResponseBody
+	@PostMapping("/product/zzim")
+	public String updatezzim(int productseq, String memberid) throws Exception {
+		int zzimCheck = productService.zzimCheck(productseq, memberid);
+		
+		if (zzimCheck == 0) {
+			productService.insertZzim(productseq, memberid);
+			productService.updateZzim(productseq, memberid);
+		} 
+		if (zzimCheck == 1) {
+			productService.updateZzimCancel(productseq, memberid);
+			productService.deleteZzim(productseq, memberid);
 		}
-
+		
+		ProductDTO oneProduct = productService.oneProduct(productseq);
+		return "{\"result\" : \"" + zzimCheck + "\", \"title\" : \"" + oneProduct.getTitle() + "\", \"img1\" : \"" + oneProduct.getImg1() + "\", \"id\" : \"" + oneProduct.getId() + "\" }";
+	}
 	
 
 	//
