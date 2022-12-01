@@ -45,100 +45,33 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 	
-	// 홈 
-	@GetMapping("/")
-	public String home() {
-		return "home";
-	}
-
-	// 물품 조회
-	@GetMapping("/allproduct/{searchType}/{orderType}")
-	public String allProduct(Model model, HttpSession session, String item, String search, @PathVariable("searchType")int searchType, @PathVariable("orderType")int orderType) throws Exception {
-		String region = ""; 
-		String sessionid = null;
-		// 지역 set 
-		if(session.getAttribute("sessionid")!=null) {
-		sessionid = (String)session.getAttribute("sessionid");
+	
+	// 지역 Set  
+	public void setRegion(String sessionid, String region) {
 		String extraaddr = memberDAO.getRegion(sessionid);
 		region = extraaddr; 
-		}
-		
-		List<ProductDTO> list = new ArrayList<>();
-		// 조회 Type set ( 1 = 전체 | 2 = nav검색 | 3 = 내동네 검색 ) 
-		if(searchType==1) {
-			model.addAttribute("searchType", 1);
-			if(orderType==1) {
-		list = productService.allProduct(); 
-		model.addAttribute("orderType", 1);
-			}
-			else if(orderType==2) {
-		list = productService.allProductOrderByLowPrice();
-		model.addAttribute("orderType", 2);
-			}
-			else if(orderType==3) {
-		list = productService.allProductOrderByHighPrice();
-		model.addAttribute("orderType", 3);
-			}
-			else if(orderType==4) {
-		list = productService.allProductOrderByCount();
-		model.addAttribute("orderType", 4);
-			}
-		}
-
-		else if (searchType==2) {
-			model.addAttribute("searchType", 2);
-			model.addAttribute("search", search);
-			// 검색어 순위 적용
-			if(search!=null && !search.isBlank() && !search.isEmpty()) {
-				if(productService.searchCheck(search)==0) {
-				productService.insertSearch(search);
-				}else if(productService.searchCheck(search)>0) {
-				productService.updateSearchCount(search);
-				}
-			}
-			
-			if(orderType==1) {
-				list = productService.navSearch(search, 0);
-				model.addAttribute("orderType", 1);
-			}
-			else if(orderType==2) {
-				list = productService.navSearchOrderByLowPrice(search, 0);
-				model.addAttribute("orderType", 2);
-			}
-			else if(orderType==3) {
-				list = productService.navSearchOrderByHighPrice(search, 0);
-				model.addAttribute("orderType", 3);
-				}
-			else if(orderType==4) {
-				list = productService.navSearchOrderByCount(search, 0);
-				model.addAttribute("orderType", 4);
-				}
-		}
+	}
 	
-		else if (searchType==3) {
-			model.addAttribute("searchType", 3);
-			if(orderType==1) {
-				list = productService.neighborList(region, 0);
-				model.addAttribute("orderType", 1);
-			}else if(orderType==2) {
-				list = productService.neighborListOrderByLowPrice(region, 0);
-				model.addAttribute("orderType", 2);
-			}else if(orderType==3) {
-				list = productService.neighborListOrderByHighPrice(region, 0);
-				model.addAttribute("orderType", 3);
-			}else if(orderType==4) {
-				list = productService.neighborListOrderByCount(region, 0);
-				model.addAttribute("orderType", 4);
+	// 검색어 순위 Set
+	public void setSearchRank(String search) {
+		if(search!=null && !search.isBlank() && !search.isEmpty()) {
+			if(productService.searchCheck(search)==0) {
+			productService.insertSearch(search);
+			}else if(productService.searchCheck(search)>0) {
+			productService.updateSearchCount(search);
 			}
 		}
-		
-		
-		// 렌탈 및 찜 표시 
+	}
+	
+	
+	
+	// 렌탈 상태 및 찜 정보 Set 
+	public void setProductInfo(List<ProductDTO> list, String sessionid) throws Exception {
 		for (ProductDTO dto : list) {
 			int productseq = (int)dto.getId();
 			
 			// 찜체크는 세션이 있을 때만 
-			if(sessionid != null) {
+			if(sessionid != "") {
 			int zzim = 0; 
 			Object zzimcheck = productService.zzimCount(productseq, sessionid);
 			if(zzimcheck!=null) {
@@ -173,6 +106,103 @@ public class ProductController {
 				}
 			} // inner for 
 		} //  outer for 
+	}
+	
+	
+	
+	
+	
+	
+	
+/* MAPPPING */	
+	
+	// 홈 
+	@GetMapping("/")
+	public String home() {
+		return "home";
+	}
+
+	// 물품 조회
+	@GetMapping("/allproduct/{searchType}/{orderType}")
+	public String allProduct(Model model, HttpSession session, String item, String search, @PathVariable("searchType")int searchType, @PathVariable("orderType")int orderType) throws Exception {
+		// 세션 Set
+		String sessionid = "";
+		if(session.getAttribute("sessionid")!=null) {
+			sessionid = (String)session.getAttribute("sessionid");
+		}
+		
+		//지역 Set 
+		String region = "";
+		if(sessionid != "") {
+		setRegion(sessionid, region);
+		}
+		
+		List<ProductDTO> list = new ArrayList<>();
+		// 조회 Type set ( 1 = 전체 | 2 = nav검색 | 3 = 내동네 검색 ) 
+		if(searchType==1) {
+			model.addAttribute("searchType", 1);
+			if(orderType==1) {
+				list = productService.allProduct(); 
+				model.addAttribute("orderType", 1);
+			}
+			if(orderType==2) {
+				list = productService.allProductOrderByLowPrice();
+				model.addAttribute("orderType", 2);
+			}
+			if(orderType==3) {
+				list = productService.allProductOrderByHighPrice();
+				model.addAttribute("orderType", 3);
+			}
+			if(orderType==4) {
+				list = productService.allProductOrderByCount();
+				model.addAttribute("orderType", 4);
+			}
+		}
+
+		if (searchType==2) {
+			model.addAttribute("searchType", 2);
+			model.addAttribute("search", search);
+			// 검색어 순위 적용
+			setSearchRank(search);
+
+			if(orderType==1) {
+				list = productService.navSearch(search, 0);
+				model.addAttribute("orderType", 1);
+			}
+			if(orderType==2) {
+				list = productService.navSearchOrderByLowPrice(search, 0);
+				model.addAttribute("orderType", 2);
+			}
+			if(orderType==3) {
+				list = productService.navSearchOrderByHighPrice(search, 0);
+				model.addAttribute("orderType", 3);
+				}
+			if(orderType==4) {
+				list = productService.navSearchOrderByCount(search, 0);
+				model.addAttribute("orderType", 4);
+				}
+		}
+	
+		if (searchType==3) {
+			model.addAttribute("searchType", 3);
+			if(orderType==1) {
+				list = productService.neighborList(region, 0);
+				model.addAttribute("orderType", 1);
+			}if(orderType==2) {
+				list = productService.neighborListOrderByLowPrice(region, 0);
+				model.addAttribute("orderType", 2);
+			}if(orderType==3) {
+				list = productService.neighborListOrderByHighPrice(region, 0);
+				model.addAttribute("orderType", 3);
+			}if(orderType==4) {
+				list = productService.neighborListOrderByCount(region, 0);
+				model.addAttribute("orderType", 4);
+			}
+		}
+		
+		
+		// 렌탈 및 찜 표시 
+		setProductInfo(list, sessionid);
 		
 		// 상품개수 
 		int productlength = list.size();
@@ -180,9 +210,10 @@ public class ProductController {
 		List<String> searchLankingList = productService.searchLanking();
 
 		// 찜목록 리스트
-		if(sessionid != null) {
-		List<ProductDTO> zzimProducts = productService.getZzimProducts(sessionid);
-		model.addAttribute("zzimProducts", zzimProducts); }
+		if(sessionid != "") {
+			List<ProductDTO> zzimProducts = productService.getZzimProducts(sessionid);
+			model.addAttribute("zzimProducts", zzimProducts); 
+		}
 		
 		model.addAttribute("searchLankingList", searchLankingList);
 		model.addAttribute("region", region);
@@ -196,16 +227,23 @@ public class ProductController {
 		@ResponseBody
 		@PostMapping("/allproduct/ajax/{searchType}/{orderType}")
 		public List<ProductDTO> scrollProduct(Model model, HttpSession session, SmartSearchDTO smartSearchDTO, String item, String search, String scrollCount, String distanceKm, @PathVariable("searchType")int searchType, @PathVariable("orderType")int orderType) throws Exception {
+			// 스크롤 갯수 Set
 			int limit = Integer.parseInt(scrollCount)*12;
-			String region = "";
-			String sessionid = (String)session.getAttribute("sessionid");
-			// 지역 set 
-			if(sessionid != null) {
-			String extraaddr = memberDAO.getRegion(sessionid);
-			region = extraaddr;
-		}
-			List<ProductDTO> list = new ArrayList<>();
 			
+			// 세션 Set
+			String sessionid = "";
+			if(session.getAttribute("sessionid")!=null) {
+				sessionid = (String)session.getAttribute("sessionid");
+			}
+			
+			//지역 Set 
+			String region = "";
+			if(sessionid != "") {
+			setRegion(sessionid, region);
+			}
+			
+		
+			List<ProductDTO> list = new ArrayList<>();
 			// 조회 Type set ( 1 = 전체 | 2 = nav검색 | 3 = 내동네 검색 | 4 = 스마트 검색 ) 
 			if(searchType ==1) {
 				if(orderType == 1) {
@@ -278,45 +316,9 @@ public class ProductController {
 				}
 			}
 			
-			if(sessionid != null)
-			// 찜 set 
-			for (ProductDTO dto : list) {
-				int productseq = (int)dto.getId();
-				
-				int zzim = 0; 
-				Object zzimcheck = productService.zzimCount(productseq, sessionid);
-				if(zzimcheck!=null) {
-					zzim = 1; 
-				}
-				
-				dto.setZzim(zzim);
-				
-				// 렌탈중 표시 set ( 조회하는 시점에서 확인 ) 
-				List<ReservationDTO> reservations = reservationService.getReservationDate(productseq);
-				
-				// 승낙된 예약이 하나도 없을 때, reservedNow=0 ( List index 개수가 없으므로 따로 처리 ) 
-				if(reservations.size()==0) {
-					productService.cancleReservation(productseq);
-				}
-				
-				LocalDate now = LocalDate.now();
-				int checkReserved = 0;
-				for(int i = 0; i<reservations.size(); i++) {
-					String startDateString = reservations.get(i).getStartRental();
-					String endDateString = reservations.get(i).getEndRental();
-					
-					LocalDate start2 = LocalDate.of(Integer.parseInt(startDateString.substring(0,4)), Integer.parseInt(startDateString.substring(5,7)), Integer.parseInt(startDateString.substring(8,10)));
-					LocalDate end2 = LocalDate.of(Integer.parseInt(endDateString.substring(0,4)), Integer.parseInt(endDateString.substring(5,7)), Integer.parseInt(endDateString.substring(8,10)));
-					
-					if( (now.isEqual(start2) || now.isAfter(start2)) && (now.isEqual(end2) || now.isBefore(end2))) {
-						productService.checkReservation(productseq);
-						checkReserved = 1;
-					}else if(checkReserved != 1) {
-						productService.cancleReservation(productseq);
-						checkReserved = 0;
-					}
-				} // inner for 
-			} //  outer for 
+			// 렌탈 상태 및 찜 Set
+			setProductInfo(list, sessionid);
+		
 			return list;
 		}
 	
