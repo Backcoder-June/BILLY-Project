@@ -58,7 +58,7 @@ public class BoardController {
 	}
 	
 	
-	
+/* MAPPIPNG */	
 	// 전체 리스트
 	@GetMapping("/boardList")
 	public String boardList(Model model, HttpSession session, @RequestParam(value="page", required = false, defaultValue = "1") int page) {

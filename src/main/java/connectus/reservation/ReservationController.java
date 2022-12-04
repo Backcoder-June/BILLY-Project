@@ -29,11 +29,9 @@ public class ReservationController {
 	// 예약 추가 
 	@PostMapping("/product/reservationinput")
 	public String reservation(ReservationDTO dto) {
-
 		reservationService.insertReservation(dto);
 		
 		long boardid = dto.getBoardId();
-		
 		return "redirect:/product/"+boardid;
 	}
 	
@@ -53,7 +51,7 @@ public class ReservationController {
 		int reservedNow = 0;
 		int reservCount = reservationService.countReservation(reservId);
 	
-		// 렌탈 수락할 때 
+		// 렌탈 수락
 		if (reservCount == 0) {
 			reservationService.checkReservation(reservId);
 			
@@ -74,7 +72,7 @@ public class ReservationController {
 				}				
 			}
 			
-			//렌탈 수락 취소할 때 
+		//렌탈 수락 취소
 		} else if (reservCount == 1) {
 			reservationService.cancleReservation(reservId);
 			

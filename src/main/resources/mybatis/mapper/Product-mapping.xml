@@ -41,14 +41,12 @@
 		select * from PRODUCT order by viewCount desc limit #{limit}, 12
 	</select>
 
-
-	
-
-
+	<!-- 상세 품목 -->
 	<select id="oneProduct" resultType="productdto">
 		select * from PRODUCT where id = #{productid}
 	</select>
 	
+	<!-- 물품 등록 -->
 	<insert id="insertProduct">
 		insert into PRODUCT (userid, title, contents, boardRegion, createdAt, price, img1, img2, img3, img4, img5, img6, video) 
 		values(#{userId}, #{title}, #{contents}, #{boardRegion}, now(), #{price}, #{img1}, #{img2}, #{img3}, #{img4}, #{img5}, #{img6}, #{video})
