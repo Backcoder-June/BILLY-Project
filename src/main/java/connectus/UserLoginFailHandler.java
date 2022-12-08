@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 /* 로그인 실패 대응 로직 */
 public class UserLoginFailHandler implements AuthenticationFailureHandler {
 
