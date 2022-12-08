@@ -25,7 +25,7 @@ public class ChatRoomService {
     ChatRoomMapper chatRoomMapper;
     
 //    String fileUploadPath = "c:/upload/";
-    String fileUploadPath = "/upload/";
+    String fileUploadPath = "/home/ubuntu/upload/";
     
     
  

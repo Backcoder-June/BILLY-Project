@@ -142,7 +142,7 @@ public class BoardController {
 	@PostMapping("/boardwrite")
 	public String writingprocess(@RequestParam(value="page", required = false, defaultValue = "1") int page, BoardDTO dto, MultipartFile file1) throws IOException {
 //		String savePath = "c:/upload/";
-		String savePath = "/upload/";
+		String savePath = "/home/ubuntu/upload/";
 		
 		// 파일 업로드
 		if(!file1.isEmpty()) {
@@ -282,7 +282,7 @@ public class BoardController {
 	@PostMapping("/boardupdate/{boardid}")
 	public String updateBoardprocess(@PathVariable("boardid")int seq, BoardDTO dto, MultipartFile file1) throws IllegalStateException, IOException {
 //		String savePath = "c:/upload/";
-		String savePath = "/upload/";
+		String savePath = "/home/ubuntu/upload/";
 		// 파일 업로드 
 		if(!file1.isEmpty()) {
 			copyUploadFile(file1, savePath, dto);
