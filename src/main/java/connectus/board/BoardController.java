@@ -150,7 +150,7 @@ public class BoardController {
 		}
 		
 		boardService.registerBoard(dto); 
-		return "redirect:boardList";
+		return "redirect:/boardList";
 	}
 	
 	
