@@ -122,7 +122,7 @@
             function unreadAlertInfinite() {
                 setInterval(() => {
                     getUnreadMessageInfo();                
-               }, 1000);
+               }, 5000);
             }
             
             //일정 간격으로 업데이트된 데이터를 화면에 출력하는 메서드  //새 메세지 받는 용도로 사용 

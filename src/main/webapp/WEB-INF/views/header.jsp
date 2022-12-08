@@ -56,7 +56,7 @@
 			
 	function getInfiniteUnread() {
 			setInterval(() => {
-					getUnread();}, 1000);
+					getUnread();}, 5000);
 			}
 			
 	function showUnread(result) {
