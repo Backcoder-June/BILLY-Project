@@ -567,7 +567,7 @@ public class ProductController {
 		}
 		
 //		String savePath = "c:/upload/";
-		String savePath = "/upload/";
+		String savePath = "/home/ubuntu/upload/";
 		MultipartFile viedoFile = uploaddto.getVideo1();
 		
 		String originalname1 = viedoFile.getOriginalFilename();
@@ -590,7 +590,7 @@ public class ProductController {
 	@PostMapping(value ="/ajaxUpload", produces= {"application/json; charset=utf-8"})
 	public String uploadajax(MultipartFile imgFile) throws IOException {
 //		String savePath = "c:/upload/";
-		String savePath = "/upload/";
+		String savePath = "/home/ubuntu/upload/";
 
 		String originalname1 = imgFile.getOriginalFilename();
 		String onlyfilename = originalname1.substring(0, originalname1.indexOf("."));
@@ -652,7 +652,7 @@ public class ProductController {
 			productDTO.setVideo(uploaddto.getVideoTitle());
 		}else {
 //			String savePath = "c:/upload/";
-			String savePath = "/upload/";
+			String savePath = "/home/ubuntu/upload/";
 			MultipartFile viedoFile = uploaddto.getVideo1();
 			String originalname1 = viedoFile.getOriginalFilename();
 			if(originalname1 != null && !originalname1.isEmpty()) {
