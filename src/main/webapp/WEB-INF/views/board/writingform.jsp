@@ -25,10 +25,8 @@
 
 	<div class="main-container">
 		<!-- header-section -->
-		<jsp:include page="/WEB-INF/views/header.jsp">
-			<jsp:param value="false" name="mypage" />
-		</jsp:include>
-		<a href="/boardlist">리스트보기</a>
+		<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+		
 		<!-- content-section -->
 		<div class="content-container">
 		
