@@ -15,17 +15,16 @@ integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+f
 <script src="${path}/js/jquery-3.6.0.min.js"></script>
 </head>
 
-    <div class="main-container">
+<div class="main-container">
         <!-- header-section -->
         <jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
         <!-- content-section -->
-        <div class="content-container">
-       
+    <div class="content-container">
 		<!-- 본문 -->
        <div class="list-container">
             <form  class="write-form mb-2"  action="${updated_board.seq }" method="post" enctype="multipart/form-data">
                 <input type=hidden name="seq" value=${updated_board.seq } readonly="readonly">
-                <input class="write-form-title mb-2" type="text" name="title" value=${updated_board.title }>
+                <input class="write-form-title mb-2" type="text" name="title" value="${updated_board.title }">
                 <textarea class="write-form-textarea mt-2"  rows=17 name="contents" >${updated_board.contents }</textarea>
                 <label class="list-update-file-button" for="file1" style="cursor:pointer;">파일선택</label>
                 <input class="close" id="file1" type="file" name="file1">
@@ -35,12 +34,8 @@ integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+f
                 <input id="updatebtn" class="write-form-button"  type="submit" class="update-button" value="수정완료">
             </form>
         </div>
-
-
-
-
-        </div>
-        </div>
+    </div>
+</div>
         
 <script>
 var img1 = '${updated_board.img}';
@@ -74,7 +69,6 @@ if(img1 != ""){
 	  let onlyImgName = img1.substring(0,img1.indexOf("(")) + img1.substring(img1.indexOf(")")+1) ;
 	  $("#boardImgTitle").val(onlyImgName);
 	  }
-	  
 
 </script>        
 
