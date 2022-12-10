@@ -13,6 +13,8 @@
 	<link rel="stylesheet" href="${path}/css/mypage.css">
 	<script src="${path}/js/jquery-3.6.0.min.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74ad1a98ca11a868e151320c03495af6&libraries=services"></script>
 	<script>
 	// 정보 수정 시, 비밀번호 일치 확인 
 		$(document).ready(function () {
@@ -75,8 +77,7 @@
 						<input id="mypage-modify-address-button" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" required><br>
 						<input type="text" id="sample6_address" placeholder="주소" readonly required><br>
 						<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-						<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
-						<input type="hidden" id="address" name="address" value="">
+						<input type="text" id="sample6_extraAddress" name="region" placeholder="동네" readonly required>
 						<br><br>
 
 
@@ -95,9 +96,10 @@
 						<div>
 							<input id="mypage-modify-button" name="mypage-modify-button" type="submit"  value="수정하기"><br>
 						</div>
+						<!-- 동네 / 좌표 정보 추가 -->
+						<input type="hidden" id="address" name="address"> 
+						<input type="hidden" id="coords" name="coords">
 					</form>
-
-
 				</div>
 			</div>
 		</div>
@@ -116,6 +118,8 @@
 		
 		let email_check = false;
 		let phone_check = false;
+		
+		let address = "";
 
 
 
@@ -193,38 +197,51 @@
 					var add = addr + detailAddr;
 
 					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
 						addr = data.roadAddress;
-					} else { // 사용자가 지번 주소를 선택했을 경우(J)
-						addr = data.jibunAddress;
-					}
 
 					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-					if (data.userSelectedType === 'R') {
 						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
 						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
 						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
 							extraAddr += data.bname;
 						}
 						// 건물명이 있고, 공동주택일 경우 추가한다.
-						if (data.buildingName !== '' && data.apartment === 'Y') {
-							extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-						}
+						//if (data.buildingName !== '' && data.apartment === 'Y') {
+						//	extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+						//}
 						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
 						if (extraAddr !== '') {
-							extraAddr = ' (' + extraAddr + ')';
+							extraAddr = extraAddr;
 						}
 						// 조합된 참고항목을 해당 필드에 넣는다.
 						document.getElementById("sample6_extraAddress").value = extraAddr;
 
-					} else {
-						document.getElementById("sample6_extraAddress").value = '';
-					}
+						// 동 이름이 아닐 때, region input에 전체 주소를 넣은 후 후처리 
+						if (extraAddr == ''){
+							let numIndex = '';
+							let spaceIndex = '';
+							var pattern = /\s/;
+							 for(var i = 0; i < addr.length; i++){
+								if(!isNaN(addr.charAt(i)) && !addr.charAt(i).match(pattern)){
+									numIndex = i;
+									break;
+								}
+							}
+							 
+							 for(var j = 0; j < numIndex-1; j++){
+								 if(!isNaN(addr.charAt(j))){
+									 spaceIndex = j; 
+								 }
+							 }	
+							document.getElementById("sample6_extraAddress").value = addr.substring(spaceIndex+1,numIndex-1);
+						}
+					
 
 					// 우편번호와 주소 정보를 해당 필드에 넣는다.
 					document.getElementById('sample6_postcode').value = data.zonecode;
 					document.getElementById("sample6_address").value = addr;
-
+					address = addr;
+					KakaoGeocoder();
 					// 커서를 상세주소 필드로 이동한다.
 
 					document.getElementById("sample6_detailAddress").focus();
@@ -232,8 +249,22 @@
 					$("#address").val(addr);
 				}
 			}).open();
+		}
+		
+		
+		function KakaoGeocoder() {
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
 
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(address, function (result, status) {
 
+				// 정상적으로 검색이 완료됐으면 
+				if (status === kakao.maps.services.Status.OK) {
+					var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					$("#coords").val(coords);
+				}
+			}); // addressSearch     
 		}
 	</script>
 
