@@ -121,7 +121,8 @@ public class MypageController {
 	
 	//회원정보수정
 	@PostMapping("/mypageModify")
-	public ModelAndView memberModify(@ModelAttribute MemberDTO memberdto,String pw) throws Exception {			
+	public ModelAndView memberModify(@ModelAttribute MemberDTO memberdto,String pw) throws Exception {	
+		System.out.println(memberdto);
 		List<MemberDTO> list = memserv.onemember(memberdto.getUserid());
 		String dbpassword = list.get(0).getPw();
 		if(encoderPassword.matches(pw, dbpassword)){						

@@ -47,7 +47,6 @@ public class MypageService {
 	//회원정보(수정)
 	public void memberModify(MemberDTO memberdto) throws Exception {
 		dao.memberModify(memberdto);
-		System.out.println(memberdto.getPhone());
 		return;		
 	}
 	

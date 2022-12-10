@@ -34,8 +34,7 @@
 				<span>BILLY &nbsp; 회원가입</span>
 			</div>
 
-			<form name="form" action="register" method="post"
-				class="signup-container2">
+			<form name="form" action="register" method="post" class="signup-container2">
 				<table class="type09">
 					<tr>
 						<th>아이디</th>
@@ -109,8 +108,9 @@
 						</td>
 					</tr>
 				</table>
-				<input type="hidden" id="address" name="address"> <input
-					type="hidden" id="coords" name="coords">
+				<!-- 동네 / 좌표 정보 추가 -->
+				<input type="hidden" id="address" name="address"> 
+				<input type="hidden" id="coords" name="coords">
 			</form>
 
 		</div>
@@ -401,7 +401,7 @@
 				btn.attr('disabled', true);
 				alert("주소를 입력해 주세요.")
 			}else{
-			alert("품앗이장터 회원가입이 완료되었습니다.")
+			alert("BILLY 회원가입이 완료되었습니다.")
 			}
 		}
 
