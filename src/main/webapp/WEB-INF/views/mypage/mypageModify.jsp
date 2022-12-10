@@ -122,18 +122,18 @@
 
 		function emailcheck() {
 			var email = $('#email').val();
+			var regEmail= /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+			
 			if (email == '') {
 				$('#email_check').text("이메일을 입력하세요");
 				$('#email_check').css("color", "red");
 				phone_check = false;
 				btn.attr('disabled', true);
-			} else {
-				$('#email_check').text("사용가능한 이메일입니다.");
+			} else if(regEmail.test(email)) {
+				$('#email_check').text("✅사용가능한 이메일입니다.");
 				$('#email_check').css("color", "green");
 				email_check = true;
-				if (phone_check == true && email_check == true) {
-					btn.attr('disabled', false);
-				}
+				btn.attr('disabled', false);
 			}
 
 		}
@@ -166,13 +166,14 @@
 							phone_check = false;
 							btn.attr('disabled', true);
 						} else { */
-							$('#phone_check').text("사용가능한 번호 입니다");
+							$('#phone_check').text("✅사용가능한 번호 입니다");
 							$('#phone_check').css("color", "green");
 							phone_check = true;
-							if (phone_check == true && email_check == true) {
-								btn.attr('disabled', false);
+							btn.attr('disabled', false);
+							/* if (phone_check == true && email_check == true) {
+								btn.attr('disabled', false); */
 							/* } */
-						}
+						/* } */
 					}
 				});
 			}
