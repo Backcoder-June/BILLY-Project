@@ -14,11 +14,26 @@
 	<script src="${path}/js/jquery-3.6.0.min.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+	// 정보 수정 시, 비밀번호 일치 확인 
 		$(document).ready(function () {
 			if('${msg}' != ''){
 				alert('${msg}');
 				location.href='${url}';
 			}
+			
+			
+			$("#mypage-modify-button").on("click", function(e){
+			let postcode = $('#sample6_postcode').val();
+			if(postcode == ''){
+				e.preventDefault();
+				alert("주소 정보를 입력해 주세요.")
+				return false;
+			}
+			
+			}); //on click 
+			
+			
+			
 		});
 	</script>
 </head>
@@ -56,11 +71,11 @@
 						<div id="email_check"></div>
 
 						<br>
-						<input type="text" id="sample6_postcode" placeholder="우편번호">
-						<input id="mypage-modify-address-button" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" id="sample6_address" placeholder="주소"><br>
+						<input type="text" id="sample6_postcode" placeholder="우편번호" readonly required>
+						<input id="mypage-modify-address-button" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" required><br>
+						<input type="text" id="sample6_address" placeholder="주소" readonly required><br>
 						<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+						<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
 						<input type="hidden" id="address" name="address" value="">
 						<br><br>
 
@@ -78,7 +93,7 @@
 
 
 						<div>
-							<input id="mypage-modify-button" name="mypage-modify-button" type="submit"  value="수정하기" disabled><br>
+							<input id="mypage-modify-button" name="mypage-modify-button" type="submit"  value="수정하기"><br>
 						</div>
 					</form>
 
@@ -144,19 +159,19 @@
 					type: 'post',
 					data: { phone: phone },
 					success: function (data) {
-						if (data == 'true') {
+						/* if (data == 'true') {
 							console.log(data);
 							$('#phone_check').text("이미 사용중인 번호 입니다");
 							$('#phone_check').css("color", "red");
 							phone_check = false;
 							btn.attr('disabled', true);
-						} else {
+						} else { */
 							$('#phone_check').text("사용가능한 번호 입니다");
 							$('#phone_check').css("color", "green");
 							phone_check = true;
 							if (phone_check == true && email_check == true) {
 								btn.attr('disabled', false);
-							}
+							/* } */
 						}
 					}
 				});
